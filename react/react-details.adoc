@@ -8,7 +8,7 @@ address some of the challenges associated with "large-scale", "data-driven" webs
 
 JSX - Javascript Conversion
 SCSS - Need to be Preprocess 
-Ecmascript New Syntax - Transpiled
+Ecmascript New Syntax - Transpiled - Transpiling - BABEL
 Redux - Client Data Container 
 React Router - Routing 
 Jest - Testing 
@@ -34,12 +34,43 @@ FEATURES:
 LET  - Lexical Variable Scoping  
 TEMPLATE STRING - console.log(${name}, ${age});
 DEFAULT PARAMETERS
+ARROW FUNCTIONS
+
+
+ES6 OBJECTS AND ARRAYS 
+    - SPREAD OPERATOR - "..." - Combine MULTIPLE ARRAYS into one 
+    - DESTRUCTING ASSIGNMENTS - Destructring/unpack Value from the Object or Array 
+    - OBJECT LITERAL ENHANCEMENT - Process of restructuring and putting values back in Array or Object (Opposite of DESTRUCTURING)
+    
+    ```
+        // NEW
+        const skier = {
+            name,
+            sound,
+            powderYell() {
+                let yell = this.sound.toUpperCase()
+                console.log(`${yell} ${yell} ${yell}!!!`)
+            },
+            speed(mph) {
+                this.speed = mph
+                console.log('speed:', mph)
+            }
+        }
+    ```
+
+
+BABEL - Transpiling - Transpiled the ES6 Syntax that can be interpreted by wide range of browsers.
+You can transpile JavaScript directly in the browser using the inline Babel transpiler.
+You just include the browser.js file, and any scripts with type="text/babel" will be
+converted.
 
 
 
 
-
-
+PROMISES
+Promises give us a way to make sense out of asynchronous behavior. When making an
+asynchronous request, one of two things can happen: everything goes as we hope or
+there’s an error.
 
 
 BOOK NAME : Learning Reacts - Alex Banks and Leo Procello
