@@ -1,7 +1,7 @@
 
 == React 
 
-=== INTRO
+=== 1. REACT INTRO
 
 React is a popular library used to create user interfaces. It was built at Facebook to
 address some of the challenges associated with "large-scale", "data-driven" websites.
@@ -18,12 +18,16 @@ Isomorphic Code - Server Side Rendering
 Fiber - Reimplementation of React Code Algorithm which is aimed at Increasing rendering speed.
 
 
-
 ===== REACT DEVELOPER TOOLS
 react-detector
 show-me-the-react 
 React Developer Tools
 
+
+
+
+
+=== 2. EMERGING JS 
 
 Node.js is JavaScript without the browser. It is a runtime environment used to build
 full-stack JavaScript applications.
@@ -72,6 +76,99 @@ Promises give us a way to make sense out of asynchronous behavior. When making a
 asynchronous request, one of two things can happen: everything goes as we hope or
 there’s an error.
 
+CLASSES 
 
-BOOK NAME : Learning Reacts - Alex Banks and Leo Procello
-REFERENCE : - https://github.com/moonhighway/learning-react
+MODULES - Easy Decoupling, resolve namespace ambiguity
+
+ES6 MODULES - A JavaScript module is a piece of reusable code that can easily be incorporated into
+other JavaScript files.
+
+COMMONJS - CommonJS is the module pattern that is supported by all versions of Node.js.5.
+You can still use these modules with Babel and webpack. With CommonJS, JavaScript
+objects are exported using module.exports.
+
+The Difference Between ES6 Modules & COMMON JS is that the Common JS does not support IMPORT, it uses "require".
+Also while exporting it uses "module.exports={fun1, func2}, compared to ES6 Modules which uses "export / export default infront of methods".
+More Info: https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b
+
+
+
+
+=== 3. Functional Programming with JavaScript
+
+Functional Programming came from LAMDA CALCULUS
+
+
+HIGH ORDER FUNCTIONS - A higher order function is a function that takes a function as an argument, or returns a function.
+The first category of higher-order functions are functions that expect other functions
+as arguments. Array.map, Array.filter, and Array.reduce all take functions as
+arguments. They are higher-order functions.
+
+const userLogs = userName => message =>
+console.log(`${userName} -> ${message}`)
+
+Transpiled version of the ABOVE:
+var userLogs = function userLogs(a) {
+  return function (b) {
+    return console.log(a + " -> " + b);
+  };
+};
+
+
+FIRST-CLASS CITIZENS/MEMBERS - We can say that JavaScript is a functional language because its functions are first-class
+citizens. This means that functions are data. They can be saved, retrieved, or flow
+through your applications just like variables.
+
+
+DECLARATIVE PROGRAMMING - Declarative programming is a style of programming where applications
+are structured in a way that prioritizes describing what should happen over defining
+how it should happen.
+
+IMPERATIVE PROGRAMMING - Imperative programming, or a style of programming that is only concerned with how to achieve
+results with code.
+
+
+FUNCTIONAL CONCEPTS:
+    
+    Immutability - 
+        Object.assign({}, object)
+        Using spread "..." operator 
+
+    Purity -
+            PURE FUNCTIONS  : A pure function is a function that returns a value that is computed based on its arguments.
+            Pure functions take at least one argument and always return a value or
+            another function. They do not cause side effects, set global variables, or change anything
+            about application state. They treat their arguments as immutable data.
+
+                1. The function should take in at least one argument.
+                2. The function should return a value or another function.
+                3. The function should not change or mutate any of its arguments.
+
+
+    Data Transformation
+            Array.map
+            Array.reduce
+            Array.join
+            Array.filter 
+            Array.reduce 
+            Array.reduceRight
+            Array.reduceLeft
+            Array.slice 
+            Array.splice 
+            Array.pop
+            Array.push 
+
+
+
+    Higher-Order Functions 
+    Recursion
+
+
+
+
+
+
+=== REFERENCE :
+
+    BOOK NAME : Learning Reacts - Alex Banks and Leo Procello
+    REFERENCE : - https://github.com/moonhighway/learning-react
