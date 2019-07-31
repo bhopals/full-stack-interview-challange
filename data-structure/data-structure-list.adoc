@@ -1,7 +1,7 @@
 
 === Array 
 Array is a data structure used to store homogeneous elements at contiguous locations. Size of an array must be provided before storing data.
-
+An array is a basic data structure to store a collection of elements sequentially. But elements can be accessed randomly since each element in the array can be identified by an array index.
 
 === Linked List
 A linked list is a linear data structure (like arrays) where each element is a separate object. Each element (that is node) of a list is comprising of two items – the data and a reference to the next node.

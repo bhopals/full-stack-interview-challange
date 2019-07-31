@@ -1,0 +1,46 @@
+
+== React 
+
+=== INTRO
+
+React is a popular library used to create user interfaces. It was built at Facebook to
+address some of the challenges associated with "large-scale", "data-driven" websites.
+
+JSX - Javascript Conversion
+SCSS - Need to be Preprocess 
+Ecmascript New Syntax - Transpiled
+Redux - Client Data Container 
+React Router - Routing 
+Jest - Testing 
+Webpack - Handling Code splitting, compression, testing
+Isomorphic Code - Server Side Rendering 
+
+Fiber - Reimplementation of React Code Algorithm which is aimed at Increasing rendering speed.
+
+
+
+===== REACT DEVELOPER TOOLS
+react-detector
+show-me-the-react 
+React Developer Tools
+
+
+Node.js is JavaScript without the browser. It is a runtime environment used to build
+full-stack JavaScript applications.
+
+ECMA - European Computer Manufacturer Association.
+
+FEATURES:
+LET  - Lexical Variable Scoping  
+TEMPLATE STRING - console.log(${name}, ${age});
+DEFAULT PARAMETERS
+
+
+
+
+
+
+
+
+BOOK NAME : Learning Reacts - Alex Banks and Leo Procello
+REFERENCE : - https://github.com/moonhighway/learning-react
