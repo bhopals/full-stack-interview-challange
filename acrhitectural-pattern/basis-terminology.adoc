@@ -10,6 +10,7 @@ Version Control works on Event Sourcing;
 REFERENCE:https://martinfowler.com/eaaDev/EventSourcing.html
 
 
+
 ##### CQRS - Command Query Responsibility Segregation
 
 https://martinfowler.com/bliki/CQRS.html
