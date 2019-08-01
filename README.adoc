@@ -18,6 +18,7 @@
 == DevOps
 
 
+
 == Code Challanges 
 
 https://leetcode.com/
@@ -26,7 +27,12 @@ https://coderbyte.com/challenges?a=true
 https://github.com/jwasham/coding-interview-university
 
 
+== Front End Developer 
+https://github.com/bhopals/front-end-interview-handbook
+https://frontendmasters.com/books/front-end-handbook/2018/learning/pwa.html
+
 == Others 
+https://github.com/yangshun/tech-interview-handbook
 
 
 == React 

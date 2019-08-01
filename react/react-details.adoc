@@ -108,11 +108,36 @@ const userLogs = userName => message =>
 console.log(`${userName} -> ${message}`)
 
 Transpiled version of the ABOVE:
+
+"use strict";
 var userLogs = function userLogs(a) {
   return function (b) {
     return console.log(a + " -> " + b);
   };
 };
+
+
+
+const compose = (...fns) =>
+(arg) =>
+fns.reduce(
+(composed, f) => f(composed),
+arg
+)
+
+Transpiled version of the ABOVE:
+
+"use strict";
+var compose = function compose() {
+  for (var a = arguments.length, b = Array(a), c = 0; c < a; c++) b[c] = arguments[c];
+
+  return function (d) {
+    return b.reduce(function (e, g) {
+      return g(e);
+    }, d);
+  };
+};
+
 
 
 FIRST-CLASS CITIZENS/MEMBERS - We can say that JavaScript is a functional language because its functions are first-class
@@ -162,6 +187,8 @@ FUNCTIONAL CONCEPTS:
 
     Higher-Order Functions 
     Recursion
+
+
 
 
 === 4. PURE REACT 

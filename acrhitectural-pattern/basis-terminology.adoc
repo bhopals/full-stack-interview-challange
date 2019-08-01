@@ -1,0 +1,24 @@
+
+
+##### EventSourcing
+
+Version Control works on Event Sourcing;
+    - Complete Rebuild
+    - Temporal Query
+    - Event Replay
+
+REFERENCE:https://martinfowler.com/eaaDev/EventSourcing.html
+
+
+##### CQRS - Command Query Responsibility Segregation
+
+https://martinfowler.com/bliki/CQRS.html
+
+
+
+DESIGN PATTERN :
+https://sourcemaking.com/uml
+https://sourcemaking.com/design_patterns/mediator
+https://blog.codeminer42.com/scalable-frontend-2-common-patterns-d2f28aef0714
+
+
