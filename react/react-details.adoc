@@ -305,7 +305,46 @@ FUNCTIONAL CONCEPTS:
 
             ** WebPack Loaders are the functions that handles Transpiling.
 
+            Source mapping
+                Bundling our code into a single file can cause some setbacks when it comes time to
+                debug the application in the browser. We can eliminate this problem by providing a
+                source map
 
+
+            Webpack Sample File:
+
+            ```
+                var webpack = require("webpack");
+                module.exports = {
+                    entry: "./src/index.js",
+                    output: {
+                        path: "dist/assets",
+                        filename: "bundle.js",
+                        sourceMapFilename: 'bundle.map'
+                    },
+                    devtool: '#source-map',
+                    module: {
+                        rules: [
+                            {
+                                test: /\.js$/,
+                                exclude: /(node_modules)/,
+                                loader: ['babel-loader'],
+                                query: {
+                                    presets: ['env', 'stage-0', 'react']
+                                }
+                            }
+                        ]
+                    },
+                    plugins: [
+                        new webpack.optimize.UglifyJsPlugin({
+                            sourceMap: true,
+                            warnings: false,
+                            mangle: true
+                        })
+                    ]
+                }
+            
+            ```
 
 
 
