@@ -193,7 +193,58 @@ FUNCTIONAL CONCEPTS:
 
 === 4. PURE REACT 
 
+    React - React is the Library to create Views  
+    ReactDOM - ReactDOM is the library to actually Renders the views in the DOM/Browser 
 
+    Initially both libraries were part of one package, but later on both were splitted to pave a way to share the packages between ReactDom and React Native.
+
+
+    data-reactroot - which identifies that this is the root element of your React component
+                     data-reactroot will always appear as an attribute of the root element of your React component.   
+
+
+    React element is just a JavaScript literal that tells React how to construct the DOM element
+
+    Sample React Element:
+    {
+        $$typeof: Symbol(React.element),
+        "type": "h1",
+        "key": null,
+        "ref": null,
+        "props": {"children": "Baked Salmon"},
+        "_owner": null,
+        "_store": {}
+    }
+
+
+    ReactDOM 
+        -render()
+        -renderToString()
+        -renderToStaticMarkup
+
+
+    React Components:
+
+
+     -  Stateless functional components are functions that take in properties and return a
+        DOM element. Stateless functional components are functions, not objects; therefore, they do not
+        have a “this” scope
+
+
+    React has built-in factories for all commonly supported HTML and SVG DOM elements,
+    and you can use the React.createFactory function to build your own factories
+    around specific components.
+
+    ```
+    React.DOM.ul({"className": "ingredients"},
+        React.DOM.li(null, "1 lb Salmon"),
+        React.DOM.li(null, "1 cup Pine Nuts"),
+        React.DOM.li(null, "2 cups Butter Lettuce"),
+        React.DOM.li(null, "1 Yellow Squash"),
+        React.DOM.li(null, "1/2 cup Olive Oil"),
+        React.DOM.li(null, "3 cloves of Garlic")
+    )
+    ```
 
 === REFERENCE :
 
