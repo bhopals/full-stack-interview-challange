@@ -347,6 +347,183 @@ FUNCTIONAL CONCEPTS:
             ```
 
 
+=== Props, State, and the Component Tree
+
+
+    ==== Property Validation:
+            Type        Validator
+            ---------   ---------------------
+            Arrays      React.PropTypes.array
+            Boolean     React.PropTypes.bool
+            Functions   React.PropTypes.func
+            Numbers     React.PropTypes.number
+            Objects     React.PropTypes.object
+            Strings     React.PropTypes.string
+
+        ```
+        Prop Type Check only :
+
+        propTypes: {
+            ingredients: PropTypes.array,
+            steps: PropTypes.array,
+            title: PropTypes.string
+        },
+
+
+        Prop Type and Required Check :
+
+        propTypes: {
+            ingredients: PropTypes.array.isRequired,
+            steps: PropTypes.array.isRequired,
+            title: PropTypes.string.isRequired
+        },
+
+        ```
+
+    ==== Default Props 
+         
+         ```
+         getDefaultProps() {
+            return {
+                ingredients: 0,
+                steps: 0,
+                title: "[recipe]"
+            }
+        },
+
+        ```
+        Now when we try to render this component without properties, we will see some
+        default data instead
+    
+
+
+    ==== Custom Property Validation
+
+        Custom validation in React is implemented with a function. This function should
+        either return an error when a specific validation requirement is not met or null when
+        the property is valid.
+
+
+        ```
+        propTypes: {
+            ingredients: PropTypes.number,
+            steps: PropTypes.number,
+            title: (props, propName) =>
+                (typeof props[propName] !== 'string') ?
+                    new Error("A title must be a string") :
+                (props[propName].length > 20) ?
+                    new Error(`title is over 20 characters`) : null
+        }
+        ```
+
+        *** This will be in RENER Method. However, in ES6 Sytax (give below), it would be outside the class.
+
+        ===== PropTypes Check / Default Props and Custom Validations for ES6 Classes 
+        
+        ```
+            class Summary extends React.Component {
+                render() {
+                    const {ingredients, steps, title} = this.props
+                    return (
+                    <div className="summary">
+                    <h1>{title}</h1>
+                    <p>
+                    <span>{ingredients} Ingredients | </span>
+                    <span>{steps} Steps</span>
+                    </p>
+                    </div>
+                    )
+                }
+            }
+           
+            Summary.propTypes = {
+                ingredients: PropTypes.number,
+                steps: PropTypes.number,
+                title: (props, propName) =>
+                (typeof props[propName] !== 'string') ?
+                new Error("A title must be a string") :
+                (props[propName].length > 20) ?
+                new Error(`title is over 20 characters`) : null 
+            }
+
+            Summary.defaultProps = {
+                ingredients: 0,
+                steps: 0,
+                title: "[recipe]"
+            }
+
+            ```
+
+            OR For Stateless Functional Component 
+
+            ```
+            const Summary = ({ ingredients, steps, title }) => {
+                return <div>
+                <h1>{title}</h1>
+                <p>{ingredients} Ingredients | {steps} Steps</p>
+                </div>
+            }
+            
+            Summary.propTypes = {
+                ingredients: React.PropTypes.number.isRequired,
+                steps: React.PropTypes.number.isRequired
+            }
+            
+            Summary.defaultProps = {
+                ingredients: 1,
+                steps: 1
+            }
+
+            ```
+
+
+        ===== Class Static Properties 
+
+            In the previous section, we looked at how defaultProps and propTypes are defined
+            outside of the class. An alternative to this is emerging in one of the latest proposals to
+            the ECMAScript spec: Class Fields & Static Properties.
+
+            ```
+                class Summary extends React.Component {
+                    static propTypes = {
+                        ingredients: PropTypes.number,
+                        steps: PropTypes.number,
+                        title: (props, propName) =>
+                        (typeof props[propName] !== 'string') ?
+                        new Error("A title must be a string") :
+                        (props[propName].length > 20) ?
+                        new Error(`title is over 20 characters`) :
+                        null
+                    }
+                
+                    static defaultProps = {
+                        ingredients: 0,
+                        steps: 0,
+                        title: "[recipe]"
+                    }
+                
+                    render() {
+                        const {ingredients, steps, title} = this.props
+                        return (
+                        <div className="summary">
+                        <h1>{title}</h1>
+                        <p>
+                        <span>{ingredients} Ingredients | </span>
+                        <span>{steps} Steps</span>
+                        </p>
+                        </div>
+                        )
+                    }
+                }
+
+            ```
+
+
+
+
+     ==== Refs 
+
+
 
 === REFERENCE :
 
