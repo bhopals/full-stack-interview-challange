@@ -246,6 +246,69 @@ FUNCTIONAL CONCEPTS:
     )
     ```
 
+
+===== Babel Presets
+    
+        Babel 6 breaks possible transformations up into modules called presets. It requires
+        engineers to explicitly define which transformations should be run by specifying
+        which presets to use. The goal was to make everything more modular to allow developers
+        to decide which syntax should be converted. The plugins fall into a few categories,
+        and all are opt-in based on the needs of the application. The presets you’re
+        most likely to use are:
+    
+        babel-preset-es2015
+        Compiles ES2015, or ES6, to ES5.
+    
+        babel-preset-es2016
+        Compiles what is in ES2016 to ES2015
+
+
+        babel-preset-env
+        Compiles everything from ES2015, ES2016, ES2017. A catch-all for the previous
+        three presets
+
+    ====== WebPack 
+
+        Webpack is billed as a module bundler (static module bundler). A module bundler takes all of our different
+        files (JavaScript, LESS, CSS, JSX, ES6, and so on) and turns them into a single file.
+        The two main benefits of modular bundling are modularity and network performance.
+
+        Modularuty - 
+            Modularity will allow you to break down your source code into parts, or modules,
+            that are easier to work with, especially in a team environment.
+        
+        Network performance -
+            Network performance is gained by only needing to load one dependency in the
+            browser, the bundle. Each script tag makes an HTTP request, and there is a latency
+            penalty for each HTTP request. Bundling all of the dependencies into a single file
+            allows you to load everything with one HTTP request, thereby avoiding additional
+            latency.
+
+
+        Aside from transpiling, webpack also can handle:
+
+            Code splitting -
+                Splits up your code into different chunks that can be loaded when you need
+                them. Sometimes these are called rollups or layers; the aim is to break up code as
+                needed for different pages or devices.
+
+            Minification -
+                Removes whitespace, line breaks, lengthy variable names, and unnecessary code
+                to reduce the file size.
+
+            Feature flagging -
+                Sends code to one or more—but not all—environments when testing out features.
+            
+            Hot Module Replacement (HMR) - 
+                Watches for changes in source code. Changes only the updated modules immediately.
+
+
+            ** WebPack Loaders are the functions that handles Transpiling.
+
+
+
+
+
 === REFERENCE :
 
     BOOK NAME : Learning Reacts - Alex Banks and Leo Procello
