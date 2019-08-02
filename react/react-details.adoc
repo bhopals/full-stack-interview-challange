@@ -643,14 +643,139 @@ FUNCTIONAL CONCEPTS:
         ** npm install uuid --save
         import { v4 } from 'uuid'
 
+
+
+
+
+
+ === Enhancing Components
+
+
+    ==== Component Life Cycle 
+
+        There are two primary lifecycles: the mounting lifecycle and the updating lifecycle.
+
+        ===== Mounting Life Cycles   -  The mounting lifecycle consists of methods that are invoked when a component is
+                                        mounted or unmounted
+
+
+            Table - The component mounting lifecycle
         
+            ES6 class                   React.createClass()
+            -----------------------     ------------------------   
+            getDefaultProps()           -
+            constructor(props)          getInitialState()
+            componentWillMount()        componentWillMount()
+            render()                    render()           
+            componentDidMount()         componentDidMount()
+            componentWillUnmount()      componentWillUnmount()
+
+
+        ===== Updating Life Cycles 
+
+            The updating lifecycle kicks off every time setState is called. Calling setState
+            within the updating lifecycle will cause an infinite recursive loop that results in a
+            stack overflow error. Therefore, setState can only be called in componentWillRecei
+            veProps, which allows the component to update state when its properties are updated.
+
+
+            The updating lifecycle methods include:
+                
+                1. componentWillReceiveProps(nextProps) -
+                    Only invoked if new properties have been passed to the component. This is the
+                    only method where setState can be called.
+            
+                2. shouldComponentUpdate(nextProps, nextState)
+                    The update lifecycle’s gatekeeper—a predicate that can call off the update. This
+                    method can be used to improve performance by only allowing necessary updates.
+                    componentWillUpdate(nextProps, nextState)
+                    Invoked just before the component updates. Similar to componentWillMount,
+                    only it is invoked before each update occurs.
+            
+                3. componentDidUpdate(prevProps, prevState)
+                    Invoked just after the update takes place, after the call to render. Similar to compo
+                    nentDidMount, but it is invoked after each update.
 
 
 
+            ```
+                componentWillMount() {
+                    this.style = { backgroundColor: "#CCC" }
+                }
+
+                shouldComponentUpdate(nextProps) {
+                    return this.props.rating !== nextProps.rating
+                }
+
+                componentWillUpdate(nextProps) {
+                    const { title, rating } = this.props
+                    this.style = null
+                    this.refs.title.style.backgroundColor = "red"
+                    this.refs.title.style.color = "white"
+                    alert(`${title}: rating ${rating} -> ${nextProps.rating}`)
+                }
+
+                componentDidUpdate(prevProps) {
+                    const { title, rating } = this.props
+                    const status = (rating > prevProps.rating) ? 'better' : 'worse'
+                    this.refs.title.style.backgroundColor = ""
+                    this.refs.title.style.color = "black"
+                }
+
+            ```
+
+
+        ===== React.Children
+
+            React.Children provides a way of working with the children of a particular component.
+            It allows you to count, map, loopover, or convert props.children to an array. It
+            also allows you to verify that you are displaying a single child with
+            React.Children.only:
+        
+                import { Children, PropTypes } from 'react'
+                import { render } from 'react-dom'
+        
+                const Display = ({ ifTruthy=true, children }) =>
+                    (ifTruthy) ?
+                    Children.only(children) :
+                    null
+                    const age = 22
+        
+                render(
+                        <Display ifTruthy={age >= 21}>
+                        <h1>You can enter</h1>
+                        </Display>,
+                        document.getElementById('react-container')
+                )
+    
+            We can also use React.Children to convert the children property to an array.
 
 
 
+            ===== Making Requests with Fetch
+            Fetch is a polyfill created by the WHATWG group that allows us to easily make API
+            calls using promises. In this section we will introduce isomorphic-fetch, a version of
+            Fetch that works nicely with React. Let’s install isomorphic-fetch:
 
+            npm install isomorphic-fetch --save
+            
+            ```
+
+            componentDidMount() {
+                this.setState({loading: true})
+                fetch('https://restcountries.eu/rest/v1/all')
+                .then(response => response.json())
+                .then(json => json.map(country => country.name))
+                .then(countryNames =>
+                this.setState({countryNames, loading: false})
+                )
+            }
+
+            ```
+
+            **WHATWG - Web Hypertext Application Technologies Working Group.
+
+        ==== High ORder Functions 
 
 === REFERENCE :
 
