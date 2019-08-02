@@ -697,6 +697,7 @@ FUNCTIONAL CONCEPTS:
                     nentDidMount, but it is invoked after each update.
 
 
+            ** componentWillMount will be deprecated after react 17.0, so instead, we can use componentDidMount
 
             ```
                 componentWillMount() {
@@ -775,7 +776,228 @@ FUNCTIONAL CONCEPTS:
 
             **WHATWG - Web Hypertext Application Technologies Working Group.
 
-        ==== High ORder Functions 
+
+        
+        ==== High Order Functions 
+
+            A higher-order component, or HOC, is a simply a function that takes a React component
+            as an argument and returns another React component. Typically, HOCs wrap
+            the incoming component with a class that maintains state or has functionality.
+            Higher-order components are the best way to reuse functionality across React components.
+
+            ```
+            const DataComponent = (ComposedComponent, url) =>
+            class DataComponent extends Component {
+                constructor(props) {
+                    super(props)
+                    this.state = {
+                        data: [],
+                        loading: false,
+                        loaded: false
+                    }
+                }
+
+                componentWillMount() {
+                    this.setState({loading:true})
+                    fetch(url)
+                    .then(response => response.json())
+                    .then(data => this.setState({
+                    loaded: true,
+                    loading: false,
+                    data
+                    }))
+                }
+
+                render() {
+                    return (
+                    <div className="data-component">
+                    {(this.state.loading) ?
+                    <div>Loading...</div> :
+                    <ComposedComponent {...this.state} />}
+                    </div>
+                    )
+                }
+            }
+
+            ```
+
+        
+        ==== Flux 
+            Flux is a design pattern developed at Facebook that was designed to keep data flowing
+            in one direction. Before Flux was introduced, web development architecture was
+            dominated by variations of the MVC design pattern. Flux is an alternative to MVC,
+            an entirely different design pattern that complements the functional approach.
+
+            In Flux, application state data is managed outside of React components in stores.
+            Stores hold and change the data, and are the only thing that can update a view in
+            Flux. If a user were to interact with a web page—say, click a button or submit a form
+            — then an action would be created to represent the user’s request. An action provides
+            the instructions and data required to make a change. Actions are dispatched using a
+            central control component called the dispatcher. The dispatcher is designed to queue
+            up our actions and dispatch them to the appropriate store. Once a store receives an
+            action, it will use it as instructions to modify state and update the view. Data flows in
+            one direction: action to a dispatcher to the store and finally to the view
+
+
+                        
+            ACTION --> DISPATCHER ---> STORE ---> VIEW 
+                           ^
+                           |
+                           |
+                         ACTION
+
+            Actions and state data are immutable in Flux. Actions can be dispatched from a view,
+            or they can come from other sources, typically a web server.
+            Every change requires an action. Every action provides the instructions to make the
+            change.
+
+            ===== Actions and Action Creators
+                Actions provide the instructions and data that the store will use to modify the state.
+                Action creators are functions that can be used to abstract away the nitty-gritty details
+                required to build an action. Actions themselves are objects that at minimum contain
+                a type field. The action type is typically an uppercase string that describes the action.
+                Additionally, actions may package any data required by the store. For example:
+                
+                ```
+                const countdownActions = dispatcher =>
+                ({
+                    tick(currentCount) {
+                    dispatcher.handleAction({ type: 'TICK' })
+                },
+                    reset(count) {
+                        dispatcher.handleAction({
+                            type: 'RESET',
+                            count
+                        })
+                    }
+                })
+
+                ```
+
+                ===== Dispatcher
+
+                    There is only ever one dispatcher, and it represents the air traffic control part of this
+                    design pattern. The dispatcher takes the action, packages it with some information about where the action was generated, and sends it on to the appropriate store or
+                    stores that will handle the action.
+                    Although Flux is not a framework, Facebook does open source a Dispatcher class
+                    that you can use. How dispatchers are implemented is typically standard, so it is better
+                    to use Facebook’s dispatcher rather than coding your own
+                    
+                    ```
+                    import Dispatcher from 'flux'
+                    class CountdownDispatcher extends Dispatcher {
+                        handleAction(action) {
+                            console.log('dispatching action:', action)
+                            this.dispatch({
+                                source: 'VIEW_ACTION',
+                                action
+                            })
+                        }
+                    }
+                    
+                    ```
+
+
+                    ===== Stores
+                    Stores are objects that hold the application’s logic and state data. Stores are similar to
+                    models in the MVC pattern, but stores are not restricted to managing data in a single
+                    object. It is possible to build Flux applications that consist of a single store that manages
+                    many different data types
+
+                    Current state data can be obtained from a store via properties. Everything a store
+                    needs to change state data is provided in the action. A store will handle actions by
+                    type and change their data accordingly. Once data is changed, the store will emit an
+                    event and notify any views that have subscribed to the store that their data has
+                    changed. Let’s take a look at an example:
+                   
+                    import { EventEmitter } from 'events'
+                    class CountdownStore extends EventEmitter {
+                        constructor(count=5, dispatcher) {
+                        super()
+                        this._count = count
+                        this.dispatcherIndex = dispatcher.register(
+                            this.dispatch.bind(this)
+                        )
+                    }
+
+                    get count() {
+                        return this._count
+                    }
+                    
+                    dispatch(payload) {
+                        const { type, count } = payload.action
+                        switch(type) {
+                            case "TICK":
+                            this._count = this._count - 1
+                            this.emit("TICK", this._count)
+                            return true
+                            case "RESET":
+                            this._count = count
+                            this.emit("RESET", this._count)
+                            return true
+                        }
+                    }
+                }
+
+                This store holds the countdown application’s state, the count. The count can be
+                accessed through a read-only property. When actions are dispatched, the store uses
+                them to change the count. A TICK action decrements the count. A RESET action
+                resets the count entirely with data that is included with the action.
+                Once the state has changed, the store emits an event to any views that may be listening.
+
+
+                Putting It All Together
+                ------------------------------
+                Now that you understand how data flows through each part of a Flux application, let’s
+                take a look at how all these parts get connected:
+
+                const appDispatcher = new CountdownDispatcher()
+                const actions = countdownActions(appDispatcher)
+                const store = new CountdownStore(10, appDispatcher)
+                const render = count => ReactDOM.render(
+                
+                <Countdown count={count} {...actions} />,
+                    document.getElementById('react-container')
+                )
+
+                store.on("TICK", () => render(store.count))
+                store.on("RESET", () => render(store.count))
+                render(store.count)
+
+
+
+            ===== Flux Implementations
+            There are different approaches to the implementation of Flux. A few libraries have
+            been open-sourced based upon specific implementations of this design pattern. Here
+            are a few approaches to Flux worth mentioning:
+            
+             - Flux :
+                    Facebook’s Flux is the design pattern that we just covered. The Flux library
+                    includes an implementation of a dispatcher.
+
+             - Reflux :
+                    A simplified approach to unidirectional data flow that focuses on actions, stores,
+                    and views.
+
+             - Flummox :
+                A Flux implementation that allows you to build Flux modules through extending
+                JavaScript classes.
+
+             - Fluxible :
+                A Flux framework created by Yahoo for working with isomorphic Flux applications.
+                Isomorphic applications will be discussed in Chapter 12.
+             
+             - Redux
+                A Flux-like library that achieves modularity through functions instead of objects.
+                MobX
+            
+            A state management library that uses observables to respond to changes in state.
+            All of these implementations have stores, actions, and a dispatch mechanism, and
+            favor React components as the view layer. They are all variations of the Flux design
+            pattern, which at its core is all about unidirectional data flow.
+            
+
+
 
 === REFERENCE :
 
