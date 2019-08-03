@@ -1212,6 +1212,93 @@ FUNCTIONAL CONCEPTS:
 
 
             === REACT-REDUX
+            In this chapter, we’ll take a look at various ways to incorporate the Redux store. We
+            will first look at how the store can be used without any additional frameworks. After
+            that, we will explore react-redux, a framework that can be used to integrate a Redux
+            store with React components.
+
+                ===== Explicitly Passing the Store :
+                The first, and most logical, way to incorporate the store into your UI is to pass it
+                down the component tree explicitly as a property. This approach is simple and works
+                very well for smaller apps that only have a few nested components.
+
+                ===== Passing the Store via Context :
+                The above approach, "Explicitly Passing the Store",
+                required that we pass the store through every component that comes between the App and the ColorList.
+
+                we can take advantage of a React feature called context that allows us to pass
+                variables to components without having to explicitly pass them down through the
+                tree as properties.1 Any child component can access these context variables.
+
+
+                ```
+                class App extends Component {
+                    getChildContext() {
+                        return {
+                            store: this.props.store
+                        }
+                    }
+                    componentWillMount() {
+                        this.unsubscribe = store.subscribe(
+                            () => this.forceUpdate()
+                        )
+                    }
+                    componentWillUnmount() {
+                        this.unsubscribe()
+                    }
+                    
+                    render() {
+                        ...
+                    }
+                }
+
+                App.childContextTypes = {
+                    store: PropTypes.object.isRequired
+                }
+
+
+                //In Child Components - Functional Component - AddColorForm Component 
+                AddColorForm.contextTypes = {
+                    store: PropTypes.object
+                }
+
+                //In Child Component - Class Component - Color Component 
+                render() {
+                    const { store } = this.context;
+                }
+                Color.contextTypes = {
+                    store: PropTypes.object
+                }
+                ```
+
+                ===== Presentational Versus Container Components
+                Container components are not concerned with the UI at all. Their main focus is connecting
+                the presentation components to the data architecture. Container components
+                can be reused across device platforms to connect native presentational components to
+                the data.
+
+                ```
+                render() {
+                    return (
+                        <div className="app">
+                            <Menu />
+                            <NewColor />
+                            <Colors />
+                        </div>
+                    )
+                }
+                ```    
+
+                ===== The React Redux Provider
+
+                React Redux is a library that contains some tools to help ease the complexity involved
+                with implicitly passing the store via context.
+
+                ```
+                npm install react-redux --save
+                ```
+
+
 
 
 === REFERENCE :
