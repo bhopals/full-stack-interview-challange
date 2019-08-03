@@ -46,7 +46,7 @@ ES6 OBJECTS AND ARRAYS
     - DESTRUCTING ASSIGNMENTS - Destructring/unpack Value from the Object or Array 
     - OBJECT LITERAL ENHANCEMENT - Process of restructuring and putting values back in Array or Object (Opposite of DESTRUCTURING)
     
-    ```
+     
         // NEW
         const skier = {
             name,
@@ -1403,120 +1403,174 @@ deepFreeze(action)
 
 ==== Testing React Component 
     
-    We are not running our tests in a browser; we are running them in the terminal with
-    Node.js. Node.js does not have the DOM API that comes standard with each browser.
-    Jest incorporates an npm package called jsdom that is used to simulate a browser
-    environment in Node.js, which is essential for testing React components.
+We are not running our tests in a browser; we are running them in the terminal with
+Node.js. Node.js does not have the DOM API that comes standard with each browser.
+Jest incorporates an npm package called jsdom that is used to simulate a browser
+environment in Node.js, which is essential for testing React components.
 
-    "jsdom" 
+"jsdom" 
 
-    ===== Enzyme
+===== Enzyme
+
+```
+npm install enzyme react-addons-test-utils --save-dev
+```
+
+Enzyme is a testing utility for React components designed at Airbnb. Enzyme
+requires react-addons-test-utils, a set of tools that can be used to render and
+interact with components during a test. Additionally, react-dom is required, but we’ll
+assume that you already have react-dom installed.
+
+Enzyme makes it easier to render a component and traverse the rendered output.
+Enzyme is not a testing or assertion framework. It handles the task of rendering React
+components for testing and provides the necessary tools for traversing child elements,
+verifying props, verifying state, simulating events, and querying the DOM.
+
+Enzyme has three main methods for rendering:
+    shallow -
+        shallow renders components one level deep for unit testing.
+    mount -
+        mount renders components using the browser DOM and is necessary when you
+        need to test the full component lifecycle and the properties or state of child elements.
+    render -
+        render is used to render static HTML markup with a component. With render,
+        you can verify that your component returns the appropriate HTML.
+
+    ```
+    import { shallow } from 'enzyme'
+    import Star from '../../../src/components/ui/Star'
+    describe("<Star /> UI Component", () => {
+
+        it("renders default star", () =>
+        expect(
+            shallow(<Star />)
+                .find('div.star')
+                .length
+            ).toBe(1)
+        )
+
+        it("renders selected stars", () =>
+        expect(
+            shallow(<Star selected={true} />)
+                .find('div.selected.star')
+                .length
+            ).toBe(1)
+        )
+    })
+
+    ```
+
+    **Jest.mock -> To Mock React Component 
+
+
+    ===== Code Coverage 
+    Jest ships with Istanbul, a JavaScript tool used to review your tests and to generate a
+    report that describes how many statements, branches, functions, and lines have been
+    covered.
+
+    To run Jest with code coverage, simply add the coverage flag when you run the jest
+    command:
     
     ```
-    npm install enzyme react-addons-test-utils --save-dev
+    jest --coverage
+    
     ```
-
-    Enzyme is a testing utility for React components designed at Airbnb. Enzyme
-    requires react-addons-test-utils, a set of tools that can be used to render and
-    interact with components during a test. Additionally, react-dom is required, but we’ll
-    assume that you already have react-dom installed.
-
-    Enzyme makes it easier to render a component and traverse the rendered output.
-    Enzyme is not a testing or assertion framework. It handles the task of rendering React
-    components for testing and provides the necessary tools for traversing child elements,
-    verifying props, verifying state, simulating events, and querying the DOM.
-
-    Enzyme has three main methods for rendering:
-        shallow -
-            shallow renders components one level deep for unit testing.
-        mount -
-            mount renders components using the browser DOM and is necessary when you
-            need to test the full component lifecycle and the properties or state of child elements.
-        render -
-            render is used to render static HTML markup with a component. With render,
-            you can verify that your component returns the appropriate HTML.
-
-        ```
-        import { shallow } from 'enzyme'
-        import Star from '../../../src/components/ui/Star'
-        describe("<Star /> UI Component", () => {
-
-            it("renders default star", () =>
-            expect(
-                shallow(<Star />)
-                    .find('div.star')
-                    .length
-                ).toBe(1)
-            )
-
-            it("renders selected stars", () =>
-            expect(
-                shallow(<Star selected={true} />)
-                    .find('div.selected.star')
-                    .length
-                ).toBe(1)
-            )
-        })
-
-        ```
-
-        **Jest.mock -> To Mock React Component 
-
-
-        ===== Code Coverage 
-        Jest ships with Istanbul, a JavaScript tool used to review your tests and to generate a
-        report that describes how many statements, branches, functions, and lines have been
-        covered.
-
-        To run Jest with code coverage, simply add the coverage flag when you run the jest
-        command:
-        
-        ```
-        jest --coverage
-        
-        ```
 
 === React Router 
 
-    ```
-    npm install react-router-dom --save
-    ```
+```
+npm install react-router-dom --save
+    
 
-    HashRoute - Client Side Routing  
-    BrowserRoute - Server Side Routing
+HashRoute - Client Side Routing  
+BrowserRoute - Server Side Routing
 
-    
-    Different Pages of the site can be exported from a single file:
-    
-    export const Home = () =>
-        <section className="home">
-            <h1>[Home Page]</h1>
-        </section>
-    
-    export const About = () =>
-        <section className="events">
-            <h1>[About the Company]</h1>
-        </section>
-        
-    export const Events = () =>
-        <section className="events">
-            <h1>[Events Calendar]</h1>
-        </section>
-    
-    export const Products = () =>
-        <section className="products">
-            <h1>[Products Catalog]</h1>
-        </section>
-    
-    export const Contact = () =>
-        <section className="contact">
-            <h1>[Contact Us]</h1>
-        </section>
-    
-    When the application starts, instead of rendering a single App component, we will
-    render the HashRouter component:
 
+Different Pages of the site can be exported from a single file:
+
+export const Home = () =>
+    <section className="home">
+        <h1>[Home Page]</h1>
+    </section>
+
+export const About = () =>
+    <section className="events">
+        <h1>[About the Company]</h1>
+    </section>
     
+export const Events = () =>
+    <section className="events">
+        <h1>[Events Calendar]</h1>
+    </section>
+
+export const Products = () =>
+    <section className="products">
+        <h1>[Products Catalog]</h1>
+    </section>
+
+export const Contact = () =>
+    <section className="contact">
+        <h1>[Contact Us]</h1>
+    </section>
+
+When the application starts, instead of rendering a single App component, we will
+render the HashRouter component:
+
+    import React from 'react'
+    import { render } from 'react-dom'
+    import { HashRouter, Route } from 'react-router-dom'
+    import { Home, About, Events, Products, Contact } from './pages'
+    
+    window.React = React
+
+    render(
+        <HashRouter>
+        <div className="main">
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/events" component={Events} />
+        <Route path="/products" component={Products} />
+        <Route path="/contact" component={Contact} />
+        </div>
+        </HashRouter>,
+        document.getElementById('react-container')
+    )
+
+    OR With Switch 
+    render(
+        <HashRouter>
+            <div className="main">
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/about" component={About} />
+                    <Route path="/events" component={Events} />
+                    <Route path="/products" component={Products} />
+                    <Route path="/contact" component={Contact} />
+                    <Route component={Whoops404} />
+                </Switch>
+            </div>
+            </HashRouter>,
+        document.getElementById('react-container')
+    )
+
+The HashRouter component is rendered as the root component for our application.
+Each route can be defined within the HashRouter using the Route component.    
+
+
+Let’s modify the home page to contain a navigation menu with a link for each route:
+import { Link } from 'react-router-dom'
+export const Home = () =>
+    <div className="home">
+        <h1>[Company Website]</h1>
+        <nav>
+            <Link to="about">[About]</Link>
+            <Link to="events">[Events]</Link>
+            <Link to="products">[Products]</Link>
+            <Link to="contact">[Contact Us]</Link>
+        </nav>
+        </div>
+
+
 
 
 
