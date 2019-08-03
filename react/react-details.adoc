@@ -953,27 +953,27 @@ resets the count entirely with data that is included with the action.
 Once the state has changed, the store emits an event to any views that may be listening.
 
 
-Putting It All Together
-------------------------------
+===== Putting It All Together
+
 Now that you understand how data flows through each part of a Flux application, let’s
 take a look at how all these parts get connected:
 
-            const appDispatcher = new CountdownDispatcher()
-            const actions = countdownActions(appDispatcher)
-            const store = new CountdownStore(10, appDispatcher)
-            const render = count => ReactDOM.render(
+        const appDispatcher = new CountdownDispatcher()
+        const actions = countdownActions(appDispatcher)
+        const store = new CountdownStore(10, appDispatcher)
+        const render = count => ReactDOM.render(
             
-            <Countdown count={count} {...actions} />,
-                document.getElementById('react-container')
-            )
+        <Countdown count={count} {...actions} />,
+            document.getElementById('react-container')
+        )
 
-            store.on("TICK", () => render(store.count))
-            store.on("RESET", () => render(store.count))
-            render(store.count)
-
+        store.on("TICK", () => render(store.count))
+        store.on("RESET", () => render(store.count))
+        render(store.count)
 
 
 ===== Flux Implementations
+
 There are different approaches to the implementation of Flux. A few libraries have
 been open-sourced based upon specific implementations of this design pattern. Here
 are a few approaches to Flux worth mentioning:
@@ -998,14 +998,15 @@ Isomorphic applications will be discussed in Chapter 12.
 A Flux-like library that achieves modularity through functions instead of objects.
 MobX
         
+
 A state management library that uses observables to respond to changes in state.
 All of these implementations have stores, actions, and a dispatch mechanism, and
 favor React components as the view layer. They are all variations of the Flux design
 pattern, which at its core is all about unidirectional data flow.
         
 
-
 === Redux 
+
 Redux is a predictable state container for JavaScript apps.
 Redux is based on Flux Design Pattern, and it was designed to tackle the challenge of understanding
 how data changes flow through your application.
@@ -1016,81 +1017,84 @@ based on the current state and an action: (state, action) => newState.
 
 
 ACTION
+
 ACTION PAYLOAD 
+
 REDUCER - 
-	Reducers are functions that take the current state along with an action as arguments
-	and use them to create and return a new state.
-	We can then compose reducers into one reducer that can handle updating the entire state of our app given any action.     
+Reducers are functions that take the current state along with an action as arguments
+and use them to create and return a new state.
+We can then compose reducers into one reducer that can handle updating the entire state of our app given any action.     
 
-	Redux has a function for
-	doing just that, combineReducers, which combines all of the reducers into a single
-	reducer. These reducers are used to build your state tree. The names of the fields
-	match the names of the reducers that are passed in.
+Redux has a function for
+doing just that, combineReducers, which combines all of the reducers into a single
+reducer. These reducers are used to build your state tree. The names of the fields
+match the names of the reducers that are passed in.
 
             
-            export const sort = (state = "SORTED_BY_DATE", action) => {
-                switch (action.type) {
-                    case C.SORT_COLORS:
-                    return action.sortBy
-                    default :
-                    return state
-                }
-            }
-            
+    export const sort = (state = "SORTED_BY_DATE", action) => {
+        switch (action.type) {
+            case C.SORT_COLORS:
+            return action.sortBy
+            default :
+            return state
+        }
+    }
+    
             
 
 STORE -
+
 In Redux, the store is what holds the application’s state data and handles all state
 updates. While the Flux design pattern allows for many stores that each focus on a
 specific set of data, Redux only has one store.
 
-            
-                import { createStore, combineReducers } from 'redux'
-                import { colors, sort } from './reducers'
+    
+        import { createStore, combineReducers } from 'redux'
+        import { colors, sort } from './reducers'
 
-                const initialState = {
-                    colors: [
-                        {
-                            id: "3315e1p5-3abl-0p523-30e4-8001l8yf3036",
-                            title: "Rad Red",
-                            color: "#FF0000",
-                            rating: 3,
-                            timestamp: "Sat Mar 12 2016 16:12:09 GMT-0800 (PST)"
-                        },
-                        {
-                            id: "3315e1p5-3abl-0p523-30e4-8001l8yf4457",
-                            title: "Crazy Green",
-                            color: "#00FF00",
-                            rating: 0,
-                            timestamp: "Fri Mar 11 2016 12:00:00 GMT-0800 (PST)"
-                        },
-                        {
-                            id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
-                            title: "Big Blue",
-                            color: "#0000FF",
-                            rating: 5,
-                            timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                        }
-                    ],
-                    sort: "SORTED_BY_TITLE"
+        const initialState = {
+            colors: [
+                {
+                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf3036",
+                    title: "Rad Red",
+                    color: "#FF0000",
+                    rating: 3,
+                    timestamp: "Sat Mar 12 2016 16:12:09 GMT-0800 (PST)"
+                },
+                {
+                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf4457",
+                    title: "Crazy Green",
+                    color: "#00FF00",
+                    rating: 0,
+                    timestamp: "Fri Mar 11 2016 12:00:00 GMT-0800 (PST)"
+                },
+                {
+                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
+                    title: "Big Blue",
+                    color: "#0000FF",
+                    rating: 5,
+                    timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
                 }
+            ],
+            sort: "SORTED_BY_TITLE"
+        }
 
-                const store = createStore(
-                    combineReducers({ colors, sort }),
-                    initialState
-                )
+        const store = createStore(
+            combineReducers({ colors, sort }),
+            initialState
+        )
 
             
 
-            STORE DISPATCHIN ACTIONS :
+STORE DISPATCHIN ACTIONS :
                 
-                store.dispatch({
-                        type: "ADD_COLOR",
-                        id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
-                        title: "Party Pink",
-                        color: "#F142FF",
-                        timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                })
+    store.dispatch({
+            type: "ADD_COLOR",
+            id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
+            title: "Party Pink",
+            color: "#F142FF",
+            timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+    })
 
                 
 
@@ -1099,41 +1103,42 @@ completes dispatching an action. In the following example, we will log the count
 colors in the state:
 
             
-                store.subscribe(() =>
-                    console.log('color count:', store.getState().colors.length)
-                )
+        store.subscribe(() =>
+            console.log('color count:', store.getState().colors.length)
+        )
 
-                store.dispatch({
-                    type: "ADD_COLOR",
-                    id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
-                    title: "Party Pink",
-                    color: "#F142FF",
-                    timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                })
+        store.dispatch({
+            type: "ADD_COLOR",
+            id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
+            title: "Party Pink",
+            color: "#F142FF",
+            timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+        })
 
-                store.dispatch({
-                    type: "ADD_COLOR",
-                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
-                    title: "Big Blue",
-                    color: "#0000FF",
-                    timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                })
+        store.dispatch({
+            type: "ADD_COLOR",
+            id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
+            title: "Big Blue",
+            color: "#0000FF",
+            timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+        })
 
-                store.dispatch({
-                    type: "RATE_COLOR",
-                    id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
-                    rating: 5
-                })
+        store.dispatch({
+            type: "RATE_COLOR",
+            id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
+            rating: 5
+        })
 
-                store.dispatch({
-                    type: "REMOVE_COLOR",
-                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412"
-                })
+        store.dispatch({
+            type: "REMOVE_COLOR",
+            id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412"
+        })
 
             
 
 
 UNSUBSCRIBE TO STORE - 
+
 The store’s subscribe method returns a function that you can use later to unsubscribe
 the listener:
 
