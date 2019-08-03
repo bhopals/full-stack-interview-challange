@@ -477,1006 +477,1046 @@ FUNCTIONAL CONCEPTS:
             ```
 
 
-        ===== Class Static Properties 
+    ===== Class Static Properties 
 
-            In the previous section, we looked at how defaultProps and propTypes are defined
-            outside of the class. An alternative to this is emerging in one of the latest proposals to
-            the ECMAScript spec: Class Fields & Static Properties.
-
-            ```
-                class Summary extends React.Component {
-                    static propTypes = {
-                        ingredients: PropTypes.number,
-                        steps: PropTypes.number,
-                        title: (props, propName) =>
-                        (typeof props[propName] !== 'string') ?
-                        new Error("A title must be a string") :
-                        (props[propName].length > 20) ?
-                        new Error(`title is over 20 characters`) :
-                        null
-                    }
-                
-                    static defaultProps = {
-                        ingredients: 0,
-                        steps: 0,
-                        title: "[recipe]"
-                    }
-                
-                    render() {
-                        const {ingredients, steps, title} = this.props
-                        return (
-                        <div className="summary">
-                        <h1>{title}</h1>
-                        <p>
-                        <span>{ingredients} Ingredients | </span>
-                        <span>{steps} Steps</span>
-                        </p>
-                        </div>
-                        )
-                    }
-                }
-
-            ```
-
-
-
-
-     ==== Refs 
-
-        References, or refs, are a feature that allow React components to interact with child
-        elements. The most common use case for refs is to interact with UI elements that collect
-        input from the user.
+        In the previous section, we looked at how defaultProps and propTypes are defined
+        outside of the class. An alternative to this is emerging in one of the latest proposals to
+        the ECMAScript spec: Class Fields & Static Properties.
 
         ```
-            import { Component } from 'react'
-            
-            class AddColorForm extends Component {
-            
-                constructor(props) {
-                    super(props)
-                    this.submit = this.submit.bind(this)
+            class Summary extends React.Component {
+                static propTypes = {
+                    ingredients: PropTypes.number,
+                    steps: PropTypes.number,
+                    title: (props, propName) =>
+                    (typeof props[propName] !== 'string') ?
+                    new Error("A title must be a string") :
+                    (props[propName].length > 20) ?
+                    new Error(`title is over 20 characters`) :
+                    null
                 }
             
-                submit(e) {
-                    const { _title, _color } = this.refs
-                    e.preventDefault();
-                    alert(`New Color: ${_title.value} ${_color.value}`)
-                    _title.value = '';
-                    _color.value = '#000000';
-                    _title.focus();
+                static defaultProps = {
+                    ingredients: 0,
+                    steps: 0,
+                    title: "[recipe]"
                 }
             
                 render() {
+                    const {ingredients, steps, title} = this.props
                     return (
-                        <form onSubmit={this.submit}>
-                        <input ref="_title"
-                        type="text"
-                        placeholder="color title..." required/>
-                        <input ref="_color"
-                        type="color" required/>
-                        <button>ADD</button>
-                        </form>
+                    <div className="summary">
+                    <h1>{title}</h1>
+                    <p>
+                    <span>{ingredients} Ingredients | </span>
+                    <span>{steps} Steps</span>
+                    </p>
+                    </div>
                     )
                 }
             }
+
+        ```
+
+
+
+
+    ==== Refs 
+
+    References, or refs, are a feature that allow React components to interact with child
+    elements. The most common use case for refs is to interact with UI elements that collect
+    input from the user.
+
+    ```
+        import { Component } from 'react'
         
-
-        ```        
-
-        Define Default Dummy function in props if function is undefined :
-
-        AddColorForm.propTypes = {
-            onNewColor: PropTypes.func
-        }
-        AddColorForm.defaultProps = {
-            onNewColor: f=>f
-        }
-
-
-
-        Refs can also be used in stateless functional components. These components do not
-        have this, so it’s not possible to use this.refs. Instead of using string attributes, we
-        will set the refs using a function.
-        ** Let’s refactor AddColorForm as a stateless functional component:
-
-           ```
-            const AddColorForm = ({onNewColor=f=>f}) => {
-                let _title, _color
-                const submit = e => {
-                    e.preventDefault()
-                    onNewColor(_title.value, _color.value)
-                    _title.value = ''
-                    _color.value = '#000000'
-                    _title.focus()
-                }
-
+        class AddColorForm extends Component {
+        
+            constructor(props) {
+                super(props)
+                this.submit = this.submit.bind(this)
+            }
+        
+            submit(e) {
+                const { _title, _color } = this.refs
+                e.preventDefault();
+                alert(`New Color: ${_title.value} ${_color.value}`)
+                _title.value = '';
+                _color.value = '#000000';
+                _title.focus();
+            }
+        
+            render() {
                 return (
-                    <form onSubmit={submit}>
-                    <input ref={input => _title = input}
+                    <form onSubmit={this.submit}>
+                    <input ref="_title"
                     type="text"
                     placeholder="color title..." required/>
-                    <input ref={input => _color = input}
+                    <input ref="_color"
                     type="color" required/>
                     <button>ADD</button>
                     </form>
                 )
             }
+        }
+    
 
+    ```        
+
+    Define Default Dummy function in props if function is undefined :
+
+    AddColorForm.propTypes = {
+        onNewColor: PropTypes.func
+    }
+    AddColorForm.defaultProps = {
+        onNewColor: f=>f
+    }
+
+
+
+    Refs can also be used in stateless functional components. These components do not
+    have this, so it’s not possible to use this.refs. Instead of using string attributes, we
+    will set the refs using a function.
+    ** Let’s refactor AddColorForm as a stateless functional component:
 
         ```
+        const AddColorForm = ({onNewColor=f=>f}) => {
+            let _title, _color
+            const submit = e => {
+                e.preventDefault()
+                onNewColor(_title.value, _color.value)
+                _title.value = ''
+                _color.value = '#000000'
+                _title.focus()
+            }
+
+            return (
+                <form onSubmit={submit}>
+                <input ref={input => _title = input}
+                type="text"
+                placeholder="color title..." required/>
+                <input ref={input => _color = input}
+                type="color" required/>
+                <button>ADD</button>
+                </form>
+            )
+        }
+
+
+    ```
 
 
 
-     ===== React State Management 
+    ===== React State Management 
 
-     State - State represents data that we may wish to change within a component.
+    State - State represents data that we may wish to change within a component.
 
-        ```
-        const Star = ({ selected=false, onClick=f=>f }) =>
-            <div className={(selected) ? "star selected" : "star"}
-            onClick={onClick}>
-            </div>
+    ```
+    const Star = ({ selected=false, onClick=f=>f }) =>
+        <div className={(selected) ? "star selected" : "star"}
+        onClick={onClick}>
+        </div>
+    
+    Star.propTypes = {
+        selected: PropTypes.bool,
+        onClick: PropTypes.func
+    }
+
+    ```
+
+
+    ===== State Within the React Component 
+    In many React applications, it is possible to group all state data in the root component.
+    State data can be passed down the component tree via properties, and data can
+    be passed back up the tree to the root via two-way function binding. 
+    
+    The result is that all of the state for your entire application exists in one place. This is often referred to
+    as having a “single source of truth.”4
+
+    Presentational components are only concerned with how things look in the application. 
+    
+    They only render DOM elements or other presentational components. All data is sent to these components via properties and passed
+    out of these components via callback functions.
+
+
+    A library to create Unique ID's 
+    ** npm install uuid --save
+    import { v4 } from 'uuid'
+
+
+
+
+
+
+=== Enhancing Components
+
+
+==== Component Life Cycle 
+
+    There are two primary lifecycles: the mounting lifecycle and the updating lifecycle.
+
+    ===== Mounting Life Cycles   -  The mounting lifecycle consists of methods that are invoked when a component is
+                                    mounted or unmounted
+
+
+        Table - The component mounting lifecycle
+    
+        ES6 class                   React.createClass()
+        -----------------------     ------------------------   
+        getDefaultProps()           -
+        constructor(props)          getInitialState()
+        componentWillMount()        componentWillMount()
+        render()                    render()           
+        componentDidMount()         componentDidMount()
+        componentWillUnmount()      componentWillUnmount()
+
+
+    ===== Updating Life Cycles 
+
+        The updating lifecycle kicks off every time setState is called. Calling setState
+        within the updating lifecycle will cause an infinite recursive loop that results in a
+        stack overflow error. Therefore, setState can only be called in componentWillRecei
+        veProps, which allows the component to update state when its properties are updated.
+
+
+        The updating lifecycle methods include:
+            
+            1. componentWillReceiveProps(nextProps) -
+                Only invoked if new properties have been passed to the component. This is the
+                only method where setState can be called.
         
-        Star.propTypes = {
-            selected: PropTypes.bool,
-            onClick: PropTypes.func
+            2. shouldComponentUpdate(nextProps, nextState)
+                The update lifecycle’s gatekeeper—a predicate that can call off the update. This
+                method can be used to improve performance by only allowing necessary updates.
+                componentWillUpdate(nextProps, nextState)
+                Invoked just before the component updates. Similar to componentWillMount,
+                only it is invoked before each update occurs.
+        
+            3. componentDidUpdate(prevProps, prevState)
+                Invoked just after the update takes place, after the call to render. Similar to compo
+                nentDidMount, but it is invoked after each update.
+
+
+        ** componentWillMount will be deprecated after react 17.0, so instead, we can use componentDidMount
+
+        ```
+            componentWillMount() {
+                this.style = { backgroundColor: "#CCC" }
+            }
+
+            shouldComponentUpdate(nextProps) {
+                return this.props.rating !== nextProps.rating
+            }
+
+            componentWillUpdate(nextProps) {
+                const { title, rating } = this.props
+                this.style = null
+                this.refs.title.style.backgroundColor = "red"
+                this.refs.title.style.color = "white"
+                alert(`${title}: rating ${rating} -> ${nextProps.rating}`)
+            }
+
+            componentDidUpdate(prevProps) {
+                const { title, rating } = this.props
+                const status = (rating > prevProps.rating) ? 'better' : 'worse'
+                this.refs.title.style.backgroundColor = ""
+                this.refs.title.style.color = "black"
+            }
+
+        ```
+
+
+    ===== React.Children
+
+        React.Children provides a way of working with the children of a particular component.
+        It allows you to count, map, loopover, or convert props.children to an array. It
+        also allows you to verify that you are displaying a single child with
+        React.Children.only:
+    
+            import { Children, PropTypes } from 'react'
+            import { render } from 'react-dom'
+    
+            const Display = ({ ifTruthy=true, children }) =>
+                (ifTruthy) ?
+                Children.only(children) :
+                null
+                const age = 22
+    
+            render(
+                    <Display ifTruthy={age >= 21}>
+                    <h1>You can enter</h1>
+                    </Display>,
+                    document.getElementById('react-container')
+            )
+
+        We can also use React.Children to convert the children property to an array.
+
+
+
+        ===== Making Requests with Fetch
+        Fetch is a polyfill created by the WHATWG group that allows us to easily make API
+        calls using promises. In this section we will introduce isomorphic-fetch, a version of
+        Fetch that works nicely with React. Let’s install isomorphic-fetch:
+
+        npm install isomorphic-fetch --save
+        
+        ```
+
+        componentDidMount() {
+            this.setState({loading: true})
+            fetch('https://restcountries.eu/rest/v1/all')
+            .then(response => response.json())
+            .then(json => json.map(country => country.name))
+            .then(countryNames =>
+            this.setState({countryNames, loading: false})
+            )
         }
 
         ```
 
-
-        ===== State Within the React Component 
-        In many React applications, it is possible to group all state data in the root component.
-        State data can be passed down the component tree via properties, and data can
-        be passed back up the tree to the root via two-way function binding. 
-        
-        The result is that all of the state for your entire application exists in one place. This is often referred to
-        as having a “single source of truth.”4
-
-        Presentational components are only concerned with how things look in the application. 
-        
-        They only render DOM elements or other presentational components. All data is sent to these components via properties and passed
-        out of these components via callback functions.
+        **WHATWG - Web Hypertext Application Technologies Working Group.
 
 
-        A library to create Unique ID's 
-        ** npm install uuid --save
-        import { v4 } from 'uuid'
-
-
-
-
-
-
- === Enhancing Components
-
-
-    ==== Component Life Cycle 
-
-        There are two primary lifecycles: the mounting lifecycle and the updating lifecycle.
-
-        ===== Mounting Life Cycles   -  The mounting lifecycle consists of methods that are invoked when a component is
-                                        mounted or unmounted
-
-
-            Table - The component mounting lifecycle
-        
-            ES6 class                   React.createClass()
-            -----------------------     ------------------------   
-            getDefaultProps()           -
-            constructor(props)          getInitialState()
-            componentWillMount()        componentWillMount()
-            render()                    render()           
-            componentDidMount()         componentDidMount()
-            componentWillUnmount()      componentWillUnmount()
-
-
-        ===== Updating Life Cycles 
-
-            The updating lifecycle kicks off every time setState is called. Calling setState
-            within the updating lifecycle will cause an infinite recursive loop that results in a
-            stack overflow error. Therefore, setState can only be called in componentWillRecei
-            veProps, which allows the component to update state when its properties are updated.
-
-
-            The updating lifecycle methods include:
-                
-                1. componentWillReceiveProps(nextProps) -
-                    Only invoked if new properties have been passed to the component. This is the
-                    only method where setState can be called.
-            
-                2. shouldComponentUpdate(nextProps, nextState)
-                    The update lifecycle’s gatekeeper—a predicate that can call off the update. This
-                    method can be used to improve performance by only allowing necessary updates.
-                    componentWillUpdate(nextProps, nextState)
-                    Invoked just before the component updates. Similar to componentWillMount,
-                    only it is invoked before each update occurs.
-            
-                3. componentDidUpdate(prevProps, prevState)
-                    Invoked just after the update takes place, after the call to render. Similar to compo
-                    nentDidMount, but it is invoked after each update.
-
-
-            ** componentWillMount will be deprecated after react 17.0, so instead, we can use componentDidMount
-
-            ```
-                componentWillMount() {
-                    this.style = { backgroundColor: "#CCC" }
-                }
-
-                shouldComponentUpdate(nextProps) {
-                    return this.props.rating !== nextProps.rating
-                }
-
-                componentWillUpdate(nextProps) {
-                    const { title, rating } = this.props
-                    this.style = null
-                    this.refs.title.style.backgroundColor = "red"
-                    this.refs.title.style.color = "white"
-                    alert(`${title}: rating ${rating} -> ${nextProps.rating}`)
-                }
-
-                componentDidUpdate(prevProps) {
-                    const { title, rating } = this.props
-                    const status = (rating > prevProps.rating) ? 'better' : 'worse'
-                    this.refs.title.style.backgroundColor = ""
-                    this.refs.title.style.color = "black"
-                }
-
-            ```
-
-
-        ===== React.Children
-
-            React.Children provides a way of working with the children of a particular component.
-            It allows you to count, map, loopover, or convert props.children to an array. It
-            also allows you to verify that you are displaying a single child with
-            React.Children.only:
-        
-                import { Children, PropTypes } from 'react'
-                import { render } from 'react-dom'
-        
-                const Display = ({ ifTruthy=true, children }) =>
-                    (ifTruthy) ?
-                    Children.only(children) :
-                    null
-                    const age = 22
-        
-                render(
-                        <Display ifTruthy={age >= 21}>
-                        <h1>You can enter</h1>
-                        </Display>,
-                        document.getElementById('react-container')
-                )
     
-            We can also use React.Children to convert the children property to an array.
+    ==== High Order Functions 
 
+        A higher-order component, or HOC, is a simply a function that takes a React component
+        as an argument and returns another React component. Typically, HOCs wrap
+        the incoming component with a class that maintains state or has functionality.
+        Higher-order components are the best way to reuse functionality across React components.
 
-
-            ===== Making Requests with Fetch
-            Fetch is a polyfill created by the WHATWG group that allows us to easily make API
-            calls using promises. In this section we will introduce isomorphic-fetch, a version of
-            Fetch that works nicely with React. Let’s install isomorphic-fetch:
-
-            npm install isomorphic-fetch --save
-            
-            ```
-
-            componentDidMount() {
-                this.setState({loading: true})
-                fetch('https://restcountries.eu/rest/v1/all')
-                .then(response => response.json())
-                .then(json => json.map(country => country.name))
-                .then(countryNames =>
-                this.setState({countryNames, loading: false})
-                )
-            }
-
-            ```
-
-            **WHATWG - Web Hypertext Application Technologies Working Group.
-
-
-        
-        ==== High Order Functions 
-
-            A higher-order component, or HOC, is a simply a function that takes a React component
-            as an argument and returns another React component. Typically, HOCs wrap
-            the incoming component with a class that maintains state or has functionality.
-            Higher-order components are the best way to reuse functionality across React components.
-
-            ```
-            const DataComponent = (ComposedComponent, url) =>
-            class DataComponent extends Component {
-                constructor(props) {
-                    super(props)
-                    this.state = {
-                        data: [],
-                        loading: false,
-                        loaded: false
-                    }
-                }
-
-                componentWillMount() {
-                    this.setState({loading:true})
-                    fetch(url)
-                    .then(response => response.json())
-                    .then(data => this.setState({
-                    loaded: true,
+        ```
+        const DataComponent = (ComposedComponent, url) =>
+        class DataComponent extends Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    data: [],
                     loading: false,
-                    data
-                    }))
-                }
-
-                render() {
-                    return (
-                    <div className="data-component">
-                    {(this.state.loading) ?
-                    <div>Loading...</div> :
-                    <ComposedComponent {...this.state} />}
-                    </div>
-                    )
+                    loaded: false
                 }
             }
 
-            ```
+            componentWillMount() {
+                this.setState({loading:true})
+                fetch(url)
+                .then(response => response.json())
+                .then(data => this.setState({
+                loaded: true,
+                loading: false,
+                data
+                }))
+            }
 
-        
-        ==== Flux 
-            Flux is a design pattern developed at Facebook that was designed to keep data flowing
-            in one direction. Before Flux was introduced, web development architecture was
-            dominated by variations of the MVC design pattern. Flux is an alternative to MVC,
-            an entirely different design pattern that complements the functional approach.
-
-            In Flux, application state data is managed outside of React components in stores.
-            Stores hold and change the data, and are the only thing that can update a view in
-            Flux. If a user were to interact with a web page—say, click a button or submit a form
-            — then an action would be created to represent the user’s request. An action provides
-            the instructions and data required to make a change. Actions are dispatched using a
-            central control component called the dispatcher. The dispatcher is designed to queue
-            up our actions and dispatch them to the appropriate store. Once a store receives an
-            action, it will use it as instructions to modify state and update the view. Data flows in
-            one direction: action to a dispatcher to the store and finally to the view
-
-
-                        
-            ACTION --> DISPATCHER ---> STORE ---> VIEW 
-                           ^
-                           |
-                           |
-                         ACTION
-
-            Actions and state data are immutable in Flux. Actions can be dispatched from a view,
-            or they can come from other sources, typically a web server.
-            Every change requires an action. Every action provides the instructions to make the
-            change.
-
-            ===== Actions and Action Creators
-                Actions provide the instructions and data that the store will use to modify the state.
-                Action creators are functions that can be used to abstract away the nitty-gritty details
-                required to build an action. Actions themselves are objects that at minimum contain
-                a type field. The action type is typically an uppercase string that describes the action.
-                Additionally, actions may package any data required by the store. For example:
-                
-                ```
-                const countdownActions = dispatcher =>
-                ({
-                    tick(currentCount) {
-                    dispatcher.handleAction({ type: 'TICK' })
-                },
-                    reset(count) {
-                        dispatcher.handleAction({
-                            type: 'RESET',
-                            count
-                        })
-                    }
-                })
-
-                ```
-
-                ===== Dispatcher
-
-                    There is only ever one dispatcher, and it represents the air traffic control part of this
-                    design pattern. The dispatcher takes the action, packages it with some information about where the action was generated, and sends it on to the appropriate store or
-                    stores that will handle the action.
-                    Although Flux is not a framework, Facebook does open source a Dispatcher class
-                    that you can use. How dispatchers are implemented is typically standard, so it is better
-                    to use Facebook’s dispatcher rather than coding your own
-                    
-                    ```
-                    import Dispatcher from 'flux'
-                    class CountdownDispatcher extends Dispatcher {
-                        handleAction(action) {
-                            console.log('dispatching action:', action)
-                            this.dispatch({
-                                source: 'VIEW_ACTION',
-                                action
-                            })
-                        }
-                    }
-                    
-                    ```
-
-
-                    ===== Stores
-                    Stores are objects that hold the application’s logic and state data. Stores are similar to
-                    models in the MVC pattern, but stores are not restricted to managing data in a single
-                    object. It is possible to build Flux applications that consist of a single store that manages
-                    many different data types
-
-                    Current state data can be obtained from a store via properties. Everything a store
-                    needs to change state data is provided in the action. A store will handle actions by
-                    type and change their data accordingly. Once data is changed, the store will emit an
-                    event and notify any views that have subscribed to the store that their data has
-                    changed. Let’s take a look at an example:
-                   
-                    import { EventEmitter } from 'events'
-                    class CountdownStore extends EventEmitter {
-                        constructor(count=5, dispatcher) {
-                        super()
-                        this._count = count
-                        this.dispatcherIndex = dispatcher.register(
-                            this.dispatch.bind(this)
-                        )
-                    }
-
-                    get count() {
-                        return this._count
-                    }
-                    
-                    dispatch(payload) {
-                        const { type, count } = payload.action
-                        switch(type) {
-                            case "TICK":
-                            this._count = this._count - 1
-                            this.emit("TICK", this._count)
-                            return true
-                            case "RESET":
-                            this._count = count
-                            this.emit("RESET", this._count)
-                            return true
-                        }
-                    }
-                }
-
-                This store holds the countdown application’s state, the count. The count can be
-                accessed through a read-only property. When actions are dispatched, the store uses
-                them to change the count. A TICK action decrements the count. A RESET action
-                resets the count entirely with data that is included with the action.
-                Once the state has changed, the store emits an event to any views that may be listening.
-
-
-                Putting It All Together
-                ------------------------------
-                Now that you understand how data flows through each part of a Flux application, let’s
-                take a look at how all these parts get connected:
-
-                const appDispatcher = new CountdownDispatcher()
-                const actions = countdownActions(appDispatcher)
-                const store = new CountdownStore(10, appDispatcher)
-                const render = count => ReactDOM.render(
-                
-                <Countdown count={count} {...actions} />,
-                    document.getElementById('react-container')
+            render() {
+                return (
+                <div className="data-component">
+                {(this.state.loading) ?
+                <div>Loading...</div> :
+                <ComposedComponent {...this.state} />}
+                </div>
                 )
+            }
+        }
 
-                store.on("TICK", () => render(store.count))
-                store.on("RESET", () => render(store.count))
-                render(store.count)
-
-
-
-            ===== Flux Implementations
-            There are different approaches to the implementation of Flux. A few libraries have
-            been open-sourced based upon specific implementations of this design pattern. Here
-            are a few approaches to Flux worth mentioning:
-            
-             - Flux :
-                    Facebook’s Flux is the design pattern that we just covered. The Flux library
-                    includes an implementation of a dispatcher.
-
-             - Reflux :
-                    A simplified approach to unidirectional data flow that focuses on actions, stores,
-                    and views.
-
-             - Flummox :
-                A Flux implementation that allows you to build Flux modules through extending
-                JavaScript classes.
-
-             - Fluxible :
-                A Flux framework created by Yahoo for working with isomorphic Flux applications.
-                Isomorphic applications will be discussed in Chapter 12.
-             
-             - Redux
-                A Flux-like library that achieves modularity through functions instead of objects.
-                MobX
-            
-            A state management library that uses observables to respond to changes in state.
-            All of these implementations have stores, actions, and a dispatch mechanism, and
-            favor React components as the view layer. They are all variations of the Flux design
-            pattern, which at its core is all about unidirectional data flow.
-            
-
-
-            === Redux 
-            Redux is a predictable state container for JavaScript apps.
-            Redux is based on Flux Design Pattern, and it was designed to tackle the challenge of understanding
-            how data changes flow through your application.
-
-            Redux also introduces reducers, which are
-            not a part of the Flux pattern. Reducers are pure functions that return a new state
-            based on the current state and an action: (state, action) => newState.
-
-
-            ACTION
-            ACTION PAYLOAD 
-            REDUCER - 
-                Reducers are functions that take the current state along with an action as arguments
-                and use them to create and return a new state.
-                We can then compose reducers into one reducer that can handle updating the entire state of our app given any action.     
-
-                Redux has a function for
-                doing just that, combineReducers, which combines all of the reducers into a single
-                reducer. These reducers are used to build your state tree. The names of the fields
-                match the names of the reducers that are passed in.
-
-                ```
-                export const sort = (state = "SORTED_BY_DATE", action) => {
-                    switch (action.type) {
-                        case C.SORT_COLORS:
-                        return action.sortBy
-                        default :
-                        return state
-                    }
-                }
-                
-                ```
-
-            STORE -
-                In Redux, the store is what holds the application’s state data and handles all state
-                updates. While the Flux design pattern allows for many stores that each focus on a
-                specific set of data, Redux only has one store.
-
-                ```
-                    import { createStore, combineReducers } from 'redux'
-                    import { colors, sort } from './reducers'
-
-                    const initialState = {
-                        colors: [
-                            {
-                                id: "3315e1p5-3abl-0p523-30e4-8001l8yf3036",
-                                title: "Rad Red",
-                                color: "#FF0000",
-                                rating: 3,
-                                timestamp: "Sat Mar 12 2016 16:12:09 GMT-0800 (PST)"
-                            },
-                            {
-                                id: "3315e1p5-3abl-0p523-30e4-8001l8yf4457",
-                                title: "Crazy Green",
-                                color: "#00FF00",
-                                rating: 0,
-                                timestamp: "Fri Mar 11 2016 12:00:00 GMT-0800 (PST)"
-                            },
-                            {
-                                id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
-                                title: "Big Blue",
-                                color: "#0000FF",
-                                rating: 5,
-                                timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                            }
-                        ],
-                        sort: "SORTED_BY_TITLE"
-                    }
-
-                    const store = createStore(
-                        combineReducers({ colors, sort }),
-                        initialState
-                    )
-
-                ```
-
-                STORE DISPATCHIN ACTIONS :
-                    ```
-                    store.dispatch({
-                            type: "ADD_COLOR",
-                            id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
-                            title: "Party Pink",
-                            color: "#F142FF",
-                            timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                    })
-
-                    ```
-
-                SUBSCRIBE TO STORE - Stores allow you to subscribe handler functions that are invoked every time the store
-                completes dispatching an action. In the following example, we will log the count of
-                colors in the state:
-
-                ```
-                
-                    store.subscribe(() =>
-                        console.log('color count:', store.getState().colors.length)
-                    )
-
-                    store.dispatch({
-                        type: "ADD_COLOR",
-                        id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
-                        title: "Party Pink",
-                        color: "#F142FF",
-                        timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                    })
-
-                    store.dispatch({
-                        type: "ADD_COLOR",
-                        id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
-                        title: "Big Blue",
-                        color: "#0000FF",
-                        timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
-                    })
-
-                    store.dispatch({
-                        type: "RATE_COLOR",
-                        id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
-                        rating: 5
-                    })
-
-                    store.dispatch({
-                        type: "REMOVE_COLOR",
-                        id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412"
-                    })
-
-                ```
-
-
-                UNSUBSCRIBE TO STORE - 
-                    The store’s subscribe method returns a function that you can use later to unsubscribe
-                    the listener:
-
-                    const logState = () => console.log('next state', store.getState())
-                    
-                    const unsubscribeLogger = store.subscribe(logState)
-                    // Invoke when ready to unsubscribe the listener
-                    unsubscribeLogger()
-
-
-                SAVING TO LOCAL STORAGE - 
-                    Using the store’s subscribe function, we will listen for state changes and save those
-                    changes to localStorage under the key 'redux-store'. When we create the store we
-                    can check to see if any data has been saved under this key and, if so, load that data as
-                    our initial state. With just a few lines of code, we can have persistent state data in the
-                    browser:
-
-                    ```
-                    const store = createStore(
-                        combineReducers({ colors, sort }),
-                        (localStorage['redux-store']) ?
-                        JSON.parse(localStorage['redux-store']) :
-                        {}
-                    )
-                    
-                    store.subscribe(() => {
-                        localStorage['redux-store'] = JSON.stringify(store.getState())
-                    })
-
-                    console.log('current color count', store.getState().colors.length)
-                    console.log('current state', store.getState())
-                    
-                    store.dispatch({
-                        type: "ADD_COLOR",
-                        id: uuid.v4(),
-                        title: "Party Pink",
-                        color: "#F142FF",
-                        timestamp: new Date().toString()
-                    })
-
-                    ```
-
-                    ACTION CREATOR - 
-                        We can simplify the logic involved with generating an action by adding an action creators
-                        for each of these action types:
-
-                        import C from './constants'
-
-                        export const removeColor = id =>
-                        ({
-                            type: C.REMOVE_COLOR,
-                            id
-                        })
-
-                        export const rateColor = (id, rating) =>
-                        ({
-                            type: C.RATE_COLOR,
-                            id,
-                            rating
-                        })
-
-                        //DISPATCHING ACTIONS USING ACTION CREATOR 
-                        store.dispatch( removeColor("3315e1p5-3abl-0p523-30e4-8001l8yf2412") )
-                        store.dispatch( rateColor("441e0p2-9ab4-0p523-30e4-8001l8yf2412", 5) )
-
-                    The really nice thing about action creators is that they provide a place to encapsulate
-                    all of the logic required to successfully create an action
-
-                    Action creators are where we should put any logic for communicating with backend
-                    APIs. With an action creator, we can perform asynchronous logic like requesting data
-                    or making an API call. 
-
-
-                    ===== Middleware 
-                        Redux also has middleware. It acts on the store’s dispatch pipeline. In Redux, middleware
-                        consists of a series of functions that are executed in a row in the process of dispatching
-                        an action.
-                        In Redux, middleware is
-                        defined as a higher-order function: it’s a function that returns a function that returns
-                        a function. The last function returned is invoked every time an action is dispatched.
-                        When this function is invoked, you have access to the
-
-
-            === REACT-REDUX
-            In this chapter, we’ll take a look at various ways to incorporate the Redux store. We
-            will first look at how the store can be used without any additional frameworks. After
-            that, we will explore react-redux, a framework that can be used to integrate a Redux
-            store with React components.
-
-                ===== Explicitly Passing the Store :
-                The first, and most logical, way to incorporate the store into your UI is to pass it
-                down the component tree explicitly as a property. This approach is simple and works
-                very well for smaller apps that only have a few nested components.
-
-                ===== Passing the Store via Context :
-                The above approach, "Explicitly Passing the Store",
-                required that we pass the store through every component that comes between the App and the ColorList.
-
-                we can take advantage of a React feature called context that allows us to pass
-                variables to components without having to explicitly pass them down through the
-                tree as properties.1 Any child component can access these context variables.
-
-
-                ```
-                class App extends Component {
-                    getChildContext() {
-                        return {
-                            store: this.props.store
-                        }
-                    }
-                    componentWillMount() {
-                        this.unsubscribe = store.subscribe(
-                            () => this.forceUpdate()
-                        )
-                    }
-                    componentWillUnmount() {
-                        this.unsubscribe()
-                    }
-                    
-                    render() {
-                        ...
-                    }
-                }
-
-                App.childContextTypes = {
-                    store: PropTypes.object.isRequired
-                }
-
-
-                //In Child Components - Functional Component - AddColorForm Component 
-                AddColorForm.contextTypes = {
-                    store: PropTypes.object
-                }
-
-                //In Child Component - Class Component - Color Component 
-                render() {
-                    const { store } = this.context;
-                }
-                Color.contextTypes = {
-                    store: PropTypes.object
-                }
-                ```
-
-                ===== Presentational Versus Container Components
-                Container components are not concerned with the UI at all. Their main focus is connecting
-                the presentation components to the data architecture. Container components
-                can be reused across device platforms to connect native presentational components to
-                the data.
-
-                ```
-                render() {
-                    return (
-                        <div className="app">
-                            <Menu />
-                            <NewColor />
-                            <Colors />
-                        </div>
-                    )
-                }
-                ```    
-
-                ===== The React Redux Provider
-
-                React Redux is a library that contains some tools to help ease the complexity involved
-                with implicitly passing the store via context.
-
-                ```
-                npm install react-redux --save
-                ```
-                react-redux supplies us with a component that we can use to set up our store in the
-                context, the provider. We can wrap any React element with the provider and that element’s
-                children will have access to the store via context.
-
-                Instead of setting up the store as a context variable in the App component, we can
-                keep the App component stateless:
-                
-                import { Menu, NewColor, Colors } from './containers'
-                const App = () =>
-                    <div className="app">
-                    <Menu />
-                    <NewColor />
-                    <Colors />
-                    </div>
-                export default App
-                
-                The provider adds the store to the context and updates the App component when
-                actions have been dispatched. The provider expects a single child component:
-
-                import React from 'react'
-                import { render } from 'react-dom'
-                import { Provider } from 'react-redux'
-                import App from './components/App'
-                import storeFactory from './store'
-                
-                const store = storeFactory()
-                    render(
-                        <Provider store={store}>
-                        <App />
-                        </Provider>,
-                        document.getElementById('react-container')
-                    )
-                
-                The provider requires that we pass the store as a property. It adds the store to the
-                context so that it can be retrieved by any child of the App component. Simply using
-                the provider can save us some time and simplify our code.
-
-                Once we’ve incorporated the provider, we can retrieve the store via context in child
-                container components. However, React Redux provides us with another way to
-                quickly create container components that work with the provider: the connect function.
-                
-                ===== React Redux connect
-                If we keep our UI components purely presentational, we can rely on React Redux to
-                create the container components. React Redux helps us create container components
-                through mapping the current state of the Redux store to the properties of a presenta‐
-                tional component. It also maps the store’s dispatch function to callback properties.
-                This is all accomplished through a higher-order function called connect.
-                
-                Let’s create the Colors container component using connect. The Colors container
-                connects the ColorList component to the store:
-                
-                import ColorList from './ColorList'
-                
-                const mapStateToProps = state =>
-                ({
-                    colors: [...state.colors].sort(sortFunction(state.sort))
-                })
-
-                const mapDispatchToProps = dispatch =>
-                ({
-                    onRemove(id) {
-                        dispatch(removeColor(id))
-                    },
-                
-                    onRate(id, rating) {
-                        dispatch(rateColor(id, rating))
-                    }
-                })
-                
-                export const Colors = connect(
-                    mapStateToProps,
-                    mapDispatchToProps
-                )(ColorList)
-
-                connect is a higher-order function that returns a function that returns a component.
-                No, that’s not a typo or a tongue-twister: it’s functional JavaScript. connect expects
-                two arguments: mapStateToProps and mapDispatchToProps. Both are functions. It
-                returns a function that expects a presentational component, and wraps it with a container
-                that sends it data via props.
-
-
-    === Testing 
-    The process of analyzing JavaScript code is called hinting or linting. "JSHint" and "JSLint"
-    are the original tools used to analyze JavaScript and provide feedback about formatting.
-    ESLint is the latest code linter that supports emerging JavaScript syntax.
-
-    We can create an ESLint configuration by running eslint --init and answering
-    some questions about our coding style:
-
-    ```
-    $ eslint --init
-    ```
-
-    ===== Testing Redux 
-
-    Jest - JavaScript Testing Framework.
-
-    deepFreeze(state)
-    deepFreeze(action)
-
-    **deepFreeze will moniter the changes on the passed objects and will flag an error if any change is detected while execution of the Flow.
-
-
-
-    ==== Testing React Component 
-        
-        We are not running our tests in a browser; we are running them in the terminal with
-        Node.js. Node.js does not have the DOM API that comes standard with each browser.
-        Jest incorporates an npm package called jsdom that is used to simulate a browser
-        environment in Node.js, which is essential for testing React components.
-
-        "jsdom" 
-
-        ===== Enzyme
-        
-        ```
-        npm install enzyme react-addons-test-utils --save-dev
         ```
 
-        Enzyme is a testing utility for React components designed at Airbnb. Enzyme
-        requires react-addons-test-utils, a set of tools that can be used to render and
-        interact with components during a test. Additionally, react-dom is required, but we’ll
-        assume that you already have react-dom installed.
+    
+    ==== Flux 
+        Flux is a design pattern developed at Facebook that was designed to keep data flowing
+        in one direction. Before Flux was introduced, web development architecture was
+        dominated by variations of the MVC design pattern. Flux is an alternative to MVC,
+        an entirely different design pattern that complements the functional approach.
 
-        Enzyme makes it easier to render a component and traverse the rendered output.
-        Enzyme is not a testing or assertion framework. It handles the task of rendering React
-        components for testing and provides the necessary tools for traversing child elements,
-        verifying props, verifying state, simulating events, and querying the DOM.
+        In Flux, application state data is managed outside of React components in stores.
+        Stores hold and change the data, and are the only thing that can update a view in
+        Flux. If a user were to interact with a web page—say, click a button or submit a form
+        — then an action would be created to represent the user’s request. An action provides
+        the instructions and data required to make a change. Actions are dispatched using a
+        central control component called the dispatcher. The dispatcher is designed to queue
+        up our actions and dispatch them to the appropriate store. Once a store receives an
+        action, it will use it as instructions to modify state and update the view. Data flows in
+        one direction: action to a dispatcher to the store and finally to the view
 
-        Enzyme has three main methods for rendering:
-            shallow -
-                shallow renders components one level deep for unit testing.
-            mount -
-                mount renders components using the browser DOM and is necessary when you
-                need to test the full component lifecycle and the properties or state of child elements.
-            render -
-                render is used to render static HTML markup with a component. With render,
-                you can verify that your component returns the appropriate HTML.
 
+                    
+        ACTION --> DISPATCHER ---> STORE ---> VIEW 
+                        ^
+                        |
+                        |
+                        ACTION
+
+        Actions and state data are immutable in Flux. Actions can be dispatched from a view,
+        or they can come from other sources, typically a web server.
+        Every change requires an action. Every action provides the instructions to make the
+        change.
+
+        ===== Actions and Action Creators
+            Actions provide the instructions and data that the store will use to modify the state.
+            Action creators are functions that can be used to abstract away the nitty-gritty details
+            required to build an action. Actions themselves are objects that at minimum contain
+            a type field. The action type is typically an uppercase string that describes the action.
+            Additionally, actions may package any data required by the store. For example:
+            
             ```
-            import { shallow } from 'enzyme'
-            import Star from '../../../src/components/ui/Star'
-            describe("<Star /> UI Component", () => {
-
-                it("renders default star", () =>
-                expect(
-                    shallow(<Star />)
-                        .find('div.star')
-                        .length
-                    ).toBe(1)
-                )
-
-                it("renders selected stars", () =>
-                expect(
-                    shallow(<Star selected={true} />)
-                        .find('div.selected.star')
-                        .length
-                    ).toBe(1)
-                )
+            const countdownActions = dispatcher =>
+            ({
+                tick(currentCount) {
+                dispatcher.handleAction({ type: 'TICK' })
+            },
+                reset(count) {
+                    dispatcher.handleAction({
+                        type: 'RESET',
+                        count
+                    })
+                }
             })
 
             ```
 
-            **Jest.mock -> To Mock React Component 
+            ===== Dispatcher
+
+                There is only ever one dispatcher, and it represents the air traffic control part of this
+                design pattern. The dispatcher takes the action, packages it with some information about where the action was generated, and sends it on to the appropriate store or
+                stores that will handle the action.
+                Although Flux is not a framework, Facebook does open source a Dispatcher class
+                that you can use. How dispatchers are implemented is typically standard, so it is better
+                to use Facebook’s dispatcher rather than coding your own
+                
+                ```
+                import Dispatcher from 'flux'
+                class CountdownDispatcher extends Dispatcher {
+                    handleAction(action) {
+                        console.log('dispatching action:', action)
+                        this.dispatch({
+                            source: 'VIEW_ACTION',
+                            action
+                        })
+                    }
+                }
+                
+                ```
 
 
-            ===== Code Coverage 
-            Jest ships with Istanbul, a JavaScript tool used to review your tests and to generate a
-            report that describes how many statements, branches, functions, and lines have been
-            covered.
+                ===== Stores
+                Stores are objects that hold the application’s logic and state data. Stores are similar to
+                models in the MVC pattern, but stores are not restricted to managing data in a single
+                object. It is possible to build Flux applications that consist of a single store that manages
+                many different data types
 
-            To run Jest with code coverage, simply add the coverage flag when you run the jest
-            command:
+                Current state data can be obtained from a store via properties. Everything a store
+                needs to change state data is provided in the action. A store will handle actions by
+                type and change their data accordingly. Once data is changed, the store will emit an
+                event and notify any views that have subscribed to the store that their data has
+                changed. Let’s take a look at an example:
+                
+                import { EventEmitter } from 'events'
+                class CountdownStore extends EventEmitter {
+                    constructor(count=5, dispatcher) {
+                    super()
+                    this._count = count
+                    this.dispatcherIndex = dispatcher.register(
+                        this.dispatch.bind(this)
+                    )
+                }
+
+                get count() {
+                    return this._count
+                }
+                
+                dispatch(payload) {
+                    const { type, count } = payload.action
+                    switch(type) {
+                        case "TICK":
+                        this._count = this._count - 1
+                        this.emit("TICK", this._count)
+                        return true
+                        case "RESET":
+                        this._count = count
+                        this.emit("RESET", this._count)
+                        return true
+                    }
+                }
+            }
+
+            This store holds the countdown application’s state, the count. The count can be
+            accessed through a read-only property. When actions are dispatched, the store uses
+            them to change the count. A TICK action decrements the count. A RESET action
+            resets the count entirely with data that is included with the action.
+            Once the state has changed, the store emits an event to any views that may be listening.
+
+
+            Putting It All Together
+            ------------------------------
+            Now that you understand how data flows through each part of a Flux application, let’s
+            take a look at how all these parts get connected:
+
+            const appDispatcher = new CountdownDispatcher()
+            const actions = countdownActions(appDispatcher)
+            const store = new CountdownStore(10, appDispatcher)
+            const render = count => ReactDOM.render(
+            
+            <Countdown count={count} {...actions} />,
+                document.getElementById('react-container')
+            )
+
+            store.on("TICK", () => render(store.count))
+            store.on("RESET", () => render(store.count))
+            render(store.count)
+
+
+
+        ===== Flux Implementations
+        There are different approaches to the implementation of Flux. A few libraries have
+        been open-sourced based upon specific implementations of this design pattern. Here
+        are a few approaches to Flux worth mentioning:
+        
+            - Flux :
+                Facebook’s Flux is the design pattern that we just covered. The Flux library
+                includes an implementation of a dispatcher.
+
+            - Reflux :
+                A simplified approach to unidirectional data flow that focuses on actions, stores,
+                and views.
+
+            - Flummox :
+            A Flux implementation that allows you to build Flux modules through extending
+            JavaScript classes.
+
+            - Fluxible :
+            A Flux framework created by Yahoo for working with isomorphic Flux applications.
+            Isomorphic applications will be discussed in Chapter 12.
+            
+            - Redux
+            A Flux-like library that achieves modularity through functions instead of objects.
+            MobX
+        
+        A state management library that uses observables to respond to changes in state.
+        All of these implementations have stores, actions, and a dispatch mechanism, and
+        favor React components as the view layer. They are all variations of the Flux design
+        pattern, which at its core is all about unidirectional data flow.
+        
+
+
+        === Redux 
+        Redux is a predictable state container for JavaScript apps.
+        Redux is based on Flux Design Pattern, and it was designed to tackle the challenge of understanding
+        how data changes flow through your application.
+
+        Redux also introduces reducers, which are
+        not a part of the Flux pattern. Reducers are pure functions that return a new state
+        based on the current state and an action: (state, action) => newState.
+
+
+        ACTION
+        ACTION PAYLOAD 
+        REDUCER - 
+            Reducers are functions that take the current state along with an action as arguments
+            and use them to create and return a new state.
+            We can then compose reducers into one reducer that can handle updating the entire state of our app given any action.     
+
+            Redux has a function for
+            doing just that, combineReducers, which combines all of the reducers into a single
+            reducer. These reducers are used to build your state tree. The names of the fields
+            match the names of the reducers that are passed in.
+
+            ```
+            export const sort = (state = "SORTED_BY_DATE", action) => {
+                switch (action.type) {
+                    case C.SORT_COLORS:
+                    return action.sortBy
+                    default :
+                    return state
+                }
+            }
             
             ```
-            jest --coverage
+
+        STORE -
+            In Redux, the store is what holds the application’s state data and handles all state
+            updates. While the Flux design pattern allows for many stores that each focus on a
+            specific set of data, Redux only has one store.
+
+            ```
+                import { createStore, combineReducers } from 'redux'
+                import { colors, sort } from './reducers'
+
+                const initialState = {
+                    colors: [
+                        {
+                            id: "3315e1p5-3abl-0p523-30e4-8001l8yf3036",
+                            title: "Rad Red",
+                            color: "#FF0000",
+                            rating: 3,
+                            timestamp: "Sat Mar 12 2016 16:12:09 GMT-0800 (PST)"
+                        },
+                        {
+                            id: "3315e1p5-3abl-0p523-30e4-8001l8yf4457",
+                            title: "Crazy Green",
+                            color: "#00FF00",
+                            rating: 0,
+                            timestamp: "Fri Mar 11 2016 12:00:00 GMT-0800 (PST)"
+                        },
+                        {
+                            id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
+                            title: "Big Blue",
+                            color: "#0000FF",
+                            rating: 5,
+                            timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+                        }
+                    ],
+                    sort: "SORTED_BY_TITLE"
+                }
+
+                const store = createStore(
+                    combineReducers({ colors, sort }),
+                    initialState
+                )
+
+            ```
+
+            STORE DISPATCHIN ACTIONS :
+                ```
+                store.dispatch({
+                        type: "ADD_COLOR",
+                        id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
+                        title: "Party Pink",
+                        color: "#F142FF",
+                        timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+                })
+
+                ```
+
+            SUBSCRIBE TO STORE - Stores allow you to subscribe handler functions that are invoked every time the store
+            completes dispatching an action. In the following example, we will log the count of
+            colors in the state:
+
+            ```
             
+                store.subscribe(() =>
+                    console.log('color count:', store.getState().colors.length)
+                )
+
+                store.dispatch({
+                    type: "ADD_COLOR",
+                    id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
+                    title: "Party Pink",
+                    color: "#F142FF",
+                    timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+                })
+
+                store.dispatch({
+                    type: "ADD_COLOR",
+                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412",
+                    title: "Big Blue",
+                    color: "#0000FF",
+                    timestamp: "Thu Mar 10 2016 01:11:12 GMT-0800 (PST)"
+                })
+
+                store.dispatch({
+                    type: "RATE_COLOR",
+                    id: "2222e1p5-3abl-0p523-30e4-8001l8yf2222",
+                    rating: 5
+                })
+
+                store.dispatch({
+                    type: "REMOVE_COLOR",
+                    id: "3315e1p5-3abl-0p523-30e4-8001l8yf2412"
+                })
+
             ```
 
 
+            UNSUBSCRIBE TO STORE - 
+                The store’s subscribe method returns a function that you can use later to unsubscribe
+                the listener:
+
+                const logState = () => console.log('next state', store.getState())
+                
+                const unsubscribeLogger = store.subscribe(logState)
+                // Invoke when ready to unsubscribe the listener
+                unsubscribeLogger()
+
+
+            SAVING TO LOCAL STORAGE - 
+                Using the store’s subscribe function, we will listen for state changes and save those
+                changes to localStorage under the key 'redux-store'. When we create the store we
+                can check to see if any data has been saved under this key and, if so, load that data as
+                our initial state. With just a few lines of code, we can have persistent state data in the
+                browser:
+
+                ```
+                const store = createStore(
+                    combineReducers({ colors, sort }),
+                    (localStorage['redux-store']) ?
+                    JSON.parse(localStorage['redux-store']) :
+                    {}
+                )
+                
+                store.subscribe(() => {
+                    localStorage['redux-store'] = JSON.stringify(store.getState())
+                })
+
+                console.log('current color count', store.getState().colors.length)
+                console.log('current state', store.getState())
+                
+                store.dispatch({
+                    type: "ADD_COLOR",
+                    id: uuid.v4(),
+                    title: "Party Pink",
+                    color: "#F142FF",
+                    timestamp: new Date().toString()
+                })
+
+                ```
+
+                ACTION CREATOR - 
+                    We can simplify the logic involved with generating an action by adding an action creators
+                    for each of these action types:
+
+                    import C from './constants'
+
+                    export const removeColor = id =>
+                    ({
+                        type: C.REMOVE_COLOR,
+                        id
+                    })
+
+                    export const rateColor = (id, rating) =>
+                    ({
+                        type: C.RATE_COLOR,
+                        id,
+                        rating
+                    })
+
+                    //DISPATCHING ACTIONS USING ACTION CREATOR 
+                    store.dispatch( removeColor("3315e1p5-3abl-0p523-30e4-8001l8yf2412") )
+                    store.dispatch( rateColor("441e0p2-9ab4-0p523-30e4-8001l8yf2412", 5) )
+
+                The really nice thing about action creators is that they provide a place to encapsulate
+                all of the logic required to successfully create an action
+
+                Action creators are where we should put any logic for communicating with backend
+                APIs. With an action creator, we can perform asynchronous logic like requesting data
+                or making an API call. 
+
+
+                ===== Middleware 
+                    Redux also has middleware. It acts on the store’s dispatch pipeline. In Redux, middleware
+                    consists of a series of functions that are executed in a row in the process of dispatching
+                    an action.
+                    In Redux, middleware is
+                    defined as a higher-order function: it’s a function that returns a function that returns
+                    a function. The last function returned is invoked every time an action is dispatched.
+                    When this function is invoked, you have access to the
+
+
+        === REACT-REDUX
+        In this chapter, we’ll take a look at various ways to incorporate the Redux store. We
+        will first look at how the store can be used without any additional frameworks. After
+        that, we will explore react-redux, a framework that can be used to integrate a Redux
+        store with React components.
+
+            ===== Explicitly Passing the Store :
+            The first, and most logical, way to incorporate the store into your UI is to pass it
+            down the component tree explicitly as a property. This approach is simple and works
+            very well for smaller apps that only have a few nested components.
+
+            ===== Passing the Store via Context :
+            The above approach, "Explicitly Passing the Store",
+            required that we pass the store through every component that comes between the App and the ColorList.
+
+            we can take advantage of a React feature called context that allows us to pass
+            variables to components without having to explicitly pass them down through the
+            tree as properties.1 Any child component can access these context variables.
+
+
+            ```
+            class App extends Component {
+                getChildContext() {
+                    return {
+                        store: this.props.store
+                    }
+                }
+                componentWillMount() {
+                    this.unsubscribe = store.subscribe(
+                        () => this.forceUpdate()
+                    )
+                }
+                componentWillUnmount() {
+                    this.unsubscribe()
+                }
+                
+                render() {
+                    ...
+                }
+            }
+
+            App.childContextTypes = {
+                store: PropTypes.object.isRequired
+            }
+
+
+            //In Child Components - Functional Component - AddColorForm Component 
+            AddColorForm.contextTypes = {
+                store: PropTypes.object
+            }
+
+            //In Child Component - Class Component - Color Component 
+            render() {
+                const { store } = this.context;
+            }
+            Color.contextTypes = {
+                store: PropTypes.object
+            }
+            ```
+
+            ===== Presentational Versus Container Components
+            Container components are not concerned with the UI at all. Their main focus is connecting
+            the presentation components to the data architecture. Container components
+            can be reused across device platforms to connect native presentational components to
+            the data.
+
+            ```
+            render() {
+                return (
+                    <div className="app">
+                        <Menu />
+                        <NewColor />
+                        <Colors />
+                    </div>
+                )
+            }
+            ```    
+
+            ===== The React Redux Provider
+
+            React Redux is a library that contains some tools to help ease the complexity involved
+            with implicitly passing the store via context.
+
+            ```
+            npm install react-redux --save
+            ```
+            react-redux supplies us with a component that we can use to set up our store in the
+            context, the provider. We can wrap any React element with the provider and that element’s
+            children will have access to the store via context.
+
+            Instead of setting up the store as a context variable in the App component, we can
+            keep the App component stateless:
+            
+            import { Menu, NewColor, Colors } from './containers'
+            const App = () =>
+                <div className="app">
+                <Menu />
+                <NewColor />
+                <Colors />
+                </div>
+            export default App
+            
+            The provider adds the store to the context and updates the App component when
+            actions have been dispatched. The provider expects a single child component:
+
+            import React from 'react'
+            import { render } from 'react-dom'
+            import { Provider } from 'react-redux'
+            import App from './components/App'
+            import storeFactory from './store'
+            
+            const store = storeFactory()
+                render(
+                    <Provider store={store}>
+                    <App />
+                    </Provider>,
+                    document.getElementById('react-container')
+                )
+            
+            The provider requires that we pass the store as a property. It adds the store to the
+            context so that it can be retrieved by any child of the App component. Simply using
+            the provider can save us some time and simplify our code.
+
+            Once we’ve incorporated the provider, we can retrieve the store via context in child
+            container components. However, React Redux provides us with another way to
+            quickly create container components that work with the provider: the connect function.
+            
+            ===== React Redux connect
+            If we keep our UI components purely presentational, we can rely on React Redux to
+            create the container components. React Redux helps us create container components
+            through mapping the current state of the Redux store to the properties of a presenta‐
+            tional component. It also maps the store’s dispatch function to callback properties.
+            This is all accomplished through a higher-order function called connect.
+            
+            Let’s create the Colors container component using connect. The Colors container
+            connects the ColorList component to the store:
+            
+            import ColorList from './ColorList'
+            
+            const mapStateToProps = state =>
+            ({
+                colors: [...state.colors].sort(sortFunction(state.sort))
+            })
+
+            const mapDispatchToProps = dispatch =>
+            ({
+                onRemove(id) {
+                    dispatch(removeColor(id))
+                },
+            
+                onRate(id, rating) {
+                    dispatch(rateColor(id, rating))
+                }
+            })
+            
+            export const Colors = connect(
+                mapStateToProps,
+                mapDispatchToProps
+            )(ColorList)
+
+            connect is a higher-order function that returns a function that returns a component.
+            No, that’s not a typo or a tongue-twister: it’s functional JavaScript. connect expects
+            two arguments: mapStateToProps and mapDispatchToProps. Both are functions. It
+            returns a function that expects a presentational component, and wraps it with a container
+            that sends it data via props.
+
+
+=== Testing 
+The process of analyzing JavaScript code is called hinting or linting. "JSHint" and "JSLint"
+are the original tools used to analyze JavaScript and provide feedback about formatting.
+ESLint is the latest code linter that supports emerging JavaScript syntax.
+
+We can create an ESLint configuration by running eslint --init and answering
+some questions about our coding style:
+
+```
+$ eslint --init
+```
+
+===== Testing Redux 
+
+Jest - JavaScript Testing Framework.
+
+deepFreeze(state)
+deepFreeze(action)
+
+**deepFreeze will moniter the changes on the passed objects and will flag an error if any change is detected while execution of the Flow.
+
+
+
+==== Testing React Component 
+    
+    We are not running our tests in a browser; we are running them in the terminal with
+    Node.js. Node.js does not have the DOM API that comes standard with each browser.
+    Jest incorporates an npm package called jsdom that is used to simulate a browser
+    environment in Node.js, which is essential for testing React components.
+
+    "jsdom" 
+
+    ===== Enzyme
+    
+    ```
+    npm install enzyme react-addons-test-utils --save-dev
+    ```
+
+    Enzyme is a testing utility for React components designed at Airbnb. Enzyme
+    requires react-addons-test-utils, a set of tools that can be used to render and
+    interact with components during a test. Additionally, react-dom is required, but we’ll
+    assume that you already have react-dom installed.
+
+    Enzyme makes it easier to render a component and traverse the rendered output.
+    Enzyme is not a testing or assertion framework. It handles the task of rendering React
+    components for testing and provides the necessary tools for traversing child elements,
+    verifying props, verifying state, simulating events, and querying the DOM.
+
+    Enzyme has three main methods for rendering:
+        shallow -
+            shallow renders components one level deep for unit testing.
+        mount -
+            mount renders components using the browser DOM and is necessary when you
+            need to test the full component lifecycle and the properties or state of child elements.
+        render -
+            render is used to render static HTML markup with a component. With render,
+            you can verify that your component returns the appropriate HTML.
+
+        ```
+        import { shallow } from 'enzyme'
+        import Star from '../../../src/components/ui/Star'
+        describe("<Star /> UI Component", () => {
+
+            it("renders default star", () =>
+            expect(
+                shallow(<Star />)
+                    .find('div.star')
+                    .length
+                ).toBe(1)
+            )
+
+            it("renders selected stars", () =>
+            expect(
+                shallow(<Star selected={true} />)
+                    .find('div.selected.star')
+                    .length
+                ).toBe(1)
+            )
+        })
+
+        ```
+
+        **Jest.mock -> To Mock React Component 
+
+
+        ===== Code Coverage 
+        Jest ships with Istanbul, a JavaScript tool used to review your tests and to generate a
+        report that describes how many statements, branches, functions, and lines have been
+        covered.
+
+        To run Jest with code coverage, simply add the coverage flag when you run the jest
+        command:
+        
+        ```
+        jest --coverage
+        
+        ```
+
+=== React Router 
+
+    ```
+    npm install react-router-dom --save
+    ```
+
+    HashRoute - Client Side Routing  
+    BrowserRoute - Server Side Routing
+
+    
+    Different Pages of the site can be exported from a single file:
+    
+    export const Home = () =>
+        <section className="home">
+            <h1>[Home Page]</h1>
+        </section>
+    
+    export const About = () =>
+        <section className="events">
+            <h1>[About the Company]</h1>
+        </section>
+        
+    export const Events = () =>
+        <section className="events">
+            <h1>[Events Calendar]</h1>
+        </section>
+    
+    export const Products = () =>
+        <section className="products">
+            <h1>[Products Catalog]</h1>
+        </section>
+    
+    export const Contact = () =>
+        <section className="contact">
+            <h1>[Contact Us]</h1>
+        </section>
+    
+    When the application starts, instead of rendering a single App component, we will
+    render the HashRouter component:
+
+    
 
 
 
