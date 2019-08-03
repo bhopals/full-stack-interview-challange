@@ -1342,6 +1342,141 @@ FUNCTIONAL CONCEPTS:
                 If we keep our UI components purely presentational, we can rely on React Redux to
                 create the container components. React Redux helps us create container components
                 through mapping the current state of the Redux store to the properties of a presenta‐
+                tional component. It also maps the store’s dispatch function to callback properties.
+                This is all accomplished through a higher-order function called connect.
+                
+                Let’s create the Colors container component using connect. The Colors container
+                connects the ColorList component to the store:
+                
+                import ColorList from './ColorList'
+                
+                const mapStateToProps = state =>
+                ({
+                    colors: [...state.colors].sort(sortFunction(state.sort))
+                })
+
+                const mapDispatchToProps = dispatch =>
+                ({
+                    onRemove(id) {
+                        dispatch(removeColor(id))
+                    },
+                
+                    onRate(id, rating) {
+                        dispatch(rateColor(id, rating))
+                    }
+                })
+                
+                export const Colors = connect(
+                    mapStateToProps,
+                    mapDispatchToProps
+                )(ColorList)
+
+                connect is a higher-order function that returns a function that returns a component.
+                No, that’s not a typo or a tongue-twister: it’s functional JavaScript. connect expects
+                two arguments: mapStateToProps and mapDispatchToProps. Both are functions. It
+                returns a function that expects a presentational component, and wraps it with a container
+                that sends it data via props.
+
+
+    === Testing 
+    The process of analyzing JavaScript code is called hinting or linting. "JSHint" and "JSLint"
+    are the original tools used to analyze JavaScript and provide feedback about formatting.
+    ESLint is the latest code linter that supports emerging JavaScript syntax.
+
+    We can create an ESLint configuration by running eslint --init and answering
+    some questions about our coding style:
+
+    ```
+    $ eslint --init
+    ```
+
+    ===== Testing Redux 
+
+    Jest - JavaScript Testing Framework.
+
+    deepFreeze(state)
+    deepFreeze(action)
+
+    **deepFreeze will moniter the changes on the passed objects and will flag an error if any change is detected while execution of the Flow.
+
+
+
+    ==== Testing React Component 
+        
+        We are not running our tests in a browser; we are running them in the terminal with
+        Node.js. Node.js does not have the DOM API that comes standard with each browser.
+        Jest incorporates an npm package called jsdom that is used to simulate a browser
+        environment in Node.js, which is essential for testing React components.
+
+        "jsdom" 
+
+        ===== Enzyme
+        
+        ```
+        npm install enzyme react-addons-test-utils --save-dev
+        ```
+
+        Enzyme is a testing utility for React components designed at Airbnb. Enzyme
+        requires react-addons-test-utils, a set of tools that can be used to render and
+        interact with components during a test. Additionally, react-dom is required, but we’ll
+        assume that you already have react-dom installed.
+
+        Enzyme makes it easier to render a component and traverse the rendered output.
+        Enzyme is not a testing or assertion framework. It handles the task of rendering React
+        components for testing and provides the necessary tools for traversing child elements,
+        verifying props, verifying state, simulating events, and querying the DOM.
+
+        Enzyme has three main methods for rendering:
+            shallow -
+                shallow renders components one level deep for unit testing.
+            mount -
+                mount renders components using the browser DOM and is necessary when you
+                need to test the full component lifecycle and the properties or state of child elements.
+            render -
+                render is used to render static HTML markup with a component. With render,
+                you can verify that your component returns the appropriate HTML.
+
+            ```
+            import { shallow } from 'enzyme'
+            import Star from '../../../src/components/ui/Star'
+            describe("<Star /> UI Component", () => {
+
+                it("renders default star", () =>
+                expect(
+                    shallow(<Star />)
+                        .find('div.star')
+                        .length
+                    ).toBe(1)
+                )
+
+                it("renders selected stars", () =>
+                expect(
+                    shallow(<Star selected={true} />)
+                        .find('div.selected.star')
+                        .length
+                    ).toBe(1)
+                )
+            })
+
+            ```
+
+            **Jest.mock -> To Mock React Component 
+
+
+            ===== Code Coverage 
+            Jest ships with Istanbul, a JavaScript tool used to review your tests and to generate a
+            report that describes how many statements, branches, functions, and lines have been
+            covered.
+
+            To run Jest with code coverage, simply add the coverage flag when you run the jest
+            command:
+            
+            ```
+            jest --coverage
+            
+            ```
+
+
 
 
 
