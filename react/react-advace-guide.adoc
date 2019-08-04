@@ -15,7 +15,7 @@
 
 
 
-    ====  Using dynamic import: Import specific files in the project 
+====  Using dynamic import: Import specific files in the project 
 
             BEFORE :
             import { add } from './math';
@@ -26,9 +26,9 @@
                 console.log(math.add(16, 26));
             }); 
 
-    ==== Using React.lazy
+==== Using React.lazy
 
-            The React.lazy function lets you render a dynamic import as a regular component.
+The React.lazy function lets you render a dynamic import as a regular component.
 
         BEFORE:
         import OtherComponent from './OtherComponent';
@@ -52,13 +52,12 @@
             );
         }
 
-        This will automatically load the bundle containing the OtherComponent when this component gets rendered.
+This will automatically load the bundle containing the OtherComponent when this component gets rendered.
+
+React.lazy takes a function that must call a dynamic import(). This must return a Promise which resolves to a module with a default export containing a React component.
 
 
-        React.lazy takes a function that must call a dynamic import(). This must return a Promise which resolves to a module with a default export containing a React component.
-
-
-    ====  Suspense : If the module containing the OtherComponent is not yet loaded by the time MyComponent renders, 
+====  Suspense : If the module containing the OtherComponent is not yet loaded by the time MyComponent renders, 
         we must show some fallback content while we’re waiting for it to load - such as a loading indicator. 
         This is done using the Suspense component.
 
@@ -66,17 +65,17 @@
 
         function MyComponent() {
         return (
-            <div>
-            <Suspense fallback={<div>Loading...</div>}>
-                <OtherComponent />
-            </Suspense>
-            </div>
-        );
+                <div>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <OtherComponent />
+                    </Suspense>
+                </div>
+            );
         }
 
 
 
-    ====  Error boundaries : If the other module fails to load (for example, due to network failure), 
+====  Error boundaries : If the other module fails to load (for example, due to network failure), 
         it will trigger an error. You can handle these errors to show a nice user experience and manage
         recovery with Error Boundaries. Once you’ve created your Error Boundary, you can use it anywhere 
         above your lazy components to display an error state when there’s a network error.
@@ -113,7 +112,8 @@
 
 
 ==== Named Exports : React.lazy currently only supports default exports. If the module you want to import uses 
-        named exports, you can create an intermediate module that reexports it as the default. This ensures that tree shaking keeps working and that you don’t pull in unused components.
+        named exports, you can create an intermediate module that reexports it as the default. This ensures that
+        tree shaking keeps working and that you don’t pull in unused components.
 
         // ManyComponents.js
         export const MyComponent = /* ... */;
