@@ -1585,6 +1585,28 @@ Let’s modify the home page to contain a navigation menu with a link for each r
 
 
 
+=== React and The Server 
+Rendering react application on Server. 
+
+==== Isomorphism versus Universalism
+The terms isomorphic and universal are often used to describe applications that work
+on both the client and the server. Although these terms are used interchangeably to
+describe the same application, there is a subtle difference between them that is worth
+investigating. Isomorphic applications are applications that can be rendered on multiple platforms.
+Universal code means that the exact same code can run in multiple environments (Server or Browser).
+
+OR 
+
+Isomorphism is the functional aspect of seamlessly switching between client- and server-side rendering without 
+losing state. Universal is a term used to emphasize the fact that a particular piece of JavaScript code is able 
+to run in multiple environments.
+
+
+===== Server Rendering React
+Using the ReactDOM.renderToString method allows us to render UI on the server.
+
+
+
 === REFERENCE :
 
     BOOK NAME : Learning Reacts - Alex Banks and Leo Procello
