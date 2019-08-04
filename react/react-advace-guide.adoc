@@ -128,3 +128,68 @@ tree shaking keeps working and that you don’t pull in unused components.
         // MyApp.js
         import React, { lazy } from 'react';
         const MyComponent = lazy(() => import("./MyComponent.js"));
+
+
+
+
+
+=== Context
+Context provides a way to pass data through the component tree without having to pass props down 
+manually at every level.
+
+Context is designed to share data that can be considered “global” for a tree of React components, such as the current 
+authenticated user, theme, or preferred language.
+
+====    React.createContext
+
+    const MyContext = React.createContext(defaultValue);  //To Set the default Value 
+
+Creates a Context object. When React renders a component that subscribes to this Context object 
+it will read the current context value from the closest matching Provider above it in the tree.
+
+
+====    Context.Provider
+    
+    <MyContext.Provider value={/* some value */}>
+
+Every Context object comes with a Provider React component that allows consuming components 
+to subscribe to context changes.
+
+====    Class.contextType
+
+    class MyClass extends React.Component {
+        componentDidMount() {
+            let value = this.context;
+            /* perform a side-effect at mount using the value of MyContext */
+        }
+        componentDidUpdate() {
+            let value = this.context;
+            /* ... */
+        }
+        componentWillUnmount() {
+            let value = this.context;
+            /* ... */
+        }
+        render() {
+            let value = this.context;
+            /* render something based on the value of MyContext */
+        }
+    }
+
+    MyClass.contextType = MyContext;
+
+
+The contextType property on a class can be assigned a Context object created by React.createContext(). 
+This lets you consume the nearest current value of that Context type using this.context. You can reference
+ this in any of the lifecycle methods including the render function.
+
+ ====   Context.Consumer
+
+    <MyContext.Consumer>
+        {value => /* render something based on the context value */}
+    </MyContext.Consumer>
+
+A React component that subscribes to context changes. This lets you subscribe to a context 
+within a function component.
+
+REFERENCE : https://reactjs.org/docs/context.html
