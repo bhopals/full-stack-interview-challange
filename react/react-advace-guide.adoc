@@ -291,5 +291,10 @@ If you need to catch an error inside event handler, use the regular JavaScript t
         }
 
 
+=== Forwarding Refs
+Ref forwarding is a technique for automatically passing a ref through a component to one of its children. 
+This is typically not necessary for most components in the application. However, it can be useful for some
+kinds of components, especially in reusable component libraries. 
+
 
 REFERENCE : https://reactjs.org/docs/context.html
