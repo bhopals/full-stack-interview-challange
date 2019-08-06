@@ -1585,6 +1585,51 @@ Let’s modify the home page to contain a navigation menu with a link for each r
 
 
 
+===== React Routing Async
+		
+		import React from 'react';
+		import { Route, IndexRoute } from 'react-router';
+		import Index from './containers/home';
+		import App from './components/app';
+		//for single Component lazy load use this
+		const ContactComponent = () => {
+			return {
+				getComponent: (location, callback)=> {
+					require.ensure([], require => {
+						callback(null, require('./components/Contact')["default"]);
+					}, 'Contact');
+				}
+			}
+		};
+
+		//for multiple componnets
+		const groupedComponents = (pageName) => {
+			return {
+				getComponent: (location, callback)=> {
+						require.ensure([], require => {
+						switch(pageName){
+							case 'about' :
+							callback(null, require( "./components/about" )["default"]);
+							break ;
+							case 'tos' :
+							callback(null, require( "./components/tos" )["default"]);
+							break ;
+						}
+					}, "groupedComponents");
+				}
+			}
+		};
+
+		export default(
+			<Route path="/" component={App}>
+			<IndexRoute component={Index} />
+			<Route path="/contact" {...ContactComponent()} />
+			<Route path="/about" {...groupedComponents('about')} />
+			<Route path="/tos" {...groupedComponents('tos')} />
+			</Route>
+		);
+		
+
 === React and The Server 
 Rendering react application on Server. 
 
