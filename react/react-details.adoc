@@ -1690,6 +1690,35 @@ Case 3: Use ES6 anonymous function
         }
     }
 
+For marking Ajax Request, we can use  axios, SuperAgent, or even plain Javascript).
+
+
+=== Performance measurement with ReactJS
+You can't improve something you can't measure. To improve the performance of React components, you should
+be able to measure it. ReactJS provides with addon tools to measure performance. 
+Import the react-addons-perf module to measure the performance
+
+    import Perf from 'react-addons-perf' // ES6
+    var Perf = require('react-addons-perf') // ES5 with npm
+    var Perf = React.addons.Perf; // ES5 with react-with-addons.js
+
+You can use below methods from the imported Perf module:
+
+    Perf.printInclusive()
+    Perf.printExclusive()
+    Perf.printWasted()
+    Perf.printOperations()
+    Perf.printDOM()
+
+
+
+ === Redux
+Redux is an application state manager for JavaScript applications, and keeps with the core
+principals of flux-architecture by having a unidirectional data flow in your application.
+How it differs from traditional Flux though, is that instead of multiple stores, you have one
+global application state. The state is calculated and returned in the reducer. The state
+management is held else where.
+
 
 === REFERENCE :
 
