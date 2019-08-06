@@ -1,0 +1,25 @@
+
+=== JavaScript
+JavaScript is a multi-paradigm language, supporting imperative/procedural programming 
+along with OOP (Object-Oriented Programming) and functional programming. 
+JavaScript supports OOP with prototypal inheritance.
+
+
+
+=== What is the difference between classical inheritance and prototypal inheritance?
+
+===== Class Inheritance
+Instances inherit from classes (like a blueprint — a description of the class), 
+and create sub-class relationships: hierarchical class taxonomies. Instances are typically instantiated 
+via constructor functions with the `new` keyword. Class inheritance may or may not use the
+ `class` keyword from ES6.
+
+===== Prototypal inheritance
+Instances inherit directly from other objects. Instances are typically instantiated via factory 
+functions or `Object.create()`. Instances may be composed from many different objects, allowing 
+for easy selective inheritance.
+
+
+=== REFERENCE :
+https://medium.com/javascript-scene/10-interview-questions-every-javascript-developer-should-know-6fa6bdf5ad95
+
