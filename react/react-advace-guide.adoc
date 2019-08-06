@@ -54,6 +54,8 @@ The React.lazy function lets you render a dynamic import as a regular component.
 
 This will automatically load the bundle containing the OtherComponent when this component gets rendered.
 
+** Loadable Component - https://github.com/smooth-code/loadable-components
+
 React.lazy takes a function that must call a dynamic import(). This must return a Promise which resolves to a module with a default export containing a React component.
 
 
@@ -296,5 +298,148 @@ Ref forwarding is a technique for automatically passing a ref through a componen
 This is typically not necessary for most components in the application. However, it can be useful for some
 kinds of components, especially in reusable component libraries. 
 
+
+=== Fragments
+A common pattern in React is for a component to return multiple elements. 
+Fragments let you group a list of children without adding extra nodes to the DOM.
+
+        render() {
+            return (
+                <React.Fragment>
+                <ChildA />
+                <ChildB />
+                <ChildC />
+                </React.Fragment>
+            );
+        }
+
+OR 
+
+        render() {
+            return (
+                <>
+                <ChildA />
+                <ChildB />
+                <ChildC />
+                </>
+            );
+        }
+
+
+
+=== Ref and DOM Nodes 
+
+Refs provide a way to access DOM nodes or React elements created in the render method.
+
+=== Creating Refs
+Refs are created using React.createRef() and attached to React elements via the ref attribute. 
+Refs are commonly assigned to an instance property when a component is constructed so they can be referenced 
+throughout the component.
+
+    class MyComponent extends React.Component {
+        constructor(props) {
+            super(props);
+            this.myRef = React.createRef();
+        }
+        render() {
+            return <div ref={this.myRef} />;
+        }
+    }
+
+
+==== Accessing Refs
+When a ref is passed to an element in render, a reference to the node becomes accessible at the 
+current attribute of the ref.
+
+    const node = this.myRef.current;
+
+
+==== Adding a Ref to a DOM Element
+This code uses a ref to store a reference to a DOM node:
+
+    class CustomTextInput extends React.Component {
+        constructor(props) {
+            super(props);
+            // create a ref to store the textInput DOM element
+            this.textInput = React.createRef();
+            this.focusTextInput = this.focusTextInput.bind(this);
+        }
+
+        focusTextInput() {
+            // Explicitly focus the text input using the raw DOM API
+            // Note: we're accessing "current" to get the DOM node
+            this.textInput.current.focus();
+        }
+
+        render() {
+            // tell React that we want to associate the <input> ref
+            // with the `textInput` that we created in the constructor
+            return (
+            <div>
+                <input
+                type="text"
+                ref={this.textInput} />
+
+                <input
+                type="button"
+                value="Focus the text input"
+                onClick={this.focusTextInput}
+                />
+            </div>
+            );
+        }
+    }
+
+
+*** You may not use the ref attribute on function components because they don’t have instances.
+
+
+
+
+=== Strict Mode
+StrictMode is a tool for highlighting potential problems in an application. Like Fragment, StrictMode 
+does not render any visible UI. It activates additional checks and warnings for its descendants.
+
+You can enable strict mode for any part of your application. For example:
+
+    import React from 'react';
+
+    function ExampleApplication() {
+        return (
+            <div>
+            <Header />
+            <React.StrictMode>
+                <div>
+                <ComponentOne />
+                <ComponentTwo />
+                </div>
+            </React.StrictMode>
+            <Footer />
+            </div>
+        );
+    }
+
+
+=== Typechecking With PropTypes
+
+Valid Prop Types:
+
+     optionalArray: PropTypes.array,
+    optionalBool: PropTypes.bool,
+    optionalFunc: PropTypes.func,
+    optionalNumber: PropTypes.number,
+    optionalObject: PropTypes.object,
+    optionalString: PropTypes.string,
+    optionalSymbol: PropTypes.symbol
+
+
+=== Uncontrolled Components
+In most cases, we recommend using controlled components to implement forms. In a controlled component,
+form data is handled by a React component. The alternative is uncontrolled components, 
+where form data is handled by the DOM itself.
+
+=== Controlled Components
+HTML form elements work a little bit differently from other DOM 
+elements in React, because form elements naturally keep some internal state.
 
 REFERENCE : https://reactjs.org/docs/context.html
