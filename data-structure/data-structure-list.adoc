@@ -1,16 +1,76 @@
 
 === Array 
-Array is a data structure used to store homogeneous elements at contiguous locations. Size of an array must be provided before storing data.
-An array is a basic data structure to store a collection of elements sequentially. But elements can be accessed randomly since each element in the array can be identified by an array index.
+Array is a data structure used to store homogeneous elements at contiguous locations. 
+Size of an array must be provided before storing data.
+An array is a basic data structure to store a collection of elements sequentially. 
+But elements can be accessed randomly since each element in the array can be identified by an array index.
+
+
+==== Array Coding Interview Questions
+1. How do you find the missing number in a given integer array of 1 to 100?  
+    N*(N+1)/2 - This formula will give you the expected count of the numbers and then you can deduct all the passed 
+    array to find the missing value - https://www.geeksforgeeks.org/find-the-missing-number/
+
+2. How do you find the duplicate number on a given integer array? 
+
+3. How do you find the largest and smallest number in an unsorted integer array? 
+
+    int largest = Integer.MIN_VALUE;
+		int smallest = Integer.MAX_VALUE;
+		
+		for (int number : numbers) {
+			if (number > largest) {
+				largest = number;
+			} else if (number < smallest) {
+				smallest = number;
+			}
+		}
+		
+    
+4.  How do you find all pairs of an integer array whose sum is equal to a given number? 
+        HashSet<Integer> s = new HashSet<Integer>(); 
+        for (int i = 0; i < arr.length; ++i) { 
+            int temp = sum - arr[i]; 
+  
+            // checking for condition 
+            if (s.contains(temp)) { 
+                System.out.println("Pair with given sum " + sum + " is (" + arr[i] + ", " + temp + ")"); 
+            } 
+            s.add(arr[i]); 
+
+5.  How do you find duplicate numbers in an array if it contains multiple duplicates? 
+
+
+
+6.  How are duplicates removed from a given array in Java? 
+
+
+7.  How is an integer array sorted in place using the quicksort algorithm? 
+
+
+8.  How do you remove duplicates from an array in place? 
+
+
+9.  How do you reverse an array in place in Java? 
+
+
+10. How are duplicates removed from an array without using any library? 
+
+
+
 
 === Linked List
-A linked list is a linear data structure (like arrays) where each element is a separate object. Each element (that is node) of a list is comprising of two items – the data and a reference to the next node.
+A linked list is a linear data structure (like arrays) where each element is a separate object.
+ Each element (that is node) of a list is comprising of two items – the data and a reference to the next node.
 Types of Linked List : Singly Linked list, Doubly Linked List, and Circular Linked List 
 
 
 
 === Stack
-A stack or LIFO (last in, first out) is an abstract data type that serves as a collection of elements, with two principal operations: push, which adds an element to the collection, and pop, which removes the last element that was added. In stack both the operations of push and pop takes place at the same end that is top of the stack. It can be implemented by using both array and linked list.
+A stack or LIFO (last in, first out) is an abstract data type that serves as a collection of elements,
+ with two principal operations: push, which adds an element to the collection, and pop, which removes the 
+ last element that was added. In stack both the operations of push and pop takes place at the same end that
+ is top of the stack. It can be implemented by using both array and linked list.
 
 
 === Queue
