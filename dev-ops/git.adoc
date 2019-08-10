@@ -1,0 +1,63 @@
+
+=== Git
+
+    - Git is a Distributed Version Control System (DVCS) - Third generation version control system.
+      
+      Git is a free and open source distributed version control system designed to handle everything 
+      from small to very large projects with speed and efficiency.   
+
+    - Git uses ‘C’ language. GIT is fast, and ‘C’ language 
+        makes this possible by reducing the overhead of run times associated with high level languages.
+
+    - To list the files that has changed in any commit:
+
+        git diff-tree –no-commit-id –name-only -r {hash}
+
+    - Git hash or SHA consist of following parameters:
+ 
+        sha1(
+            commit message  => "second commit"
+            committer        => Christoph Burgdorf <christoph.burgdorf@gmail.com>
+            commit date     => Sat Nov 8 11:13:49 2014 +0100
+            author          => Christoph Burgdorf <christoph.burgdorf@gmail.com>
+            author date     => Sat Nov 8 11:13:49 2014 +0100
+            tree            => 9c435a86e664be00db0d973e981425e4a3ef3f8d
+            parents         => [0d973e9c4353ef3f8ddb98a86e664be001425e4a]
+        )
+
+
+    -   HEAD file is a symbolic reference to the branch you’re currently on.
+
+    -   Git Tag : The tag object is very much like a commit object — it contains a tagger, a date, 
+        a message, and a pointer. The main difference is that a tag object generally points to a commit 
+        rather than a tree. It’s like a branch reference, but it never moves — it always points to the 
+        same commit but gives it a friendlier name.
+
+        There are two types of tags: annotated and lightweight. 
+
+        Annotated tags are those tags meant to be published for other developers, most probably new 
+        versions (which should also be signed). Not only to see who tagged and when it was tagged, 
+        but also why (usually a changelog).
+        
+        Lightweight are more appropriate for private use, that means tagging special commits to be
+         able to find them again. May it be to review them, check them out to test something or whatever
+
+
+        Annotated tags store extra metadata such as author name, release notes, tag-message, and date as 
+        full objects in the Git database. All this data is important for a public release of your project.
+
+            git tag -a v1.0.0
+
+        Lightweight tags are the simplest way to add a tag to your git repository because they store only 
+        the hash of the commit they refer to. They can act like "bookmarks" to a commit, as such, they are great
+        for private use.
+
+            git tag v1.0.0
+
+
+==== REFERENCE 
+
+    -   https://www.toptal.com/git/interview-questions
+    -   https://career.guru99.com/top-40-interview-questions-on-git/
+    -   https://www.edureka.co/blog/interview-questions/git-interview-questions/
+    -   https://www.codementor.io/alexershov/11-painful-git-interview-questions-and-answers-you-will-cry-on-lybbrqhvs
