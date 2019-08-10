@@ -55,6 +55,37 @@
             git tag v1.0.0
 
 
+    -   How do you squash last N commits into a single commit?
+
+        If you want to write the new commit message from scratch use the following command
+            git reset –soft HEAD~N &&
+            git commit
+            
+        If you want to start editing the new commit message with a concatenation of the existing commit messages then you need to extract those messages and pass them to Git commit for that I will use
+            git reset –soft HEAD~N &&
+            git commit –edit -m”$(git log –format=%B –reverse .HEAD@{N})”
+
+    -   Git bisect is used to find the commit that introduced a bug by using binary search. Command for Git bisect is
+            
+            git bisect <subcommand> <options>
+
+        This command uses a binary search algorithm to find which commit in your project’s history introduced a bug. 
+        You use it by first telling it a "bad" commit that is known to contain the bug, and a "good" commit that 
+        is known to be before the bug was introduced. Then git bisect picks a commit between those two endpoints 
+        and asks you whether the selected commit is "good" or "bad". It continues narrowing down the range until 
+        it finds the exact commit that introduced the change.
+
+            $ git bisect start --term-new fixed --term-old broken
+            $ git bisect old <rev>                 # Current version is bad
+            $ git bisect new <rev>    # v2.6.13-rc2 is known to be good
+
+
+        Once you have specified at least one bad and one good commit, git bisect selects a commit in the middle of that range of history, checks it out, and outputs something similar to the following:
+
+            Bisecting: 675 revisions left to test after this (roughly 10 steps)
+
+
+
 ==== REFERENCE 
 
     -   https://www.toptal.com/git/interview-questions
