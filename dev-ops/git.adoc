@@ -65,6 +65,12 @@
             git reset –soft HEAD~N &&
             git commit –edit -m”$(git log –format=%B –reverse .HEAD@{N})”
 
+        OR 
+
+            git rebase -i HEAD~{N}
+
+
+
     -   Git bisect is used to find the commit that introduced a bug by using binary search. Command for Git bisect is
             
             git bisect <subcommand> <options>
@@ -80,15 +86,94 @@
             $ git bisect new <rev>    # v2.6.13-rc2 is known to be good
 
 
-        Once you have specified at least one bad and one good commit, git bisect selects a commit in the middle of that range of history, checks it out, and outputs something similar to the following:
+        Once you have specified at least one bad and one good commit, git bisect selects a commit in the middle of
+         that range of history, checks it out, and outputs something similar to the following:
 
             Bisecting: 675 revisions left to test after this (roughly 10 steps)
+
+        Once that is done, git will checkout one particular version/commit on your local, and you need to test and tell
+        the git that whether it is good or bad commit. By doing this git will narrow down the search and find that particular bad 
+        commit.(Using binary search)
+
+
+    -   Git FORK/CLONE/BRANCH 
+
+        A fork is a remote, server-side copy of a repository, distinct from the original. 
+        A fork isn't a Git concept really, it's more a political/social idea.
+
+        A clone is not a fork; a clone is a local copy of some remote repository. When you clone,
+        you are actually copying the entire source repository, including all the history and branches.
+        
+        A branch is a mechanism to handle the changes within a single repository in order to
+         eventually merge them with the rest of code. A branch is something that is within a repository. 
+         Conceptually, it represents a thread of development.
+
+
+    -   what is difference between release and master branches?
+
+        The difference is in goals and process. A release branch is usually created when you are preparing 
+        for an upcoming release. When all your feature branches which are supposed to be released have already 
+        been merged to develop branch you create release branch off develop branch and commit only bug fixes or
+        some configuration changes to it. In other words you try to make it as stable as it's possible.
+        When hopefully release branch is stable enough you merge it back to develop and  master branches. 
+        The purpose of master branch is to always have the latest stable version of the project which can 
+        be deployed to production environment. You never commit directly to master branch, only merge to it 
+        from either release or hotfix branches. It is also possible to configure CI/CD tools to deploy to
+        production on any update in master branch.
+
+
+        Once all the features you want to have in your release are in develop, instead of "locking" 
+        develop to any new commit, you create the relase branch that will contains all the feature 
+        expected in your next release (and not in master since your whole release should be tested 
+        and would probably have some bugfix...).
+
+        -   In this branch you have only bug fixes, documentation etc... but no new feature
+        -   your develop branch is not locked up, so new features for the next release can still be commited/push 
+            on develop and tested.
+        -   release branch is perfect to be deployed on staging/pre-prod environment and let QA test your release.
+        -   Once release branch is stable, you can merge it into master and go to prod. Master should always 
+            be stable and steady (if not you make hotfix).
+        
+        After a release, release branch will be deleted, but master will be staying stable.
+
+
+
+    ** A fast-forward merge can occur when there is a linear path between branches
+    that we want to merge. If a master has not diverged, instead of creating a new commit,
+    it will just point master to the latest commit of the hotfix branch. All commits from
+    hotfix branch are now available in master. 
+    However, a fast-forward merge is not possible if the branches have diverged. 
+    In this case, you want to use a Three-way merge.
+
+
+    -   GIT Merge/Rebase 
+
+        -   When you do rebase a feature branch onto master, you move the base of the feature branch to
+            master branch’s ending point.
+
+        -   Merging takes the contents of the feature branch and integrates it with the master branch. 
+            As a result, only the master branch is changed. The feature branch history remains same.
+        
+        -   Merging adds a new commit to your history.
+
+        -   Merge preserves history whereas rebase rewrites it.
+
+        -   Rebasing is better to streamline a complex history, you are able to change the commit history
+            by interactive rebase. You can remove undesired commits, squash two or more commits into one or
+            edit the commit message.
+
+        -   Rebase will present conflicts one commit at a time whereas merge will present them all at once. 
+            It is better and much easier to handle the conflicts but you shouldn’t forget that reverting a
+            rebase is much more difficult than reverting a merge if there are many conflicts. 
+
+                git rebase -i HEAD~3  // will let you to modify last three commits
 
 
 
 ==== REFERENCE 
 
     -   https://www.toptal.com/git/interview-questions
+    -   https://www.knowledgehut.com/interview-questions/git
     -   https://career.guru99.com/top-40-interview-questions-on-git/
     -   https://www.edureka.co/blog/interview-questions/git-interview-questions/
     -   https://www.codementor.io/alexershov/11-painful-git-interview-questions-and-answers-you-will-cry-on-lybbrqhvs
