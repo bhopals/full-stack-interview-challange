@@ -1,15 +1,16 @@
 
-=== Git 
- - Git is a Distributed Version Control System (DVCS) - Third generation version control system.
+=== Git
 
-- Git uses ‘C’ language. GIT is fast, and ‘C’ language 
-  makes this possible by reducing the overhead of run times associated with high level languages.
+    - Git is a Distributed Version Control System (DVCS) - Third generation version control system.
 
-- To list the files that has changed in any commit:
+    - Git uses ‘C’ language. GIT is fast, and ‘C’ language 
+        makes this possible by reducing the overhead of run times associated with high level languages.
 
-    git diff-tree –no-commit-id –name-only -r {hash}
+    - To list the files that has changed in any commit:
 
-Git hash or SHA consist of following parameters:
+        git diff-tree –no-commit-id –name-only -r {hash}
+
+    - Git hash or SHA consist of following parameters:
         sha1(
             meta data
                 commit message
