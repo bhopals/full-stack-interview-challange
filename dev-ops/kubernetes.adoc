@@ -66,6 +66,114 @@ with other containers and little or no access between them.
 =====   Kubernetes -
 the most popular open-source container orchestrator available today. 
 
+Container Orchestartion
+
+Orchestration Features:
+    - Provision Hosts
+    - Instantiate containers on a host 
+    - Restart Failing containers 
+    - Expose containers as services outside the cluster
+
+
+
+DEFINATION - Kubernetes is an open-source platform designed to automate the deployment, scaling, 
+and operation of containers.
+
+GOAL - The real goal of the platform is to foster an ecosystem of
+components and tools that relieve the burden of running applications in public and private clouds.
+
+Kubernetes, often called K8S or Hubernetes, is an open-source platform that started at Google.
+
+Kubernetes and Docker :
+Kubernetes is a container Platform. You can use Docker Containers to develop and build applications and then use
+Kubernetes to run these applications on your infrastructure.
+
+
+===== Kubernetes Features 
+
+    - Multi-Host Container Schedule
+        - Done by the kube-scheduler
+        - Assigns pods to nodes at runtime
+        - Check resources, quality of service, policies, and user specifications before scheduling
+
+    - Scalability and avalability 
+        -   5000 nodes clusters 
+
+    - Flixiblity and modularity 
+        - Service discovery 
+
+    - Registration and discovery (Service discovery)
+    - Persistant Storage 
+    - Application Upgrades and maintanence 
+    - Logging and Monitering 
+    - Secret Management 
+
+
+    Major Players in Container Orchestartion landscape today are:
+        - Kubernetes
+        - Docker Swarm 
+        - Rancher 
+        - Mesos 
+
+    Also, some cloud specific technologies 
+        - Amazon EC2 Container 
+        - Google cloud 
+
+
+
+===== Docker Swarm 
+    -   Docker Swarm is responsible for clustering and scheduling containers across hosts. 
+    -   It's a simpler architecture when compared to Kubernetes and Mesos. 
+    -   It is written in golang and it's a lightweight, declarative language. 
+    -   It's easy to get started, setup and understand. 
+    -   The typical users of Docker Swarm are smaller teams, like startups and medium-size companies. 
+    -   And I've only seen Swarm used in brand new greenfield projects. Which are driven by teams that are mostly
+        developers who need to deploy new products. 
+     
+
+*Greenfield Projects 
+*Brownfield Projects 
+
+
+===== Mesos 
+    -   Mesos on the other hand is written in C++, with APIs in Java, Python, and C++. 
+    -   It's the oldest tool of the bunch, but this also means that it's the most stable.
+    -   Mesos has a distributed kernel where many machines end up acting like one logical entity. 
+    -   The Marathon framework can be added to Mesos to schedule and execute tasks. And finally, 
+    -   Mesos has a more complex architecture than Docker Swarm. The typical users of Mesos are 
+        larger enterprises that require lots of compute, or jobs/task-oriented workloads. 
+    -   Mesos is often used by companies that have to perform big data jobs. I've also seen 
+    -   Mesos being driven more by developers rather than operations, but you require an 
+        operations team to manage the tool. 
+ 
+ ===== Rancher 
+    -   Rancher is a full stack container management platform.
+    -   Initially it used to use a custom cluster orchestrator called cattle 
+        but now it suppers Kubernetes and Docker Swarm. 
+    -   It was an early player in the Docker ecosystem and had orchestration concepts that were way before 
+        its time and way before they were a hot topic. It has a great user interface
+        and API to interact with clusters and provides enterprise support for its tooling. 
+    -   One of the other benefits of Rancher is that it supports organizations and teams out of box. 
+        The typical Rancher users are smaller teams, think startups or medium-sized companies. 
+        And most of the Rancher users I've seen are developer-driven teams who need to deploy products quickly.
+        Or they're dev-ops teams that need to manage an agile infrastructure.
+        
+        This chart plots the number of hosts and containers versus the size of the development team
+  
+             ^                              Kubernetes
+   Size      |                              Mesos 
+    Of       |               Docker Swarm 
+    Team     |            Rancher 
+             |        Nomad
+             ------------------------------------------------------------->
+                Numbers of Hosts/Containers 
+    
+
+
+
+
+
+
 
 
 ==== REFERENCE
