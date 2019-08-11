@@ -93,16 +93,24 @@ Its a type of sorting, best used when the data is small. i.e. the list of elemen
 
 
 === Selection Sort 
+
+Always pick the 0th index and make it largest and then iterate till the end to match if any other largest element present.
+If so then make set the largest to that value.
+
+
+
+
+Once the iteration is over swap the largest value with the last item of the unsorted array.
+
 The selection sort algorithm sorts an array by repeatedly finding
 the minimum element (considering ascending order) from unsorted part 
-and putting it at the beginning. The algorithm maintains two subarrays in a given array.
-
-1) The subarray which is already sorted.
-2) Remaining subarray which is unsorted.
+and putting it at the beginning.
 
 In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray.
 
 
+- Less swaping then bubble sort. As we saw the swapping was performed only at the end of each iteration.
+- Unstable Algorithm 
 
 Time Complexity: O(n2) as there are two nested loops.
 
@@ -158,6 +166,63 @@ In Place : Yes, it does not require extra space.
 
 
 
+
+=== Insertion Sort 
+
+
+==== Usecase 
+
+When to use:
+    
+    Only a few items
+    Items are mostly sorted already
+
+
+
+==== Example 
+
+    package com.algoritms.sorting;
+
+    import java.util.Arrays;
+
+    public class InsertionSort {
+
+        public static void main(String[] args) {
+
+            int array[] = {34, 3, 4, 12,1,67, 5};
+            
+            for(int unsortedIndex=1; unsortedIndex<array.length; unsortedIndex++) {
+                
+                int i;
+                
+                int element = array[unsortedIndex];
+                
+                for(i=unsortedIndex; i > 0 && array[i-1] > element; i--) {
+                    array[i] = array[i-1];
+                }
+                array[i] = element;
+            }
+            
+            System.out.println(Arrays.toString(array));
+        }
+
+    }
+
+
+
+==== Between insertion sort and selection sort, when to use which?
+
+
+
+Usually, insertion sort will perform less comparisons than selection sort, 
+depending on the degree of "sortedness" of the array. While selection sort must 
+scan the remaining parts of the array when placing an element, insertion sort only 
+scans as many elements as necessary. That means that when the array is already sorted or 
+almost sorted, insertion sort performs in O(n) time.
+
+One advantage of selection sort over insertion sort, is that the number of writes (swaps) 
+is in O(n), while in insertion sort it is in O(n^2). This may be important if you are sorting 
+on Flash memory, for example, because writes reduce the lifespan of Flash memory.
 
 === REFERENCE
 
