@@ -168,7 +168,15 @@ In Place : Yes, it does not require extra space.
 
 
 === Insertion Sort 
+Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands.
 
+Start from index = 1, and pick up elements and match with already sorted array (The front one).
+If its less then swap with one position till you either hit start of the array or you find large element exists.
+
+/ Sort an arr[] of size n
+insertionSort(arr, n)
+Loop from i = 1 to n-1.
+……a) Pick element arr[i] and insert it into sorted sequence arr[0…i-1]
 
 ==== Usecase 
 
@@ -178,6 +186,31 @@ When to use:
     Items are mostly sorted already
 
 
+
+Time Complexity: O(n*2)
+
+Auxiliary Space: O(1)
+
+Boundary Cases: Insertion sort takes maximum time to sort if elements are sorted in reverse order.
+ And it takes minimum time (Order of n) when elements are already sorted.
+
+Algorithmic Paradigm: Incremental Approach
+
+Sorting In Place: Yes
+
+Stable: Yes
+
+Online: Yes
+
+Uses: Insertion sort is used when number of elements is small. It can also be useful when input array is 
+almost sorted, only few elements are misplaced in complete big array.
+
+What is Binary Insertion Sort?
+We can use binary search to reduce the number of comparisons in normal insertion sort. Binary Insertion
+ Sort uses binary search to find the proper location to insert the selected item at each iteration.
+  In normal insertion, sorting takes O(i) (at ith iteration) in worst case. We can reduce it to O(logi) 
+  by using binary search. The algorithm, as a whole, still has a running worst case running time of O(n2)
+   because of the series of swaps required for each insertion. Refer this for implementation.
 
 ==== Example 
 
@@ -226,9 +259,15 @@ on Flash memory, for example, because writes reduce the lifespan of Flash memory
 
 === REFERENCE
 
-If we talk about Arrays.sort(int[] a) method in java Arrays (Java Platform SE 8 ), 
-it doesn’t use bubble sort at all. Depends on the array length, it uses merge sort, quick sort, insertion sort 
-and count sort. From the source code there are different threshold defined for the sorting algorithm to 
-be used. 
-For example if array length is greater than 286 merge sort, 
-less than 286 but greater than 47 quick sort, less than 47 insertion sort is used.
+-   First of all, one should ask why use a quadratic sorting algorithm when asymptotically faster alternatives 
+    exists, like mergesort or quicksort. For small arrays (less than 20-30 elements), both insertion sort and 
+    selection sort are typically faster than the O(n*logn) alternatives. In fact, many sorting algorithms based 
+    on the divide and conquer paradigm switch to insertion sort or selection sort when the array is small enough.
+
+
+-   If we talk about Arrays.sort(int[] a) method in java Arrays (Java Platform SE 8 ), 
+    it doesn’t use bubble sort at all. Depends on the array length, it uses merge sort, quick sort, insertion sort 
+    and count sort. From the source code there are different threshold defined for the sorting algorithm to 
+    be used. 
+    For example if array length is greater than 286 merge sort, 
+    less than 286 but greater than 47 quick sort, less than 47 insertion sort is used.
