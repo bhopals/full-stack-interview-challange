@@ -1,0 +1,82 @@
+
+
+=== Bubble Sort 
+
+Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping 
+the adjacent elements if they are in wrong order.
+
+*An example of Quadratic Algorithm
+
+Worst and Average Case Time Complexity: O(n*n). Worst case occurs when array is reverse sorted.
+
+Best Case Time Complexity: O(n). Best case occurs when array is already sorted.
+
+Auxiliary Space: O(1)
+
+Boundary Cases: Bubble sort takes minimum time (Order of n) when elements are already sorted.
+
+Sorting In Place: Yes
+
+Stable: Yes
+
+Due to its simplicity, bubble sort is often used to introduce the concept of a sorting algorithm.
+The performance degrades as the size increases. For 10 Items, it takes 100 Steps to sort, for 100 items it takes 10000 steps to sort the array.
+
+Its in-place algorithms as it does not require any extra memory space to sort the elements.
+
+
+==== Practical Use of Bubble Sort
+Its a type of sorting, best used when the data is small. i.e. the list of elements to be sorted is low.
+
+==== Example  
+
+    import java.util.HashSet;
+    import java.util.Set;
+
+    public class Main {
+
+        // Driver program
+        public static void main(String[] args) {
+
+            int array[] = { 55, 3, 50, 23, 65, -12, -3, 5 };
+
+            for (int unsortedArrayIndex = array.length - 1; unsortedArrayIndex > 0; unsortedArrayIndex--) {
+
+                for (int i = 0; i < unsortedArrayIndex; i++) {
+
+                    if (array[i] > array[i + 1]) {
+                        swap(array, i , i+1);
+                    }
+                }
+            }
+            
+            for(int i = 0; i < array.length; i++){
+                System.out.println(array[i]+" ");
+            }
+        }
+
+        private static void swap(int array[], int currentIndex, int targetIndex) {
+            
+            if(currentIndex == targetIndex) {
+                return;
+            }
+            
+            int temp = array[currentIndex];
+            array[currentIndex] = array[targetIndex];
+            array[targetIndex] = temp;
+                
+        }
+
+    }
+
+
+
+
+=== REFERENCE
+
+If we talk about Arrays.sort(int[] a) method in java Arrays (Java Platform SE 8 ), 
+it doesn’t use bubble sort at all. Depends on the array length, it uses merge sort, quick sort, insertion sort 
+and count sort. From the source code there are different threshold defined for the sorting algorithm to 
+be used. 
+For example if array length is greater than 286 merge sort, 
+less than 286 but greater than 47 quick sort, less than 47 insertion sort is used.
