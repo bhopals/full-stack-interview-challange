@@ -172,6 +172,13 @@ Kubernetes to run these applications on your infrastructure.
 
 
 
+    ==== Kubernetes Terminology
+
+
+
+
+
+
 
 
 
