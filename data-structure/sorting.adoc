@@ -612,6 +612,109 @@ Merge Sort
         }
     
 
+==== Linked List Practical Use 
+
+
+LinkedList<E> allows for constant-time insertions or removals using iterators, but only sequential access of 
+elements. In other words, you can walk the list forwards or backwards, but finding a position in the list takes 
+time proportional to the size of the list. Javadoc says "operations that index into the list will traverse the 
+list from the beginning or the end, whichever is closer", so those methods are O(n) (n/4 steps) on average, 
+though O(1) for index = 0.
+
+ArrayList<E>, on the other hand, allow fast random read access, so you can grab any element in constant time.
+But adding or removing from anywhere but the end requires shifting all the latter elements over, either to 
+make an opening or fill the gap. Also, if you add more elements than the capacity of the underlying array, 
+a new array (1.5 times the size) is allocated, and the old array is copied to the new one, so adding to 
+an ArrayList is O(n) in the worst case but constant on average.
+
+So depending on the operations you intend to do, you should choose the implementations accordingly. 
+Iterating over either kind of List is practically equally cheap. (Iterating over an ArrayList is 
+technically faster, but unless you're doing something really performance-sensitive, you shouldn't
+worry about this -- they're both constants.)
+
+The main benefits of using a LinkedList arise when you re-use existing iterators to insert and remove elements. 
+These operations can then be done in O(1) by changing the list locally only. In an array list, the remainder 
+of the array needs to be moved (i.e. copied). On the other side, seeking in a  LinkedList means following 
+the links in O(n) (n/2 steps) for worst case, whereas in an ArrayList the desired position can be computed
+mathematically and accessed in O(1).
+
+Another benefit of using a LinkedList arise when you add or remove from the head of the list, since those
+operations are O(1), while they are O(n) for ArrayList. Note that ArrayDeque may be a good alternative
+to LinkedList for adding and removing from the head, but it is not a List.
+
+Also, if you have large lists, keep in mind that memory usage is also different. Each element of a 
+LinkedList has more overhead since pointers to the next and previous elements are also stored. 
+ArrayLists don't have this overhead. However, ArrayLists take up as much memory as is allocated 
+for the capacity, regardless of whether elements have actually been added.
+
+The default initial capacity of an ArrayList is pretty small (10 from Java 1.4 - 1.8). 
+But since the underlying implementation is an array, the array must be resized if you add a 
+lot of elements. To avoid the high cost of resizing when you know you're going to add a lot of elements,
+construct the ArrayList with a higher initial capacity.
+
+
+=== Stack 
+ - Abstract Data type 
+ - LIFO - Last in, First out 
+ - PUSH - Adds an item as the top item on the stack 
+ - POP - removes the top item on the stack 
+ - PEEK - gets the top item on the stack without poppint it 
+ - Ideal backing data structure : linked list 
+
+
+Time Complexity :
+ - O(1) for push, pop and peek, when using a linked list 
+ - if you use an array, then push is O(n), becase the array must be resized 
+ - if you know the maximum number of items that will ever be on the stack, an array can be a good choice
+ - if the memory is toght, and array might be the good choice
+ - Linked list is ideal 
+
+To implement Linked List in java:
+ Dequeue<Integer> stack = new ArrayDequeue<Integer>
+
+OR 
+
+you could use LinkedList as it implement Dequeue Interface internally.
+
+
+EXAMPLE :
+
+        package com.algoritms.stack;
+        import java.util.LinkedList;
+        public class Stack {
+            public static void main(String[] args) {                
+                System.out.println(isStringPalindrome("I am HAppy"));
+                System.out.println(isStringPalindrome("I did, did i?"));
+                System.out.println(isStringPalindrome("don't nod"));
+            }
+            
+            public static boolean isStringPalindrome(String string) {
+
+                LinkedList<Character> stack = new LinkedList<Character>();
+                StringBuilder actualString = new StringBuilder(string.length());
+                StringBuilder reverseString = new StringBuilder(string.length());
+                
+                String lowerCase = string.toLowerCase();
+                
+                for (int i = 0; i < lowerCase.length(); i++) {
+                    char c = lowerCase.charAt(i);
+                    if(c >= 'a' && c <= 'z') {
+                        actualString.append(c);
+                        stack.push(c);
+                    }
+                }
+                
+                while(!stack.isEmpty()) {
+                    reverseString.append(stack.pop());
+                }
+                
+                return reverseString.toString().equals(actualString.toString());
+                
+            }
+        }
+
+   
+
 
 === REFERENCE
 
