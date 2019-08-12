@@ -257,6 +257,108 @@ One advantage of selection sort over insertion sort, is that the number of write
 is in O(n), while in insertion sort it is in O(n^2). This may be important if you are sorting 
 on Flash memory, for example, because writes reduce the lifespan of Flash memory.
 
+
+=== Shell Sort 
+
+    - Variation of Insertion Sort 
+    - Insertion Sort chooses which element to insert using gap 1
+    - Shell sort starts out using a larger gap value 
+    - As the algorithm runs, the gap reduced 
+    - Goal is to reduce the amount of shifting required 
+    - As the algorithms progressess the gap is reduced 
+    - The last gap value is alwayus 1
+    - So, the algorithm does some preliminary work (using gap value greater than 1), and then becomes insertion sort 
+    - By the time we get to insertion sort, the array has been partially sorted, so there is les shifting required
+
+
+
+=== Recursion
+
+
+
+==== Example 
+
+        package com.algoritms.sorting;
+        public class Recursive {
+            public static void main(String[] args) {
+                System.out.println(recursion(3));
+                System.out.println(iterativeRecursion(3));
+            }
+            
+            private static int recursion(int number) {
+                int fact = 1;
+                if (number == 0) {
+                    return fact;
+                }
+                return fact *= number * recursion(number-1);
+            }
+            
+            private static int iterativeRecursion(int number) {
+                int fact = 1;
+                if(number == 0) {
+                    return fact;
+                }
+                for(int i=1;i<=number;i++){
+                    fact*=i;
+                }
+                return fact;
+            }
+        }
+
+
+
+=== Merge Sort 
+
+ - It works on Recursion 
+ - Divide and Conquer algorithm 
+ - Recursive Algorithm 
+ - Two phases: Splitting and Merging 
+ - Splitting phase leads to faster sorting during the Merging phase 
+ - Splitting is logical. We don't create new arrays 
+
+
+Splitting and Merging Phase Details:
+
+ Merge Sort - Splitting Phase 
+ 
+ - Start with an unsorted array 
+ - Divide the array into two arrays, which are unsorted.
+   The first array is the left array, and the second array is the right array.
+ - Split the left and right arrays into two arrays each 
+ - Keep splitting until all the arrays have only one element eacgh - These arrays are sorted.
+
+ Merge Sort - Merging Phase 
+ - Merge every left/right pair of sibling arrays into a sorted array 
+ - After the first merge, we will have a bunch of 2-elements sorted arrays.
+ - Then merge those sorted arrays (left/right siblings) to end up with a bunch of 4-element sorted arrays.
+ - Repeat until you have a single sorted array
+ - Not in-place - Uses Temporary arrays.  
+
+
+Merge Sort 
+ - Not in-place algorithm 
+ - Stable Algorithm 
+ - O(nlogn) base 2 
+
+
+
+
+=== Quick Sort 
+  - Divide and conquer algorithm
+  - Recursive Algorithm 
+  - Uses a pivot element to partition the array into two parts
+  - Element < pivot to its left, element > pivot to its right 
+  - Pivot will then be in its correct sorted position 
+
+  - Once the above process is completed, the process is now repeated for the left array and right array.
+  - Eventually, every element has been the pivot, so every element will be in its corrected sorted position. 
+  - As with merge sort, we will end up partitioning the array into a series of 1-element arrays.
+  - Does this in-place (unlike merge sort which requires temp memory to stror temp array values)
+
+  - Pivot will be the first element in the array (or subarray)
+
+    
+
 === REFERENCE
 
 -   First of all, one should ask why use a quadratic sorting algorithm when asymptotically faster alternatives 
