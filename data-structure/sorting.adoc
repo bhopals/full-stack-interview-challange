@@ -403,7 +403,215 @@ Merge Sort
     Quicksort exhibits good cache locality and this makes quicksort faster than merge 
     sort (in many cases like in virtual memory environment).
 
+
+=== List 
+ - Linear storage. 
+ - Element can be randomly accessed
+ - default capacity 10, and it grows internally as soon the thresold is reached.
+
+ === Vector
+ Same as List, but the thread safe varient 
+
+ 
+ === Linked List 
+
+  - Each item in the list is called node.
+  - The first item in the list is the head of the list.
+  - HEAD will point to the first element of the list.
+
+  ==== INSERT 
+   - Create a new node "Bill"
+   - Assign "Jane", which is current HEAD, to the next field 
+   - Assign HEAD to "Bill"
+   - Will be O(1) time complexity 
+
+  ==== DELETE
+   - Assing "Bill" to a temporary variable "removedNode"
+   - Assign HEAD to "Jane"
+   - Return "removeNode"
+   - Will be O(1) time complexity 
+
+  ==== IMPLEMENTAION 
+
+    1. EMPLOYEE.java
+
+        package com.algoritms.linkedlist;
+
+        public class Employee {
+
+            private long id;
+            private String name;
+            
+            public Employee(long id, String name) {
+                super();
+                this.id = id;
+                this.name = name;
+            }
+            public long getId() {
+                return id;
+            }
+            public void setId(long id) {
+                this.id = id;
+            }
+            public String getName() {
+                return name;
+            }
+            public void setName(String name) {
+                this.name = name;
+            }
+            @Override
+            public int hashCode() {
+                final int prime = 31;
+                int result = 1;
+                result = prime * result + (int) (id ^ (id >>> 32));
+                result = prime * result + ((name == null) ? 0 : name.hashCode());
+                return result;
+            }
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj)
+                    return true;
+                if (obj == null)
+                    return false;
+                if (getClass() != obj.getClass())
+                    return false;
+                Employee other = (Employee) obj;
+                if (id != other.id)
+                    return false;
+                if (name == null) {
+                    if (other.name != null)
+                        return false;
+                } else if (!name.equals(other.name))
+                    return false;
+                return true;
+            }
+            @Override
+            public String toString() {
+                return "Employee [id=" + id + ", name=" + name + "]";
+            }
+            
+            
+        }
+
+
+
+    2. EMPLOYEENODE.java 
+
+        package com.algoritms.linkedlist;
+
+        public class EmployeeNode {
+
+            Employee employee;
+            EmployeeNode next;
+            
+            public EmployeeNode(Employee employee) {
+                this.employee = employee;
+            }
+            
+            public Employee getEmployee() {
+                return employee;
+            }
+            public void setEmployee(Employee employee) {
+                this.employee = employee;
+            }
+            public EmployeeNode getNext() {
+                return next;
+            }
+            public void setNext(EmployeeNode next) {
+                this.next = next;
+            }
+
+            @Override
+            public String toString() {
+                return employee.toString();
+            }            
+        }
+
+    3. EMPLOYEELinkedList
+
+        package com.algoritms.linkedlist;
+
+        public class EmployeeLinkedList {
+
+            EmployeeNode head;
+            int size;
+            
+            public void addToFront(Employee employee) {		
+                EmployeeNode node = new EmployeeNode(employee);
+                node.setNext(head);
+                head = node;
+                size++;
+            }
+            
+            public boolean isEmpty() {
+                return head==null;
+            }
+            
+            public EmployeeNode removeElement() {
+                EmployeeNode removedNode = head;
+                
+                head = head.getNext();
+                size--;
+                removedNode.setNext(null);
+                removedNode.next = null;
+                return removedNode;
+            }
+
+            public void printList() {
+                EmployeeNode current = head;
+                System.out.print("HEAD-->");
+                
+                while(current != null) {
+                    System.out.println(current);
+                    System.out.print("-->");
+                    current = current.getNext();
+                }
+                System.out.print("null");
+                
+            }
+        }
+
+
+
+
+    4. MAIN.JAVA 
+        package com.algoritms.linkedlist;
+
+        public class Main {
+
+            public static void main(String[] args) {
+
+                Employee aa = new Employee(11, "AAAA");
+                Employee bb = new Employee(12, "BBBB");
+                Employee cc = new Employee(13, "CCCC");
+                Employee dd = new Employee(14, "DDDD");
+                Employee ee = new Employee(15, "EEEE");
+
+                EmployeeLinkedList list = new EmployeeLinkedList();
+                
+                System.out.println(list.isEmpty());
+                list.addToFront(aa);
+                list.addToFront(bb);
+                list.addToFront(cc);
+                list.addToFront(dd);
+                list.addToFront(ee);
+                list.printList();
+                System.out.println();
+                
+                list.removeElement();
+                list.removeElement();
+                list.removeElement();
+                System.out.println();
+                
+                list.printList();
+                
+                
+                
+            }
+
+        }
     
+
 
 === REFERENCE
 
