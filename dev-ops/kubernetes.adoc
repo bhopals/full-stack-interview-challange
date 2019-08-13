@@ -415,8 +415,43 @@ Kubernetes to run these applications on your infrastructure.
 
 ==== Running a First Hello World Application 
 
+    minikube start 
+
+        - It will setup a virtual box for us 
+
+    kubectl get nodes 
+       - List of the nodes that are running 
+
+
+    kubectl run hw --image=karthequian/helloworld --port=80
+        - Starts up a deployement 
+
+    kubectl get deployments 
+        - List the deployment and its status 
+
+    kubeclt get rs 
+        - To get the replica set details (Same as Deployment)
+
+    kubectl get pods 
+        - Returns the Pod details 
+
+    kubectl expose deployment hw --type=NodePort 
+        - Expose the deployed service 
+
+    kubectl get services 
+
+
+    minikube <service-name>
+    minikube hw 
+        - It will open the service in browser 
+
+
+
+
+    
 
 
 ==== REFERENCE
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
     https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
+
