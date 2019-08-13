@@ -185,6 +185,7 @@ Kubernetes to run these applications on your infrastructure.
        Controller Manager - Runs controllers. The contoller actually has bunch of different roles, and it acts as a single binary.
 
             - The Node Controller - Workers states
+            - The Deployment Controller -
             - The Replication Controller - Maitaining the correct number of pods
             - The End-Point Controller - Which joins Services and Pods together 
             - Service Account and Token Controller - Handles Access Management 
@@ -271,17 +272,30 @@ Kubernetes to run these applications on your infrastructure.
                               and over and over again to restart the pod. 
 
 
+    ===== Deployments, RaplicaSets, and Services
+
+    - Deployment Controller - It provides declarative updates for PODS and ReplicaSets.
+        It internally manages the POD using Replica Sets.
+
+    - Replicasets - Ensures that a specified number of replicas for a pod are running at all times.
+    
+    - DaemonSets - Ensures that all nodes run a copy of specified pod.
+    - Services 
 
 
+    ===== Labels, Selectors and Namespaces 
 
+    - Labels
 
+    - Selectors :
+        - Equality-Based - EQUALS and NOT EQUALS 
+        - Set-Based - IN, NOTIN or EXIST Operators (Check value in defined set of values )
 
+    - Namespaces :
+    
+    
 
-
-
-
-
-
+    ===== Kubelet and Kube Proxy
 
 
 
