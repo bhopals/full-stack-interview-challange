@@ -216,16 +216,59 @@ Kubernetes to run these applications on your infrastructure.
               Once the pod is deployed, the kubelete process communicate with pods to check on health and
               state. And the kube-proxy routes any packets to the PODS from other resources.
 
-              Worker Nodes can be exposed to the internet via load balancer and traffice coming in would be handled by 
+              Worker Nodes can be exposed to the internet via load balancer. The traffic coming in would be handled by 
               kube-proxy, and this is how an end-user ends up taking to a Kubernetes Application.
 
 
 
 
 
+    ===== Basic Building Blocks
 
+        - NODE: The node serves as a worker machine in a K8s cluster. One important thing to note is that 
+          the node can be a physical computer or a virtual machine. Node must have following requirements.
+            - Node must have A kubelet running 
+            - Container tooling like Docker 
+            - A kube-proxy process running 
+            - Supervisored - so it can restart components.
 
+        ** Recommendation - if you are using Kubernetes in production, it is typically recommended to have at least a three-node cluster.
 
+        ** Minikube - lightweight kubernetes implementation that creates a VM on your local machine and deploys simple 
+           cluster containing only one node.
+
+        You applications runs on node. 
+
+        - POD - The Simplest unit that can ineract with you. You can create, deploy and delete pods, and it represent one running process 
+                on your cluster.
+
+        - Whats in the POD 
+            - Your docker application container 
+            - Storage Resources 
+            - Unique Network IP 
+            - Options that govern how the container should run. 
+
+        In some scenarios you can have multiple containers running in a Pod, but a pod represents one single unit
+        of deployment, a single instance of an application in kubernetes thats tightly coupled and shared resources.
+
+        PODS are ...
+         - Empheral, disposable 
+         - Never self-heal and not restarted by the scheduler by itself.
+         - Never create Pods just by themselves
+         - Always use high-level constructs (Use a controller instead for deployments)
+
+        POD States 
+         - Pending : Pod has been accepted from kubernetes system, but a container has not been created yet.
+         - Running : A Pod has been scheduled on a Node, and all of its containers are created, and at least one 
+                     container is in a running state.
+
+         - Succeeded : All the containers in a pod have exited with an exit status of Zero and will not be restarted.
+
+         - Failed : All the containers in the pod have exited and at least one container has failed and return 
+                    a non zero exit status.
+
+         - CrashLoopBackOff - This is where containe fails to start for some reason, and kubernetes tries over 
+                              and over and over again to restart the pod. 
 
 
 
