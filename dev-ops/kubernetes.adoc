@@ -172,7 +172,68 @@ Kubernetes to run these applications on your infrastructure.
 
 
 
-    ==== Kubernetes Terminology
+=== Kubernetes Terminology
+
+    ==== Kubernetes architecture
+
+       ===== Master Node :
+       Responsible for overall management of Kubernetes Cluster. It has got three componenent that takes care of 
+       Communication, Scheduling, and controllers using  Kube API Server, Schedular, Controller Manager.
+
+       Kube API Server - allows you interact with Kubernets API. Front end of kubernete control pane.
+       Schedular - It watches created PODs who does not have node design yet, and designs the POD to run on a specific node.
+       Controller Manager - Runs controllers. The contoller actually has bunch of different roles, and it acts as a single binary.
+
+            - The Node Controller - Workers states
+            - The Replication Controller - Maitaining the correct number of pods
+            - The End-Point Controller - Which joins Services and Pods together 
+            - Service Account and Token Controller - Handles Access Management 
+
+        etcd - Simple Distributed Key Value Store. Acts as DB which stores all cluster data here. 
+               Some of the information that might be stored is Job Scheduling info, Pod Details, Stage infromation etc.
+
+        kubectl - A command line interface for kubernetes which allows you to interact with Master Node. kubectl 
+                have a config file caled kubeconfig. This file has server information as well as authentication 
+                information to access to API Server.
+
+
+        ===== WORKER NODE :
+        Worker Nodes are the nodes where your applications operate. The Worker node communicate back with the Master nodes.
+        And this communication is handled by the Kubelet Process.
+           
+            - kubelete - Its an agent that communicate with API Server, and it is designed to see if 
+                                Pods have been designed to the NODES. It executes the POD containers via the container engine.
+                                It mounts and runs POD volumes and secrets, and finally it is aware of Pods and Nodes States,
+                                and responsd back to the Master.
+
+            - Docker - To run containers on the node we have DOCKER. We could use alternate container platforms as well.
+
+            - kube-proxy - Network Proxy and load balancer for the service on a single worker node. It handles the network
+                           routing for TCP and UDP Packets, and performs connection forwarding.
+                           A pod is a smallest unit that can be scheduled as a deployment in Kubernetes. This 
+                           group of containers share storage, Linux namespace, IP Addresses, amongst other things.
+                           
+              Once the pod is deployed, the kubelete process communicate with pods to check on health and
+              state. And the kube-proxy routes any packets to the PODS from other resources.
+
+              Worker Nodes can be exposed to the internet via load balancer and traffice coming in would be handled by 
+              kube-proxy, and this is how an end-user ends up taking to a Kubernetes Application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

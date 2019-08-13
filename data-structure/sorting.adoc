@@ -715,6 +715,19 @@ EXAMPLE :
 
    
 
+=== Queue 
+
+    - Abstract Data Type 
+    - Use othe data structure to implement
+    - FIFO - First in, First out 
+    - Item is removed in the same order they were inserted 
+    - add - also called enqueue - add an item to the end of the queue 
+    - remove - also called dequeue - remove the item at the front of the queue 
+    - peek - get the item at the front of the queue but dont remove it.
+
+
+Two ways to implement. Arrays or Linked List 
+//62
 
 === REFERENCE
 
