@@ -447,6 +447,7 @@ Kubernetes to run these applications on your infrastructure.
 
     kubectl get all 
         - It will returns all the details such as  pods, services, deployments, replicaset 
+        - In other words, it will return all the resources running on ecosystem.
 
     kubectl get deploy/hw -o yml 
         - It will returns deployment YML configuration 
@@ -501,7 +502,21 @@ Kubernetes to run these applications on your infrastructure.
 
 
 
-    
+===== Scaling the APP 
+  
+    kubectl get rs 
+        - List all the replica details (Deployments) - Single POD 
+
+    kubectl scale --replicas=3 deploy/helloworld-deployment
+        - Here deploy/helloworld-deployment  is the existing deployment 
+        - replicas=3 means it will create 3 PODS for the deployment of the application 
+
+    kubectl get deploy/helloworld-deployment 
+        - Give the list of the replicas running for that app 
+
+    kubectl get pods 
+        - List all the pod details 
+
 
 
 ==== REFERENCE
