@@ -393,12 +393,19 @@ Kubernetes to run these applications on your infrastructure.
 
         For Mac or Linux:
             minikube start  
+            
+            minikube clear 
+
+            minikube stop 
 
 
 
     7. Once installation finished, to ensure kubectl is up and running 
         
             kubectl get pods
+            kubectl get nodes 
+            kubectl get deployments 
+            kubectl get rs   (rs - ReplicaSet )
 
         Also, go to HyperV Manager, you will see "Minikube" in available virtual machines list.
 
