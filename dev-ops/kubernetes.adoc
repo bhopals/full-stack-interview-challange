@@ -441,10 +441,63 @@ Kubernetes to run these applications on your infrastructure.
     kubectl get services 
 
 
-    minikube <service-name>
-    minikube hw 
+    minikube service <service-name>
+    minikube service hw 
         - It will open the service in browser 
 
+    kubectl get all 
+        - It will returns all the details such as  pods, services, deployments, replicaset 
+
+    kubectl get deploy/hw -o yml 
+        - It will returns deployment YML configuration 
+
+
+
+    kubectl create -f hello-world-deployment-all.yml 
+         - Create service and deployment from YAML configuration 
+
+    To check both service and deployment created 
+        kubectl get all 
+        OR 
+        kubectl get deployment 
+        kubectl get service 
+
+    SAMPLE YAML FILE :
+
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    metadata:
+    name: helloworld-all-deployment
+    spec:
+    selector:
+        matchLabels:
+        app: helloworld
+    replicas: 1 # tells deployment to run 1 pods matching the template
+    template: # create pods using pod definition in this template
+        metadata:
+        labels:
+            app: helloworld
+        spec:
+        containers:
+        - name: helloworld
+            image: karthequian/helloworld:latest
+            ports:
+            - containerPort: 80
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+    name: helloworld-all-service
+    spec:
+    # if your cluster supports it, uncomment the following to automatically create
+    # an external load-balanced IP for the frontend service.
+    type: LoadBalancer
+    ports:
+    - port: 80
+        protocol: TCP
+        targetPort: 80
+    selector:
+        app: helloworld
 
 
 
