@@ -303,7 +303,7 @@ Kubernetes to run these applications on your infrastructure.
         - Communication with API server to see if pods have been assigned to nodes.
         - Executes pod containers via a container engine 
         - Mounts and runs pod volumnes and secrets
-        - Executes health checks to identofy pod/node status.
+        - Executes health checks to identify pod/node status.
 
     The kubelet works in terms of Podspec. Podspec is a YAML file describes a POD.
     The kubelet takes a set of Podspecs that are provided by the kube-apiserver and ensures 
@@ -316,12 +316,19 @@ Kubernetes to run these applications on your infrastructure.
         - Process that runs on all worker nodes 
     
     Three Modes of kube-proxy 
-        
         - User space mode - The most common one 
-
         - Iptables mode 
-        
         - ipvs mode (Alpha feature)
+
+    Why these modes are important
+
+        - These modes are important when it comes to using services.
+        - Services are defined against the API Server: kube-proxy watches the SPI Server for the 
+          addition and removal of services.
+        - For each new services, kube-proxy opens a randomly chosen port on the local node.
+        - Connection made to the chosen port are proxied to one of the corresponding back-end pods.
+
+
 
 
 
