@@ -396,6 +396,20 @@ Kubernetes to run these applications on your infrastructure.
 
 
 
+    7. Once installation finished, to ensure kubectl is up and running 
+        
+            kubectl get pods
+
+        Also, go to HyperV Manager, you will see "Minikube" in available virtual machines list.
+
+
+    This is all required to setup kunernetes in Windows machine.
+
+
+==== Running a First Hello World Application 
+
+
+
 ==== REFERENCE
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
     https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
