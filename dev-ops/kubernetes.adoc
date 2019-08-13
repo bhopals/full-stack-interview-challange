@@ -297,6 +297,31 @@ Kubernetes to run these applications on your infrastructure.
 
     ===== Kubelet and Kube Proxy
 
+    - Kubelet - The kubelet is the "Kubernets node agent" that runs on each node.
+
+    -Kubelet Roles:
+        - Communication with API server to see if pods have been assigned to nodes.
+        - Executes pod containers via a container engine 
+        - Mounts and runs pod volumnes and secrets
+        - Executes health checks to identofy pod/node status.
+
+    The kubelet works in terms of Podspec. Podspec is a YAML file describes a POD.
+    The kubelet takes a set of Podspecs that are provided by the kube-apiserver and ensures 
+    that the containers described in thoes podeSpecs are running and healthy.
+    Kubelet only manages containers that are created by the API server - Not any container running on the node.
+
+
+    - Kube-proxy 
+        - Network Proxy is called kube-proxy
+        - Process that runs on all worker nodes 
+    
+    Three Modes of kube-proxy 
+        
+        - User space mode - The most common one 
+
+        - Iptables mode 
+        
+        - ipvs mode (Alpha feature)
 
 
 
