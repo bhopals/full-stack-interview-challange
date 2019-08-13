@@ -330,6 +330,69 @@ Kubernetes to run these applications on your infrastructure.
 
 
 
+==== Geting Up and Running Kubernetes on Windows 
+
+   1. Install Docker latest version
+   2. Insall Hyper V (Its already installed on Windows Machine) 
+      We need to make soe configuration changes here.
+
+      We need to create new Virtual Network Switch. For that:
+        1. Open "Hyper-v Manager" and Go to Virtual Switch Manager
+        2. Select "Internal" 
+        3. Click on create Virtual Switch 
+        4. Give some name to the switch, for example "Minikube"
+        5. Select Internal Network from Radio Button option 
+        6. Click on "Ok"
+
+        Thats it. We have created a new virtual switch.
+
+        To Enable the newly created switch 
+
+        1. Go to Control Panel
+        2. Search for "Network and Sharing Center"
+        3. In the view your active networks Right hand side, you will find Connections "Ethernet"
+        4. Click on "Properties" 
+        5. Click on "Sharing"
+        6. Check the box "Allow other network users to connect through this computers inernet connection"
+        7. In the drop down of "Home Networking Connection" select "vEthernet Minikube" (the one we have created in above Section)
+        8. Click on "Ok"        
+
+        Virtual Switch - A virtual switch is a software program that allows one virtual machine (VM) to 
+        communicate with another. Just like its counterpart, the physical Ethernet switch, a virtual switch
+        does more than just forward data packets.
+
+    
+    3. Install Kubectl 
+        * Download link: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
+
+    4. Install Minikube 
+        * General Download Instructions: https://kubernetes.io/docs/tasks/tools/install-minikube/
+        * Download link: https://github.com/kubernetes/minikube/releases
+   
+        Minikube : Minikube is a tool that makes it easy to run Kubernetes locally. 
+        Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your 
+        laptop for users looking to try out Kubernetes or develop with it day-to-day.
+
+    
+
+    5. Once both are downloaded, we need to copy kubectl and minikube executables in a folder and add that folder in 
+        Environment Variable 
+
+
+         docker version
+         kubectl version
+         minikube version 
+
+     ** Kindly ensure to run all these commands in Windows Power Shell command prompt.
+
+
+    6. Start the minikube 
+
+        For Windows: 
+            minikube start --kubernetes-version="v1.8.0" --vm-driver="hyperv" --hyperv-virtual-switch="Minikube"
+
+        For Mac or Linux:
+            minikube start  
 
 
 
