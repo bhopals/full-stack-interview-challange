@@ -611,6 +611,34 @@ Kubernetes to run these applications on your infrastructure.
         - List all the labels 
         
 
+===== Working with labels 
+
+    instead of "--selector", we could use shortcut "-l" 
+    
+    kubectl get pods -l env=production
+    kubectl get pods --selector env=production
+        - Filter and show only the label having env set to production     
+
+    kubectl get pods -l env!=production
+    kubectl get pods --selector env!=production
+            - Filter and show only the label having env is not production     
+
+    kubectl get pods -l env=production, author=bhopal
+    kubectl get pods --selector env=production, author=bhopal
+            - Filter and show only the label having env is production and author is bhopal     
+
+    kubectl get pods -l 'release-version in (1.0,1.2)'
+    kubectl get pods --selector  'release-version in (1.0,1.2)'
+            - Filter and show only the label release version in 1.0 or 1.2     
+
+    kubectl get pods -l 'release-version notin (1.0,1.2)'
+            - Filter and show only the label release version not in 1.0 and 1.2     
+
+    kubectl delete pods -l dev-lead=karthik 
+        - Delete all the pods with Dev Lead Karthik Label 
+
+    
+
 
 ==== REFERENCE
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
