@@ -761,9 +761,81 @@ kubectl rollout undo deployment/<name-of-the-deployment> --to-revision=<revision
     - rollout/revert the deployment to specific deployed configuration 
 
 
+
+
+===== Basic Troubleshooting Techniques 
+
+kubectl describe deployment <deployment-name>
+    - List out detail logs of the selected deployment - For introspetion of the details 
+
+kubectl describe po/<pod-name> 
+    - List out the detail logs of the selected POD - For introspetion of the details 
+
+OR 
+
+kubectl logs <pod-name> 
+    - List out all the running logs of this pod 
+
+OR 
+
+We can exec into specific POD 
+
+kubectl exec -it <pod-name> /bin/bash
+    - It will let you access the bash of POD 
+
+Once you are into the pod, we can check all the running processes 
+
+#root@hello-world:/# ps -ef 
+
+
+kubectl exec -it <pod-name> -c <container-name> /bin/bash
+    - If we have multiple containers inside the POD 
+
+
+
+==== Advance Kubernetes 
+
+
+===== Kubernetes Dashboard 
+
+$ minikube addons list
+    - addon-manager: enabled
+    - dashboard: enabled
+    - default-storageclass: enabled
+    - efk: disabled
+    - freshpod: disabled
+    - gvisor: disabled
+    - heapster: disabled
+    - ingress: disabled
+    - logviewer: disabled
+    - metrics-server: disabled
+    - nvidia-driver-installer: disabled
+    - nvidia-gpu-device-plugin: disabled
+    - registry: disabled
+    - registry-creds: disabled
+    - storage-provisioner: enabled
+    - storage-provisioner-gluster: disabled
+
+It will list all the addons 
+
+Since the dashboard is already enabled in listed addons so we can simply open it by:
+$ minikube dashboard 
+    - It will open a browser and render kubernetes cluster dashboard 
+
+heapster - To see cluster and CPU Memory 
+
+$ minikube addons enable heapster 
+
+Once enabled, to see the status. (We need to specify namespace here as heapster runs of different namespace. 
+The namespace called "kube-system")
+$ kubectl get pods --all-namespaces
+
+
 ==== REFERENCE
+    https://www.katacoda.com/
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
     https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
 
 
     https://medium.com/@sxia/why-kubernetes-needs-pod-service-and-deployment-f6c96c7d379b
+
