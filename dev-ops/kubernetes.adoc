@@ -195,6 +195,8 @@ Kubernetes to run these applications on your infrastructure.
 
         etcd - Simple Distributed Key Value Store. Acts as DB which stores all cluster data here. 
                Some of the information that might be stored is Job Scheduling info, Pod Details, Stage infromation etc.
+                Store current state of the cluster 
+
 
         kubectl - A command line interface for kubernetes which allows you to interact with Master Node. kubectl 
                 have a config file caled kubeconfig. This file has server information as well as authentication 
@@ -566,3 +568,6 @@ Kubernetes to run these applications on your infrastructure.
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
     https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
 
+
+    https://medium.com/@sxia/why-kubernetes-needs-pod-service-and-deployment-f6c96c7d379b
+    
