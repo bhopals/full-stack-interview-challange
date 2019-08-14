@@ -416,12 +416,12 @@ For Mac or Linux:
 
 7. Once installation finished, to ensure kubectl is up and running 
     
-        kubectl get pods
-        kubectl get nodes 
-        kubectl get deployments 
-        kubectl get rs   (rs - ReplicaSet )
+    kubectl get pods
+    kubectl get nodes 
+    kubectl get deployments 
+    kubectl get rs   (rs - ReplicaSet )
 
-    Also, go to HyperV Manager, you will see "Minikube" in available virtual machines list.
+Also, go to HyperV Manager, you will see "Minikube" in available virtual machines list.
 
 
 This is all required to setup kunernetes in Windows machine.
@@ -429,53 +429,53 @@ This is all required to setup kunernetes in Windows machine.
 
 ==== Running a First Hello World Application 
 
-    minikube start 
+minikube start 
 
-        - It will setup a virtual box for us 
+    - It will setup a virtual box for us 
 
-    kubectl get nodes 
-       - List of the nodes that are running 
-
-
-    kubectl run hw --image=karthequian/helloworld --port=80
-        - Starts up a deployement 
-
-    kubectl get deployments 
-        - List the deployment and its status 
-
-    kubeclt get rs 
-        - To get the replica set details (Same as Deployment)
-
-    kubectl get pods 
-        - Returns the Pod details 
-
-    kubectl expose deployment hw --type=NodePort 
-        - Expose the deployed service 
-
-    kubectl get services 
+kubectl get nodes 
+    - List of the nodes that are running 
 
 
-    minikube service <service-name>
-    minikube service hw 
-        - It will open the service in browser 
+kubectl run hw --image=karthequian/helloworld --port=80
+    - Starts up a deployement 
 
+kubectl get deployments 
+    - List the deployment and its status 
+
+kubeclt get rs 
+    - To get the replica set details (Same as Deployment)
+
+kubectl get pods 
+    - Returns the Pod details 
+
+kubectl expose deployment hw --type=NodePort 
+    - Expose the deployed service 
+
+kubectl get services 
+
+
+minikube service <service-name>
+minikube service hw 
+    - It will open the service in browser 
+
+kubectl get all 
+    - It will returns all the details such as  pods, services, deployments, replicaset 
+    - In other words, it will return all the resources running on ecosystem.
+
+kubectl get deploy/hw -o yml 
+    - It will returns deployment YML configuration 
+
+
+
+kubectl create -f hello-world-deployment-all.yml 
+        - Create service and deployment from YAML configuration 
+
+To check both service and deployment created 
     kubectl get all 
-        - It will returns all the details such as  pods, services, deployments, replicaset 
-        - In other words, it will return all the resources running on ecosystem.
-
-    kubectl get deploy/hw -o yml 
-        - It will returns deployment YML configuration 
-
-
-
-    kubectl create -f hello-world-deployment-all.yml 
-         - Create service and deployment from YAML configuration 
-
-    To check both service and deployment created 
-        kubectl get all 
-        OR 
-        kubectl get deployment 
-        kubectl get service 
+    OR 
+    kubectl get deployment 
+    kubectl get service 
 
     SAMPLE YAML FILE :
 
