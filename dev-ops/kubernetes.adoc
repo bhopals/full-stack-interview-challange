@@ -122,44 +122,44 @@ Kubernetes to run these applications on your infrastructure.
 
 
 ===== Docker Swarm 
-    -   Docker Swarm is responsible for clustering and scheduling containers across hosts. 
-    -   It's a simpler architecture when compared to Kubernetes and Mesos. 
-    -   It is written in golang and it's a lightweight, declarative language. 
-    -   It's easy to get started, setup and understand. 
-    -   The typical users of Docker Swarm are smaller teams, like startups and medium-size companies. 
-    -   And I've only seen Swarm used in brand new greenfield projects. Which are driven by teams that are mostly
-        developers who need to deploy new products. 
-     
+-   Docker Swarm is responsible for clustering and scheduling containers across hosts. 
+-   It's a simpler architecture when compared to Kubernetes and Mesos. 
+-   It is written in golang and it's a lightweight, declarative language. 
+-   It's easy to get started, setup and understand. 
+-   The typical users of Docker Swarm are smaller teams, like startups and medium-size companies. 
+-   And I've only seen Swarm used in brand new greenfield projects. Which are driven by teams that are mostly
+    developers who need to deploy new products. 
+    
 
 *Greenfield Projects 
 *Brownfield Projects 
 
 
 ===== Mesos 
-    -   Mesos on the other hand is written in C++, with APIs in Java, Python, and C++. 
-    -   It's the oldest tool of the bunch, but this also means that it's the most stable.
-    -   Mesos has a distributed kernel where many machines end up acting like one logical entity. 
-    -   The Marathon framework can be added to Mesos to schedule and execute tasks. And finally, 
-    -   Mesos has a more complex architecture than Docker Swarm. The typical users of Mesos are 
-        larger enterprises that require lots of compute, or jobs/task-oriented workloads. 
-    -   Mesos is often used by companies that have to perform big data jobs. I've also seen 
-    -   Mesos being driven more by developers rather than operations, but you require an 
-        operations team to manage the tool. 
- 
+-   Mesos on the other hand is written in C++, with APIs in Java, Python, and C++. 
+-   It's the oldest tool of the bunch, but this also means that it's the most stable.
+-   Mesos has a distributed kernel where many machines end up acting like one logical entity. 
+-   The Marathon framework can be added to Mesos to schedule and execute tasks. And finally, 
+-   Mesos has a more complex architecture than Docker Swarm. The typical users of Mesos are 
+    larger enterprises that require lots of compute, or jobs/task-oriented workloads. 
+-   Mesos is often used by companies that have to perform big data jobs. I've also seen 
+-   Mesos being driven more by developers rather than operations, but you require an 
+    operations team to manage the tool. 
+
  ===== Rancher 
-    -   Rancher is a full stack container management platform.
-    -   Initially it used to use a custom cluster orchestrator called cattle 
-        but now it suppers Kubernetes and Docker Swarm. 
-    -   It was an early player in the Docker ecosystem and had orchestration concepts that were way before 
-        its time and way before they were a hot topic. It has a great user interface
-        and API to interact with clusters and provides enterprise support for its tooling. 
-    -   One of the other benefits of Rancher is that it supports organizations and teams out of box. 
-        The typical Rancher users are smaller teams, think startups or medium-sized companies. 
-        And most of the Rancher users I've seen are developer-driven teams who need to deploy products quickly.
-        Or they're dev-ops teams that need to manage an agile infrastructure.
-        
-        This chart plots the number of hosts and containers versus the size of the development team
-  
+-   Rancher is a full stack container management platform.
+-   Initially it used to use a custom cluster orchestrator called cattle 
+    but now it suppers Kubernetes and Docker Swarm. 
+-   It was an early player in the Docker ecosystem and had orchestration concepts that were way before 
+    its time and way before they were a hot topic. It has a great user interface
+    and API to interact with clusters and provides enterprise support for its tooling. 
+-   One of the other benefits of Rancher is that it supports organizations and teams out of box. 
+    The typical Rancher users are smaller teams, think startups or medium-sized companies. 
+    And most of the Rancher users I've seen are developer-driven teams who need to deploy products quickly.
+    Or they're dev-ops teams that need to manage an agile infrastructure.
+    
+    This chart plots the number of hosts and containers versus the size of the development team
+
              ^                              Kubernetes
    Size      |                              Mesos 
     Of       |               Docker Swarm 
@@ -174,257 +174,257 @@ Kubernetes to run these applications on your infrastructure.
 
 === Kubernetes Terminology
 
-    ==== Kubernetes architecture
+==== Kubernetes architecture
 
-       ===== Master Node :
-       Responsible for overall management of Kubernetes Cluster. It has got three componenent that takes care of 
-       Communication, Scheduling, and controllers using  Kube API Server, Schedular, Controller Manager.
+===== Master Node :
+Responsible for overall management of Kubernetes Cluster. It has got three componenent that takes care of 
+Communication, Scheduling, and controllers using  Kube API Server, Schedular, Controller Manager.
 
-       Kube API Server - allows you interact with Kubernets API. Front end of kubernete control pane.
-      
-       Schedular - It watches created PODs who does not have node design yet, and designs the POD to run on a specific node.
-        Physically schedules pods based on the criteria provided across all the nodes 
-      
-       Controller Manager - Runs controllers. The contoller actually has bunch of different roles, and it acts as a single binary.
+Kube API Server - allows you interact with Kubernets API. Front end of kubernete control pane.
 
-            - The Node Controller - Workers states
-            - The Deployment Controller -
-            - The Replication Controller - Maitaining the correct number of pods
-            - The End-Point Controller - Which joins Services and Pods together 
-            - Service Account and Token Controller - Handles Access Management 
+Schedular - It watches created PODs who does not have node design yet, and designs the POD to run on a specific node.
+Physically schedules pods based on the criteria provided across all the nodes 
 
-        etcd - Simple Distributed Key Value Store. Acts as DB which stores all cluster data here. 
-               Some of the information that might be stored is Job Scheduling info, Pod Details, Stage infromation etc.
-                Store current state of the cluster 
+Controller Manager - Runs controllers. The contoller actually has bunch of different roles, and it acts as a single binary.
 
+    - The Node Controller - Workers states
+    - The Deployment Controller -
+    - The Replication Controller - Maitaining the correct number of pods
+    - The End-Point Controller - Which joins Services and Pods together 
+    - Service Account and Token Controller - Handles Access Management 
 
-        kubectl - A command line interface for kubernetes which allows you to interact with Master Node. kubectl 
-                have a config file caled kubeconfig. This file has server information as well as authentication 
-                information to access to API Server.
+etcd - Simple Distributed Key Value Store. Acts as DB which stores all cluster data here. 
+        Some of the information that might be stored is Job Scheduling info, Pod Details, Stage infromation etc.
+        Store current state of the cluster 
 
 
-        ===== WORKER NODE :
-        Worker Nodes are the nodes where your applications operate. The Worker node communicate back with the Master nodes.
-        And this communication is handled by the Kubelet Process.
+kubectl - A command line interface for kubernetes which allows you to interact with Master Node. kubectl 
+        have a config file caled kubeconfig. This file has server information as well as authentication 
+        information to access to API Server.
+
+
+===== WORKER NODE :
+Worker Nodes are the nodes where your applications operate. The Worker node communicate back with the Master nodes.
+And this communication is handled by the Kubelet Process.
            
-            - kubelete - Its an agent that communicate with API Server, and it is designed to see if 
-                                Pods have been designed to the NODES. It executes the POD containers via the container engine.
-                                It mounts and runs POD volumes and secrets, and finally it is aware of Pods and Nodes States,
-                                and responsd back to the Master.
+- kubelete - Its an agent that communicate with API Server, and it is designed to see if 
+                    Pods have been designed to the NODES. It executes the POD containers via the container engine.
+                    It mounts and runs POD volumes and secrets, and finally it is aware of Pods and Nodes States,
+                    and responsd back to the Master.
 
-            - Docker - To run containers on the node we have DOCKER. We could use alternate container platforms as well.
+- Docker - To run containers on the node we have DOCKER. We could use alternate container platforms as well.
 
-            - kube-proxy - Network Proxy and load balancer for the service on a single worker node. It handles the network
-                           routing for TCP and UDP Packets, and performs connection forwarding.
-                           A pod is a smallest unit that can be scheduled as a deployment in Kubernetes. This 
-                           group of containers share storage, Linux namespace, IP Addresses, amongst other things.
-                           
-              Once the pod is deployed, the kubelete process communicate with pods to check on health and
-              state. And the kube-proxy routes any packets to the PODS from other resources.
+- kube-proxy - Network Proxy and load balancer for the service on a single worker node. It handles the network
+                routing for TCP and UDP Packets, and performs connection forwarding.
+                A pod is a smallest unit that can be scheduled as a deployment in Kubernetes. This 
+                group of containers share storage, Linux namespace, IP Addresses, amongst other things.
+                
+    Once the pod is deployed, the kubelete process communicate with pods to check on health and
+    state. And the kube-proxy routes any packets to the PODS from other resources.
 
-              Worker Nodes can be exposed to the internet via load balancer. The traffic coming in would be handled by 
-              kube-proxy, and this is how an end-user ends up taking to a Kubernetes Application.
-
-
+    Worker Nodes can be exposed to the internet via load balancer. The traffic coming in would be handled by 
+    kube-proxy, and this is how an end-user ends up taking to a Kubernetes Application.
 
 
 
-    ===== Basic Building Blocks
-
-        - NODE: The node serves as a worker machine in a K8s cluster. One important thing to note is that 
-          the node can be a physical computer or a virtual machine. Node must have following requirements.
-            - Node must have A kubelet running 
-            - Container tooling like Docker 
-            - A kube-proxy process running 
-            - Supervisored - so it can restart components.
-
-        ** Recommendation - if you are using Kubernetes in production, it is typically recommended to have at least a three-node cluster.
-
-        ** Minikube - lightweight kubernetes implementation that creates a VM on your local machine and deploys simple 
-           cluster containing only one node.
-
-        You applications runs on node. 
-
-        - POD - The Simplest unit that can ineract with you. You can create, deploy and delete pods, and it represent one running process 
-                on your cluster.
-                Pods is a scheduling unit in Kubernetes.
-                A Pod is the basic execution unit of a Kubernetes application
-        
-        A Kubernetes Pod is a group of one or more Containers, tied together for the purposes of administration 
-        and networking.
-
-        Service - An abstract way to expose an application running on a set of Pods as a network service.
 
 
+===== Basic Building Blocks
 
-        - Whats in the POD 
-            - Your docker application container 
-            - Storage Resources 
-            - Unique Network IP 
-            - Options that govern how the container should run. 
+    - NODE: The node serves as a worker machine in a K8s cluster. One important thing to note is that 
+        the node can be a physical computer or a virtual machine. Node must have following requirements.
+        - Node must have A kubelet running 
+        - Container tooling like Docker 
+        - A kube-proxy process running 
+        - Supervisored - so it can restart components.
 
-        In some scenarios you can have multiple containers running in a Pod, but a pod represents one single unit
-        of deployment, a single instance of an application in kubernetes thats tightly coupled and shared resources.
+    ** Recommendation - if you are using Kubernetes in production, it is typically recommended to have at least a three-node cluster.
 
-        PODS are ...
-         - Empheral, disposable 
-         - Never self-heal and not restarted by the scheduler by itself.
-         - Never create Pods just by themselves
-         - Always use high-level constructs (Use a controller instead for deployments)
+    ** Minikube - lightweight kubernetes implementation that creates a VM on your local machine and deploys simple 
+        cluster containing only one node.
 
-        POD States 
-         - Pending : Pod has been accepted from kubernetes system, but a container has not been created yet.
-         - Running : A Pod has been scheduled on a Node, and all of its containers are created, and at least one 
-                     container is in a running state.
+    You applications runs on node. 
 
-         - Succeeded : All the containers in a pod have exited with an exit status of Zero and will not be restarted.
-
-         - Failed : All the containers in the pod have exited and at least one container has failed and return 
-                    a non zero exit status.
-
-         - CrashLoopBackOff - This is where containe fails to start for some reason, and kubernetes tries over 
-                              and over and over again to restart the pod. 
-
-
-    ===== Deployments, RaplicaSets, and Services
-
-    - Deployment Controller - It provides declarative updates for PODS and ReplicaSets.
-        It internally manages the POD using Replica Sets.
-
-    - Replicasets - Ensures that a specified number of replicas for a pod are running at all times.
+    - POD - The Simplest unit that can ineract with you. You can create, deploy and delete pods, and it represent one running process 
+            on your cluster.
+            Pods is a scheduling unit in Kubernetes.
+            A Pod is the basic execution unit of a Kubernetes application
     
-    - DaemonSets - Ensures that all nodes run a copy of specified pod.
-    - Services 
+    A Kubernetes Pod is a group of one or more Containers, tied together for the purposes of administration 
+    and networking.
+
+    Service - An abstract way to expose an application running on a set of Pods as a network service.
 
 
-    ===== Labels, Selectors and Namespaces 
 
-    - Labels
+    - Whats in the POD 
+        - Your docker application container 
+        - Storage Resources 
+        - Unique Network IP 
+        - Options that govern how the container should run. 
 
-    - Selectors :
-        - Equality-Based - EQUALS and NOT EQUALS 
-        - Set-Based - IN, NOTIN or EXIST Operators (Check value in defined set of values )
+    In some scenarios you can have multiple containers running in a Pod, but a pod represents one single unit
+    of deployment, a single instance of an application in kubernetes thats tightly coupled and shared resources.
 
-    - Namespaces :
-    
-    
+    PODS are ...
+        - Empheral, disposable 
+        - Never self-heal and not restarted by the scheduler by itself.
+        - Never create Pods just by themselves
+        - Always use high-level constructs (Use a controller instead for deployments)
 
-    ===== Kubelet and Kube Proxy
+    POD States 
+        - Pending : Pod has been accepted from kubernetes system, but a container has not been created yet.
+        - Running : A Pod has been scheduled on a Node, and all of its containers are created, and at least one 
+                    container is in a running state.
 
-    - Kubelet - The kubelet is the "Kubernets node agent" that runs on each node.
+        - Succeeded : All the containers in a pod have exited with an exit status of Zero and will not be restarted.
 
-    -Kubelet Roles:
-        - Communication with API server to see if pods have been assigned to nodes.
-        - Executes pod containers via a container engine 
-        - Mounts and runs pod volumnes and secrets
-        - Executes health checks to identify pod/node status.
+        - Failed : All the containers in the pod have exited and at least one container has failed and return 
+                a non zero exit status.
 
-    The kubelet works in terms of Podspec. Podspec is a YAML file describes a POD.
-    The kubelet takes a set of Podspecs that are provided by the kube-apiserver and ensures 
-    that the containers described in thoes podeSpecs are running and healthy.
-    Kubelet only manages containers that are created by the API server - Not any container running on the node.
+        - CrashLoopBackOff - This is where containe fails to start for some reason, and kubernetes tries over 
+                            and over and over again to restart the pod. 
 
 
-    - Kube-proxy 
-        - Network Proxy is called kube-proxy
-        - Process that runs on all worker nodes 
-    
-    Three Modes of kube-proxy 
-        - User space mode - The most common one 
-        - Iptables mode 
-        - ipvs mode (Alpha feature)
+===== Deployments, RaplicaSets, and Services
 
-    Why these modes are important
+- Deployment Controller - It provides declarative updates for PODS and ReplicaSets.
+    It internally manages the POD using Replica Sets.
 
-        - These modes are important when it comes to using services.
-        - Services are defined against the API Server: kube-proxy watches the SPI Server for the 
-          addition and removal of services.
-        - For each new services, kube-proxy opens a randomly chosen port on the local node.
-        - Connection made to the chosen port are proxied to one of the corresponding back-end pods.
+- Replicasets - Ensures that a specified number of replicas for a pod are running at all times.
+
+- DaemonSets - Ensures that all nodes run a copy of specified pod.
+- Services 
+
+
+===== Labels, Selectors and Namespaces 
+
+- Labels
+
+- Selectors :
+    - Equality-Based - EQUALS and NOT EQUALS 
+    - Set-Based - IN, NOTIN or EXIST Operators (Check value in defined set of values )
+
+- Namespaces :
+
+
+
+===== Kubelet and Kube Proxy
+
+- Kubelet - The kubelet is the "Kubernets node agent" that runs on each node.
+
+-Kubelet Roles:
+    - Communication with API server to see if pods have been assigned to nodes.
+    - Executes pod containers via a container engine 
+    - Mounts and runs pod volumnes and secrets
+    - Executes health checks to identify pod/node status.
+
+The kubelet works in terms of Podspec. Podspec is a YAML file describes a POD.
+The kubelet takes a set of Podspecs that are provided by the kube-apiserver and ensures 
+that the containers described in thoes podeSpecs are running and healthy.
+Kubelet only manages containers that are created by the API server - Not any container running on the node.
+
+
+- Kube-proxy 
+    - Network Proxy is called kube-proxy
+    - Process that runs on all worker nodes 
+
+Three Modes of kube-proxy 
+    - User space mode - The most common one 
+    - Iptables mode 
+    - ipvs mode (Alpha feature)
+
+Why these modes are important
+
+    - These modes are important when it comes to using services.
+    - Services are defined against the API Server: kube-proxy watches the SPI Server for the 
+        addition and removal of services.
+    - For each new services, kube-proxy opens a randomly chosen port on the local node.
+    - Connection made to the chosen port are proxied to one of the corresponding back-end pods.
 
 
 
 ==== Geting Up and Running Kubernetes on Windows 
 
-   1. Install Docker latest version
-   2. Insall Hyper V (Its already installed on Windows Machine) 
-      We need to make soe configuration changes here.
+1. Install Docker latest version
+2. Insall Hyper V (Its already installed on Windows Machine) 
+    We need to make soe configuration changes here.
 
-      We need to create new Virtual Network Switch. For that:
-        1. Open "Hyper-v Manager" and Go to Virtual Switch Manager
-        2. Select "Internal" 
-        3. Click on create Virtual Switch 
-        4. Give some name to the switch, for example "Minikube"
-        5. Select Internal Network from Radio Button option 
-        6. Click on "Ok"
+    We need to create new Virtual Network Switch. For that:
+    1. Open "Hyper-v Manager" and Go to Virtual Switch Manager
+    2. Select "Internal" 
+    3. Click on create Virtual Switch 
+    4. Give some name to the switch, for example "Minikube"
+    5. Select Internal Network from Radio Button option 
+    6. Click on "Ok"
 
-        Thats it. We have created a new virtual switch.
+    Thats it. We have created a new virtual switch.
 
-        To Enable the newly created switch 
+    To Enable the newly created switch 
 
-        1. Go to Control Panel
-        2. Search for "Network and Sharing Center"
-        3. In the view your active networks Right hand side, you will find Connections "Ethernet"
-        4. Click on "Properties" 
-        5. Click on "Sharing"
-        6. Check the box "Allow other network users to connect through this computers inernet connection"
-        7. In the drop down of "Home Networking Connection" select "vEthernet Minikube" (the one we have created in above Section)
-        8. Click on "Ok"        
+    1. Go to Control Panel
+    2. Search for "Network and Sharing Center"
+    3. In the view your active networks Right hand side, you will find Connections "Ethernet"
+    4. Click on "Properties" 
+    5. Click on "Sharing"
+    6. Check the box "Allow other network users to connect through this computers inernet connection"
+    7. In the drop down of "Home Networking Connection" select "vEthernet Minikube" (the one we have created in above Section)
+    8. Click on "Ok"        
 
-        Virtual Switch - A virtual switch is a software program that allows one virtual machine (VM) to 
-        communicate with another. Just like its counterpart, the physical Ethernet switch, a virtual switch
-        does more than just forward data packets.
+    Virtual Switch - A virtual switch is a software program that allows one virtual machine (VM) to 
+    communicate with another. Just like its counterpart, the physical Ethernet switch, a virtual switch
+    does more than just forward data packets.
 
+
+3. Install Kubectl 
+    * Download link: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
+
+4. Install Minikube 
+    * General Download Instructions: https://kubernetes.io/docs/tasks/tools/install-minikube/
+    * Download link: https://github.com/kubernetes/minikube/releases
+
+    Minikube : Minikube is a tool that makes it easy to run Kubernetes locally. 
+    Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your 
+    laptop for users looking to try out Kubernetes or develop with it day-to-day.
+
+
+
+5. Once both are downloaded, we need to copy kubectl and minikube executables in a folder and add that folder in 
+    Environment Variable 
+
+
+        docker version
+        kubectl version
+        minikube version 
+
+    ** Kindly ensure to run all these commands in Windows Power Shell command prompt.
+
+
+6. Start the minikube 
+
+For Windows: 
+    minikube start --kubernetes-version="v1.8.0" --vm-driver="hyperv" --hyperv-virtual-switch="Minikube"
+
+For Mac or Linux:
+    minikube start  
     
-    3. Install Kubectl 
-        * Download link: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
+    minikube clear 
 
-    4. Install Minikube 
-        * General Download Instructions: https://kubernetes.io/docs/tasks/tools/install-minikube/
-        * Download link: https://github.com/kubernetes/minikube/releases
-   
-        Minikube : Minikube is a tool that makes it easy to run Kubernetes locally. 
-        Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your 
-        laptop for users looking to try out Kubernetes or develop with it day-to-day.
+    minikube stop 
 
+
+
+7. Once installation finished, to ensure kubectl is up and running 
     
+        kubectl get pods
+        kubectl get nodes 
+        kubectl get deployments 
+        kubectl get rs   (rs - ReplicaSet )
 
-    5. Once both are downloaded, we need to copy kubectl and minikube executables in a folder and add that folder in 
-        Environment Variable 
-
-
-         docker version
-         kubectl version
-         minikube version 
-
-     ** Kindly ensure to run all these commands in Windows Power Shell command prompt.
+    Also, go to HyperV Manager, you will see "Minikube" in available virtual machines list.
 
 
-    6. Start the minikube 
-
-        For Windows: 
-            minikube start --kubernetes-version="v1.8.0" --vm-driver="hyperv" --hyperv-virtual-switch="Minikube"
-
-        For Mac or Linux:
-            minikube start  
-            
-            minikube clear 
-
-            minikube stop 
-
-
-
-    7. Once installation finished, to ensure kubectl is up and running 
-        
-            kubectl get pods
-            kubectl get nodes 
-            kubectl get deployments 
-            kubectl get rs   (rs - ReplicaSet )
-
-        Also, go to HyperV Manager, you will see "Minikube" in available virtual machines list.
-
-
-    This is all required to setup kunernetes in Windows machine.
+This is all required to setup kunernetes in Windows machine.
 
 
 ==== Running a First Hello World Application 
