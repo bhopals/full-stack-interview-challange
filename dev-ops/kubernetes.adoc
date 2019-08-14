@@ -564,10 +564,57 @@ Kubernetes to run these applications on your infrastructure.
         - Delete the pod 
 
 
+=== Make it Production Ready 
+
+
+==== Add Lables in POD 
+
+    Sample POD File: 
+        
+        apiVersion: v1
+        kind: Pod
+        metadata:
+        name: helloworld
+        labels:
+            env: production
+            author: karthequian
+            application_type: ui
+            release-version: "1.0"
+        spec:
+        containers:
+        - name: helloworld
+            image: karthequian/helloworld:latest
+
+
+
+    kubectl create -f <yaml.yml>
+
+    kubeclt get pods 
+        - List all the pods 
+
+    kubectl get pods --show-labels 
+        - List the pod with all the label details 
+
+    kubectl get pods -o wide 
+        - Also show the wider details of the pod 
+
+    kubectl label  <pod-name> <new-label-name>=<label-value> --overwrite 
+
+    kubectl label po/helloworld app=helloworldapp --overwrite 
+        - Will create/update label of running PODS 
+
+
+    kubectl label po/helloworld app- 
+        - To Delete Label named app 
+
+    kubectl get pods --show-label 
+        - List all the labels 
+        
+
+
 ==== REFERENCE
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
     https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
 
 
     https://medium.com/@sxia/why-kubernetes-needs-pod-service-and-deployment-f6c96c7d379b
-    
