@@ -181,7 +181,10 @@ Kubernetes to run these applications on your infrastructure.
        Communication, Scheduling, and controllers using  Kube API Server, Schedular, Controller Manager.
 
        Kube API Server - allows you interact with Kubernets API. Front end of kubernete control pane.
+      
        Schedular - It watches created PODs who does not have node design yet, and designs the POD to run on a specific node.
+        Physically schedules pods based on the criteria provided across all the nodes 
+      
        Controller Manager - Runs controllers. The contoller actually has bunch of different roles, and it acts as a single binary.
 
             - The Node Controller - Workers states
@@ -242,6 +245,15 @@ Kubernetes to run these applications on your infrastructure.
 
         - POD - The Simplest unit that can ineract with you. You can create, deploy and delete pods, and it represent one running process 
                 on your cluster.
+                Pods is a scheduling unit in Kubernetes.
+                A Pod is the basic execution unit of a Kubernetes application
+        
+        A Kubernetes Pod is a group of one or more Containers, tied together for the purposes of administration 
+        and networking.
+
+        Service - An abstract way to expose an application running on a set of Pods as a network service.
+
+
 
         - Whats in the POD 
             - Your docker application container 
@@ -517,6 +529,37 @@ Kubernetes to run these applications on your infrastructure.
     kubectl get pods 
         - List all the pod details 
 
+    kubectl create -f <yaml-file-name>
+        - Create POD
+
+    Sample YML :
+        appVersion: v1
+        kind: Pod 
+        metadata: 
+            name:app-pod 
+            tier:dev
+        spec:
+            containers:
+                -name:nginx-container
+                image:nginx 
+
+    kubectl get pod 
+        - List all the pods 
+
+    kubectl get pod -o wide 
+        - To show more details (The wide output option passed)
+
+    kubectl get pod nginx-pod -o yaml 
+        - Would display the Yaml file details 
+
+    kubectl descrive pod <pod-name>
+        - Would list all the details about the pod 
+
+    kubectl exec -it <pod-name> -- /bin/sh 
+        - To access the POD using bash 
+
+    kubectl delete pod <pod-name>
+        - Delete the pod 
 
 
 ==== REFERENCE
