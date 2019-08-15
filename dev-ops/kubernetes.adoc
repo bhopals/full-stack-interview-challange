@@ -968,6 +968,35 @@ Create Secret from String Literal
     kubectl create secret generic apikey --from-literal api_key=1234
 
 
+### Understand how to add a secret to a deployment
+Adding a secret to a deployment is similar to what we did for configmaps. You can add a secret to the env 
+portion, and start up the deployment with:
+
+    `kubectl create -f secretreader-deployment.yaml`
+
+
+      YAML FILE:
+        apiVersion: extensions/v1beta1
+        kind: Deployment
+        metadata:
+        name: secretreader
+        spec:
+        replicas: 1
+        template:
+            metadata:
+            labels:
+                name: secretreader
+            spec:
+            containers:
+            - name: secretreader
+                image: karthequian/secretreader:latest
+                env:
+                - name: api_key
+                valueFrom:
+                    secretKeyRef:
+                    name: apikey
+                    key: api_key  
+
 ==== REFERENCE
     https://www.katacoda.com/
     https://labs.play-with-k8s.com/
