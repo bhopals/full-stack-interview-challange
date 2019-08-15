@@ -831,6 +831,46 @@ The namespace called "kube-system")
 $ kubectl get pods --all-namespaces
 
 
+=== Service 
+Kubenetes Service is an abstraction of a logical set of pods. Simply service acts as 
+an intermediate which allows pods to talk to each other. Kubernetes service also supports 
+TCP and UDP protocols. You can point the set of pods need to expose from the Service you write. 
+
+==== Types of Kubernetes services
+    ClusterIP
+    NodePort
+    LoadBalancer
+
+===== ClusterIP: 
+This is the default service type available in Kubernetes. The service is reachable or visible 
+only inside the cluster. If you do not want to expose your pod to the outside world, this is the 
+correct service type. For an example, you don’t want to expose your database to the internet. 
+You can only expose to the cluster pods using ClusterIP.
+
+===== NodePort: 
+When you want to expose your application to the internet, you can use this service type. 
+Kubernetes master will provide a random port within the range 30000–32767 or you can provide 
+a range using --service-node-port-range flag. Every kubernetes node will expose this port.
+
+===== LoadBalancer: 
+You can use this service type to provision a load balancer for your service. Some cloud providers allow the 
+loadBalancerIP to be specified in the service yaml file. In those cases, the load-balancer will be created 
+with the user-specified loadBalancerIPotherwise, an ephemeral IP will be assigned to the loadBalancer.     
+
+    kind: Service
+    apiVersion: v1
+    metadata:
+    name: my-service
+    spec:
+    selector:
+        app: myapp
+    ports:
+    - protocol: TCP
+        port: 443
+        targetPort: 9095
+    type: LoadBalancer
+
+
 ==== REFERENCE
     https://www.katacoda.com/
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
