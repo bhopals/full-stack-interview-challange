@@ -1088,12 +1088,17 @@ Zookeeper
 Sticky Session 
 
 ====== StatefulSet 
+StatefulSet is the workload API object used to manage stateful applications.
 
 Statefulsets Manages the deployment and scaling of a set of Pods, and provides guarantees about the 
 ordering and uniqueness of these Pods. Unlike a Deployment, a StatefulSet maintains a sticky identity 
 for each of their Pods.
 
-
+StatefulSets are valuable for applications that require one or more of the following.
+    Stable, unique network identifiers.
+    Stable, persistent storage.
+    Ordered, graceful deployment and scaling.
+    Ordered, automated rolling updates.
 ==== REFERENCE
     https://www.katacoda.com/
     https://labs.play-with-k8s.com/
