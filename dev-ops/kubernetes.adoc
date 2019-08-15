@@ -839,6 +839,7 @@ content to keep containerized applications portable.
 
 ====== Create a ConfigMap Using kubectl create configmap
 
+To Send Dynamic Values to the config map 
 Use the kubectl create configmap command to create configmaps from 
   
     - directories
@@ -931,8 +932,45 @@ with the user-specified loadBalancerIPotherwise, an ephemeral IP will be assigne
     type: LoadBalancer
 
 
+
+===== Dealing with Application Secret 
+Kubernetes secret objects let you store and manage sensitive information, such as passwords, OAuth tokens, 
+and ssh keys. Putting this information in a secret is safer and more flexible than putting it verbatim in 
+a Pod definition or in a container image
+
+The kubectl create secret command packages these files into a Secret and creates the object on the Apiserver.
+
+Create Secret from file 
+    -   kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+
+
+    kubectl get secrets
+
+    kubectl describe secrets/db-user-pass
+
+Create Secret from Generator 
+   
+
+Create Secret from YAML  
+ # Create a kustomization.yaml file with SecretGenerator
+    $ cat <<EOF >./kustomization.yaml
+    secretGenerator:
+    - name: db-user-pass
+    literals:
+    - username=admin
+    - password=secret
+    EOF
+
+
+Create Secret from String Literal 
+
+    kubectl create secret generic <secret-name> --from-literal <key>=<value> 
+    kubectl create secret generic apikey --from-literal api_key=1234
+
+
 ==== REFERENCE
     https://www.katacoda.com/
+    https://labs.play-with-k8s.com/
     https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
     https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
 
