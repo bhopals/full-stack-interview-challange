@@ -1059,6 +1059,41 @@ We can use the cronjob api to view your cronjobs: `kubectl get cronjobs`. It add
     suspend: false #Set to true if you want to suspend in the future
 
 
+ kubectl get jobs 
+
+
+=== Running Stateful Set applications 
+
+===== DaemonSet 
+A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, 
+Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. 
+Deleting a DaemonSet will clean up the Pods it created.
+
+A DaemonSet ensures that all Nodes run a copy of a Pod. As nodes are added to the cluster, 
+Pods are added to them. Examples of a daemon set would be running your logging or monitoring agent on your nodes.
+
+
+Some typical uses of a DaemonSet are:
+
+running a cluster storage daemon, such as glusterd, ceph, on each node.
+
+running a logs collection daemon on every node, such as fluentd or logstash.
+
+running a node monitoring daemon on every node, such as Prometheus Node Exporter, Sysdig Agent, collectd, 
+Dynatrace OneAgent, AppDynamics Agent, Datadog agent, New Relic agent, Ganglia gmond or Instana Agent.
+
+
+
+Zookeeper 
+Sticky Session 
+
+====== StatefulSet 
+
+Statefulsets Manages the deployment and scaling of a set of Pods, and provides guarantees about the 
+ordering and uniqueness of these Pods. Unlike a Deployment, a StatefulSet maintains a sticky identity 
+for each of their Pods.
+
+
 ==== REFERENCE
     https://www.katacoda.com/
     https://labs.play-with-k8s.com/
