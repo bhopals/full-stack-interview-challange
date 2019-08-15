@@ -836,6 +836,27 @@ $ kubectl get pods --all-namespaces
 ConfigMaps allow you to decouple configuration artifacts from image 
 content to keep containerized applications portable. 
 
+
+====== Create a ConfigMap Using kubectl create configmap
+
+Use the kubectl create configmap command to create configmaps from 
+  
+    - directories
+        kubectl create configmap game-config --from-file=configure-pod-container/configmap/
+
+    - files 
+        kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties
+
+  
+    - literal values
+        kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
+
+
+    kubectl create configmap <map-name> <data-source>
+
+    kubectl get configmaps <map-name> -o yaml
+        - To see the config map details 
+
 Applications require a way for us to pass data to them that can be changed at deploy time. Examples of this might be log-levels or urls of external systems that the application might need at startup time. Instead of hardcoding these values, we can use a configmap in kubernetes, and pass these values as environment variables to the container.
 We will take an example of "log_level", and pass the value "debug" to a pod via a configmap in this example.
 
@@ -843,6 +864,30 @@ To create a configmap for this literal type `kubectl create configmap logger --f
 To see all your configmaps: `kubectl get configmaps`
 To read the value in the logger configmap: `kubectl get configmap/logger -o yaml`
 To edit the value, we can run `kubectl edit configmap/logger`
+
+EXAMPLE :
+
+    kubectl create configmap special-config --from-literal=special.how=very
+
+        apiVersion: v1
+        kind: Pod
+        metadata:
+        name: dapi-test-pod
+        spec:
+        containers:
+            - name: test-container
+            image: k8s.gcr.io/busybox
+            command: [ "/bin/sh", "-c", "env" ]
+            env:
+                # Define the environment variable
+                - name: SPECIAL_LEVEL_KEY
+                valueFrom:
+                    configMapKeyRef:
+                    # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                    name: special-config
+                    # Specify the key associated with the value
+                    key: special.how
+        
 
 
 
