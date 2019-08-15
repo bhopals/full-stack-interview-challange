@@ -1010,6 +1010,21 @@ Jobs are a construct that run a pod once, and then stop. However, unlike pods in
 
 Running a job is similar to running a deployment, and we can create this by `kubectl create -f simplejob.yaml`
 
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+    name: pi
+    spec:
+    template:
+        spec:
+        containers:
+        - name: pi
+            image: perl
+            command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        restartPolicy: Never
+    backoffLimit: 4
+
+
 To see the output of the job: `kubectl get jobs`
 
 You can find the pod that ran by doing a `kubectl get pods --all-pods`, and then get the logs from it as well.
@@ -1022,7 +1037,7 @@ Start your cron by running `kubectl create -f cronjob.yaml`
 We can use the cronjob api to view your cronjobs: `kubectl get cronjobs`. It adds the last schedule date
 
  YAML :
- 
+
     apiVersion: batch/v1beta1
     kind: CronJob
     metadata:
