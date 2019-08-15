@@ -997,6 +997,53 @@ portion, and start up the deployment with:
                     name: apikey
                     key: api_key  
 
+
+===== Running Jobs in kubernetes 
+# Jobs in Kubernetes
+
+## Chapter Goals
+1. How to run jobs
+2. How to run cron jobs
+
+### How to run jobs
+Jobs are a construct that run a pod once, and then stop. However, unlike pods in deployments, the output of the job is kept around until you decide to remove it.
+
+Running a job is similar to running a deployment, and we can create this by `kubectl create -f simplejob.yaml`
+
+To see the output of the job: `kubectl get jobs`
+
+You can find the pod that ran by doing a `kubectl get pods --all-pods`, and then get the logs from it as well.
+
+### How to run cron jobs
+Cron jobs are like jobs, but they run periodically.
+
+Start your cron by running `kubectl create -f cronjob.yaml`
+
+We can use the cronjob api to view your cronjobs: `kubectl get cronjobs`. It adds the last schedule date
+
+ YAML :
+ 
+    apiVersion: batch/v1beta1
+    kind: CronJob
+    metadata:
+    name: hellocron
+    spec:
+    schedule: "*/1 * * * *" #Runs every minute (cron syntax) or @hourly.
+    jobTemplate:
+        spec:
+        template:
+            spec:
+            containers:
+            - name: hellocron
+                image: busybox
+                args:
+                - /bin/sh
+                - -c
+                - date; echo Hello from your Kubernetes cluster
+            restartPolicy: OnFailure #could also be Always or Never
+    suspend: false #Set to true if you want to suspend in the future
+
+
 ==== REFERENCE
     https://www.katacoda.com/
     https://labs.play-with-k8s.com/
