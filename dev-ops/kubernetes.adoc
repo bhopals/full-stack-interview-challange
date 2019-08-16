@@ -1119,11 +1119,21 @@ Abstract details of how storage is provided from how it is consumed.
 ==== Lifecycle of a Persistent Volume 
     
     - Provisioning 
-    
-    - Binding 
+        Static - PV needs to be created before PVC  - Kind "PersistentVolume"
+        Dynamic - PV is created at same time of PVC - Kind "StorageVolume"
 
-    - 
+    - Binding (also called Claiming)
+        Get Vloume using PVC 
+    - Using 
+        Use into the POD as a volume 
+    - Reclaiming
+        - Delete the volume once user is done with the work 
 
+
+    kubectl get pv 
+    kubectl get pvc 
+
+    REFERENCE - https://www.youtube.com/watch?v=XSNuDl3wHuc&list=PLMPZQTftRCS8Pp4wiiUruly5ODScvAwcQ&index=31
 
 === Controllers 
 
@@ -1322,11 +1332,10 @@ Kubernetes slack channel for auth: sig-auth
 
 
 ==== REFERENCE
-    https://www.katacoda.com/
-    https://labs.play-with-k8s.com/
-    https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
-    https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
-
-
-    https://medium.com/@sxia/why-kubernetes-needs-pod-service-and-deployment-f6c96c7d379b
+https://www.katacoda.com/
+https://labs.play-with-k8s.com/
+https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/
+https://www.youtube.com/playlist?list=PLMPZQTftRCS8Pp4wiiUruly5ODScvAwcQ
+https://hackernoon.com/kubernetes-vs-docker-swarm-a-comprehensive-comparison-73058543771e
+https://medium.com/@sxia/why-kubernetes-needs-pod-service-and-deployment-f6c96c7d379b
 
