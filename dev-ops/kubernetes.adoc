@@ -1191,6 +1191,32 @@ with elasticsearch, with logs being shipped to them from Pods using Fluentd or F
 - Health of kubernetes
 - Application Health (and Metrics)
 
+For Node and Kubernets health, we can try two open source tools cAdvisor and heapster 
+
+
+===== cAdvisor
+cAdvisor is an open-source resource usage collector that was built for containers specifically. 
+It auto-discovers all containers in the given node and collects CPU, memory, file system, and network usage statistics. 
+cAdvisor also provides overall machine usage by analyzing the root container on the machine. 
+
+===== Heapster
+Heapster aggregates monitoring data across all of your nodes in your Kubernetes cluster. 
+Just like in application, Heapster runs as a pod in deployment in the cluster. 
+The Heapster pod queries usage information from the node's kubelets, which in turn queries 
+that data from cAdvisor. Heapster groups the information by pod along with, including any relevant 
+labels. 
+
+===== Prometheus
+Finally, your application might want to send application metrics. 
+For example, the number of successful logins per hour. To ingest this, you can use an open-source framework called Prometheus. 
+Prometheus is a time series database with a great query language that works well for application-specific metrics and also
+can be used from an alerting standpoint. You can instrument your application to save application monitoring data at a slash 
+metrics endpoint that Prometheus queries in a timely manner. 
+
+===== Grafana
+Prometheus, Heapster, and cAdvisor are typically linked to Grafana, 
+which is an open-source tool to visualize monitoring data.
+
 
 ==== Production Kubernetes Deployment
 Kubernetes the hard way: https://github.com/kelseyhightower/kubernetes-the-hard-way 
