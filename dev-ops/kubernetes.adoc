@@ -1331,6 +1331,50 @@ Kubernetes slack channel for auth: sig-auth
 
 
 
+=== Tools from Cloud Native Computing Foundation (CNCF)
+
+All the avaialbe tools can be found here 
+https://landscape.cncf.io/
+
+Instead of SOAP, REST, we can try gRPC (Google Remote Procedure Call)
+
+==== Coordination and Service Discovery tools
+Core DNS, Apache Zookeeper, etcd, airbnb Smartstack, Netflix Eureka, Container Pilot, SkyDns, 
+VMVare Haret, kube-dns(plugin)
+RECOMMEND ONE: Core DNS
+
+
+==== Service Management 
+Istio, Service Mesh, Netflix zool, Apache Thrift, Netflix Ribbon, f5, GRPC, Envoy, Linkerd
+Hystrix
+RECOMMEND ONE: Linkerd or Envoy
+
+
+==== Application Monitoring
+Prometheus, AppDynamics, Dynatrace,datadog, grafana, graphite, LightStep
+RECOMMEND ONE: Prometheus
+
+==== Logging 
+fluentd, elastic, splunk, graylog, loggly, logz.io. logstash
+RECOMMEND ONE: Fluentd
+
+==== Application Tracing (Trace or Debug an application)
+Jaegar, Open Tracing, Zipkin
+RECOMMEND ONE: Jaegar
+
+==== Security
+
+===== Image Security 
+Notary, tuff, aqua, openscap, anchore
+RECOMMEND ONE:Clair
+
+===== Key Management 
+Vault, Spire, Knox, KeyWhiz
+RECOMMEND ONE:Vault 
+
+
+
+
 ==== REFERENCE
 https://www.katacoda.com/
 https://labs.play-with-k8s.com/
