@@ -455,6 +455,9 @@ kubectl expose deployment hw --type=NodePort
 kubectl get services 
 
 
+kubectl create -f "<yaml>.yaml"
+kubectl apply -f <git-url>
+
 minikube service <service-name>
 minikube service hw 
     - It will open the service in browser 
@@ -562,9 +565,33 @@ To check both service and deployment created
 
     kubectl delete pod <pod-name>
         - Delete the pod 
+    
+    kubectl delete pods -l env=staging -n <name-space>
+        - Delete all the pods that has  env = staging and belong to given namespace.
 
 
 === Make it Production Ready 
+
+==== Minikube 
+minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be
+the best tool for local Kubernetes application development and to support all Kubernetes features that fit.
+
+==== Kubeadm
+Kubeadm is a tool built to provide kubeadm init and kubeadm join as best-practice “fast paths” for creating Kubernetes clusters.
+
+==== kops (Kuberenetes Operations)
+kops helps you create, destroy, upgrade and maintain production-grade, highly available, 
+Kubernetes clusters from the command line. AWS (Amazon Web Services) is currently officially
+supported, with GCE in beta support , and VMware vSphere in alpha, and other platforms planned.
+
+==== Kompose 
+Kompose tool converts Docker Compose files into Kubernetes 
+Object like deployments and Services.
+
+==== Helm 
+Helm is a tool that streamlines the installation and management 
+of Kubernetes applications. It is like a package manager for kubernenetes.
+
 
 
 ==== Add Lables in POD 
@@ -829,7 +856,9 @@ $ minikube addons enable heapster
 Once enabled, to see the status. (We need to specify namespace here as heapster runs of different namespace. 
 The namespace called "kube-system")
 $ kubectl get pods --all-namespaces
-
+    Fetch list of all namespaces 
+$ kubectl get pods -n <name-space>
+    Select pods from specific namespaces 
 
 
 ===== Configmap
@@ -1328,6 +1357,50 @@ RBAC Support: http://blog.kubernetes.io/2017/04/rbac-support-in-kubernetes.html
 RBAC config: https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/
 Kubernetes slack: kubernetes.slack.com
 Kubernetes slack channel for auth: sig-auth
+
+
+
+=== Tools from Cloud Native Computing Foundation (CNCF)
+
+All the avaialbe tools can be found here 
+https://landscape.cncf.io/
+
+Instead of SOAP, REST, we can try gRPC (Google Remote Procedure Call)
+
+==== Coordination and Service Discovery tools
+Core DNS, Apache Zookeeper, etcd, airbnb Smartstack, Netflix Eureka, Container Pilot, SkyDns, 
+VMVare Haret, kube-dns(plugin)
+RECOMMEND ONE: Core DNS
+
+
+==== Service Management 
+Istio, Service Mesh, Netflix zool, Apache Thrift, Netflix Ribbon, f5, GRPC, Envoy, Linkerd
+Hystrix
+RECOMMEND ONE: Linkerd or Envoy
+
+
+==== Application Monitoring
+Prometheus, AppDynamics, Dynatrace,datadog, grafana, graphite, LightStep
+RECOMMEND ONE: Prometheus
+
+==== Logging 
+fluentd, elastic, splunk, graylog, loggly, logz.io. logstash
+RECOMMEND ONE: Fluentd
+
+==== Application Tracing (Trace or Debug an application)
+Jaegar, Open Tracing, Zipkin
+RECOMMEND ONE: Jaegar
+
+==== Security
+
+===== Image Security 
+Notary, tuff, aqua, openscap, anchore
+RECOMMEND ONE:Clair
+
+===== Key Management 
+Vault, Spire, Knox, KeyWhiz
+RECOMMEND ONE:Vault 
+
 
 
 
