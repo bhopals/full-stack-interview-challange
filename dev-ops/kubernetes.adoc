@@ -1101,7 +1101,96 @@ StatefulSets are valuable for applications that require one or more of the follo
     Ordered, automated rolling updates.
 
 
+=== Persistent Volume (PV) and Persistent Volume Claim (PVC)
+
+Different Persistent storage type such as Block Storage, NFS, Object Storage, Others 
+
+Persistent Volumes - It provides standard APIs to access all types of storage types 
+
+Abstract details of how storage is provided from how it is consumed.
+
+    - Persistent Volume (PV) - - (Piece of storage in Clusters)
+        - Provisioned by Admin.
+        - Data available beyond life cycle of POD 
+
+    - Persistent Volume Claim (PVC) (Request for Storage)
+        - Developer request for storage for READ/WRITE works 
+        
+==== Lifecycle of a Persistent Volume 
+    
+    - Provisioning 
+    
+    - Binding 
+
+    - 
+
+
+=== Controllers 
+
+==== ReplicaSet
+A ReplicaSet’s purpose is to maintain a stable set of replica Pods running at any given time. 
+As such, it is often used to guarantee the availability of a specified number of identical Pods
+
+==== Replication Controller 
+A ReplicationController ensures that a specified number of pod replicas are running at any one time. 
+In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is always up 
+and available.
+
+If there are too many pods, the ReplicationController terminates the extra pods. If there are too few, 
+the ReplicationController starts more pods. Unlike manually created pods, the pods maintained by a 
+ReplicationController are automatically replaced if they fail, are deleted, or are terminated.
+
+
+==== Deployment 
+A Deployment controller provides declarative updates for Pods and ReplicaSets.
+
+You describe a desired state in a Deployment, and the Deployment controller changes the actual state to the 
+desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing 
+Deployments and adopt all their resources with new Deployment
+
+Note: A Deployment that configures a ReplicaSet is now the recommended way to set up replication.
+
+
+==== StatefulSets
+StatefulSet is the workload API object used to manage stateful applications.
+Manages the deployment and scaling of a set of Pods , and provides guarantees about the ordering and uniqueness
+ of these Pods.
+
+Like a Deployment , a StatefulSet manages Pods that are based on an identical container spec. 
+Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods. These pods are created 
+from the same spec, but are not interchangeable: each has a persistent identifier that it maintains 
+across any rescheduling.
+
+
+
 === Advance Topics:
+
+==== Namespace 
+Namespaces are a fundamental concept to add multi-tenancy to your Kubernetes instance. 
+Kubernetes provides multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces. 
+
+There are four primary use cases. 
+	- roles and responsibilities in an enterprise.  
+	- partitioning landscapes, for example, dev vs test vs production. 
+	- customer partitioning for non-multi-tenant scenarios. 
+    - Application partitioning
+
+To create namespace 
+    kubectl create namespace 
+    kubeclt get namespace 
+    kubectl delete namespace 
+
+==== Logging 
+Once your application is running in staging or production, you might consider using a logging platform like Kibana 
+with elasticsearch, with logs being shipped to them from Pods using Fluentd or Filebeat(Logstash)
+
+//TODO - Sidecar Container Architecture 
+
+==== Monitoring 
+- Node Health
+- Health of kubernetes
+- Application Health (and Metrics)
+
 
 ==== Production Kubernetes Deployment
 Kubernetes the hard way: https://github.com/kelseyhightower/kubernetes-the-hard-way 
