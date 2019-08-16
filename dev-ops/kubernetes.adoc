@@ -1218,6 +1218,63 @@ Prometheus, Heapster, and cAdvisor are typically linked to Grafana,
 which is an open-source tool to visualize monitoring data.
 
 
+==== Authentication and Authorisation 
+Two kinds of users:
+- Normal Users: Human interating with the System
+- Service Accounts: Accounts managed by the K8s and API
+
+===== Popular Authentication Mode:
+
+- Client crts 
+    
+    Client Certificate Authentication uses --client-ca-file=FILENAME  Option to send to the API Server 
+
+    Reference file must contain one or more Certificate Authorities to validate client certificates 
+
+    The common name of a client certificate is used as the user name for the request 
+
+
+
+- Static Token Files
+
+    Use --token-auth-file=FILE_WITH_TOKENS option on the command line.
+
+    Token file is a CSV file with four columns: token, user name, UID, optional group names.
+    Example: 12dw2e2d232,bhopal,34343,"group1,group2,group3"
+
+- OpenID Connect 
+
+    If you already have Open ID or Active Directory in your org, take a look at OpenID Connect Tokens.
+
+    
+- Webhook Mode 
+    
+    For larger orgnisation who already have OAuth could consider Webhook Tokens Option.
+
+    The kube-apiserver calls out to a service defined by you to tell it whether a token is valid or not.
+
+    Used commonly in scenarios where you want to integrate Kubernetes with a remote authentication service
+
+    Most commonly Used.
+
+
+===== Autherisation Mode:
+
+- ABAC (Attribute-based access control) 
+
+
+- RBAC (Role-based access control) 
+    Mostly used 
+
+- Webhook 
+    
+    The kube-apiserver calls out to a service defined by you to tell it whether a 
+    specific action can be performed - it sends the token and the action the token is trying to perform 
+
+    This method works great trying to integrate with a third-party authorization systes, or 
+    if you want a complex set of rules
+
+
 ==== Production Kubernetes Deployment
 Kubernetes the hard way: https://github.com/kelseyhightower/kubernetes-the-hard-way 
 Hard to install k8s: https://groups.google.com/forum/#!topic/kubernetes-users/9ix65M13NNA
