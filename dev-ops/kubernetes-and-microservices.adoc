@@ -78,9 +78,32 @@ X. Dev/prod parity
 
 XI. Logs
     Treat logs as event streams
+    In kubernetes, common to use a log router (Beats/Fluentd) to save the logs to a service (ElasticSearch/Splunk)
 
 XII. Admin processes
     Run admin/management tasks as one-off processes
+
+
+All 12 Rules are basically categorised in 3 parts.
+    - Microservices Building Block 
+        - Codebase 
+        - Dependencies 
+        - Admin Processes
+        - Dev/Staging/Production Parity 
+
+    - Deployment Patterns 
+        - Application Configurations 
+        - Build, release, and run 
+        - Processes
+        - Port Binding 
+
+    - Runtime Pattersn 
+        - Backing around services 
+        - Features and Concurrency 
+        - Disposability
+        - Log Management 
+        
+
 
 REFERENCE : https://12factor.net/
 
