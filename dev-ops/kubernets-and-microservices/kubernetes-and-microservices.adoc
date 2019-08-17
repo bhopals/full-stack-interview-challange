@@ -253,6 +253,33 @@ To look find your env variable run:
 # Secret Key YAML File - kindly refer "wishlist-deployment-secret.yaml"
 
 
+==== Liveness Probes
+
+## Goals: 
+1) Understand liveness probes in Kubernetes
+
+## Goal 1
+Liveness Probes are often used in deployments with many containers. They help with startup and container running states (https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes )
+
+To run our example:
+`kubectl apply -f wishlist-deployment-liveness.yaml`
+
+To see if our probes are running:
+`kubectl describe <pod_name>`
+
+===== Types of health checks
+Kubernetes gives you two types of health checks, and it is important to
+understand the differences between the two, and their uses.
+
+===== Readiness
+Readiness probes are designed to let Kubernetes know when your app is ready to serve traffic. 
+Kubernetes makes sure the readiness probe passes before allowing a service to send traffic to the pod. 
+If a readiness probe starts to fail, Kubernetes stops sending traffic to the pod until it passes.
+
+===== Liveness
+Liveness probes let Kubernetes know if your app is alive or dead. If you app is alive, then 
+Kubernetes leaves it alone. If your app is dead, Kubernetes removes the Pod and starts a new one to 
+replace it.
 
 
 ==== kubectl create v/s apply 
