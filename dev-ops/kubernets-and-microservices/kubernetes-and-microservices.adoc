@@ -184,7 +184,7 @@ Configuration information should live outside of the application. How can we do 
 2. Create a configmap that can be referenced by the application via a volume mounted file
 
 
-## Goal 1
+## Goal 1 - Add configuration data in ENVIRONEMNT variable of the container 
 Create the deployment by running 
 `kubectl apply -f wishlist-deployment-configmap-simple.yaml`
 
@@ -196,12 +196,13 @@ To look find your env variable run:
 
 # Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-simple.yaml"
 
-## Goal 2
+## Goal 2  - Mount configuration as a data volume in container 
 Create the deployment by running 
 `kubectl apply -f wishlist-deployment-configmap-advanced.yaml`
 
 Exec into the auth container in the wishlist pod with a command like:
 `kubectl exec -it wishlist-<podid> -c auth bash`
+kubectl exec -it <wishlist-podid> /bin/bash 
 
 To look find your env variable run:
 `cat /var/lib/wishlist/log.properties`
@@ -211,11 +212,45 @@ To look find your env variable run:
 
 
 
+==== Secrets 
 
 
+## Goals
+1. Create a secret that can be referenced by the application via env variables
+2. Create a secret that can be referenced by the application via a volume mounted file
+
+## Goal 1 - Add Connection String in ENVIRONMENT VARIABLE 
+Create the deployment by running 
+`kubectl apply -f wishlist-deployment-secret.yaml`
+
+kubectl exec -it <deployment-id> /bin/bash 
+kubectl exec -it <deplpyment-id> -c <container-name> bash 
+
+To look find your env variable run:
+`env | grep MYSQL_CONNECTION_STRING`
+
+To decode the connection string which is already encoded
+    echo <connection-string> | base64 --decode 
+
+To encode the connection string which is already decoded
+    echo <connection-string> | base64 --encode 
 
 
+## Goal 2 - Mounting Volume of Connection String 
 
+Create the deployment by running 
+`kubectl apply -f wishlist-deployment-secret.yaml`
+
+kubectl exec -it <deployment-id> /bin/bash 
+kubectl exec -it <deplpyment-id> -c <container-name> bash 
+
+Both commands are same 
+-c = Container name param 
+
+To look find your env variable run:
+`cat /etc/mysql/connection-string`
+
+# Secret Key YAML File - kindly refer "wishlist-deployment-secret.yaml"
 
 
 
