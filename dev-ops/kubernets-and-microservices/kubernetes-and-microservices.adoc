@@ -451,6 +451,16 @@ We can install Jaeger from the github site for their kubernetes project: https:/
 Let's deploy our sample application with the command:
 `kubectl apply -f jaeger-example.yaml`
 
+
+=== NEXT 
+
+Service mesh - A dedicated infrastructure layer to handle service to service communication 
+    Contour + envoy - Ingress that acts as Service Mesh        
+
+Istio - An open source platform to connect, manage and secure microservices.
+Platform on top of Kubernetes.
+Application Developers use Istio commands to interact with their cluster instead of kubectl commands.
+
 ==== Types of health checks
 Kubernetes gives you two types of health checks, and it is important to
 understand the differences between the two, and their uses.
