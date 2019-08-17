@@ -33,5 +33,56 @@ Building microservices forces you to think about an applications in a more modul
 For Greenfield opportunities there is a initial learning curve if we use microservice architecture and 
 which would pay greater advantage on a long term.
 
+==== The Twelve factor App
+Applicable for all cloud and container application
+
+I. Codebase
+    One codebase tracked in revision control, many deploys
+    GIT,DOCKER
+
+II. Dependencies
+    Explicitly declare and isolate dependencies
+    MAVEN,NPM,GRADLE
+    In kubernetes create a POD that can have all your dependencies. Commonly seen in kubernetes world - SideCar Pattern
+III. Config
+    Store config in the environment not part of codebase 
+   
+    Small footprint(small organisations ): Different namespaces with different credentials dev, staging and production
+    Large footprint(larger organisations): Unique kubernetes installation for dev, stage, and production
+
+    Applicaton config for kubernetes is ConfigMap and Secrets 
+IV. Backing services
+    Treat backing services as attached resources
+    MYSQL, SMTP EMAIL
+
+V. Build, release, run
+    Strictly separate build and run stages
+    JENKINS
+
+VI. Processes
+    Execute the app as one or more stateless processes
+    Sticky session needs to be revisited and re-implemented
+
+VII. Port binding
+    Export services via port binding
+
+VIII. Concurrency
+    Scale out via the process model
+
+IX. Disposability
+    Maximize robustness with fast startup and graceful shutdown
+    Quick Application startup and shutdown 
+
+X. Dev/prod parity
+    Keep development, staging, and production as similar as possible
+
+XI. Logs
+    Treat logs as event streams
+
+XII. Admin processes
+    Run admin/management tasks as one-off processes
+
+REFERENCE : https://12factor.net/
+
 
 REFERENCE : https://martinfowler.com/microservices/
