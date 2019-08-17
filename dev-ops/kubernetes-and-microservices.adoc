@@ -1,0 +1,37 @@
+
+=== Microservices 
+Think of Microservices as a variant of service-oriented architecture that structures the entire
+application as a collection of loosely coupled services.
+
+Typically, microservices are broken up with the intent to solve a specific business need or
+enable a business capability. 
+
+==== Benefits 
+ - freedom to create, manage, and deploy the individual components without compromising the 
+   integrity of the entire application.
+ - Enables fault tolerance and dfault isolation
+ 
+ - language independence
+ - use the right language at the hand 
+ - Not pigeonhold to a single language just because the rest of the application uses it.
+ - avoid bottleneck of scaling
+ - Can be deployed independently
+ - Risk of rolling the change back is easy
+
+==== Continuous Delivery Deployment Types 
+ Blue Green deployment or Red Black Deployment  - Switch between servers and ensure at least one server is alive at all time 
+ A/B Deployment - Routing percentage of traffic on each while deploying   
+ Rollback deployment - slowly starting from 1-2 servers instead of going for all simultaneous deployment to ensure the successfully deployment  
+ Canary Deployment - release particular feature for certain set of users (Based on region or first name or age range)
+ Minimum In-Service deployment - make a policy that minimum numbers of server stay alive while deployment is in progress.
+ REFERENCE : https://caylent.com/docker-continuous-delivery-deployment-types/
+
+
+
+Building microservices forces you to think about an applications in a more modular way.
+
+For Greenfield opportunities there is a initial learning curve if we use microservice architecture and 
+which would pay greater advantage on a long term.
+
+
+REFERENCE : https://martinfowler.com/microservices/
