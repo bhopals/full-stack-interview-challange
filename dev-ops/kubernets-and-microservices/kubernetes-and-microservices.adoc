@@ -451,14 +451,17 @@ You can hit the host:port/wishlist URL to see the wishlist API's working.
 # Prometheus + Kubernetes demo
 
 ## Step 1: Deploy
-Helm is the easiest way to do this. Check out `https://github.com/kubernetes/charts/tree/master/stable/prometheus`.
+Helm is the easiest way to do this. 
+Check out https://github.com/kubernetes/charts/tree/master/stable/prometheus.
 
 We can run `helm install stable/prometheus` to get the stock prometheus server.
 
-In this case, we will run: `helm install stable/prometheus --name prom-demo -f values.yaml` to use our custom yaml.
+In this case, we will run: `helm install stable/prometheus --name prom-demo -f values.yaml` 
+to use our custom yaml.
 
 ## Step 2: See it running
-Running `minikube service prom-demo-prometheus-server` will bring up the browser with prometheus server running.
+Running `minikube service prom-demo-prometheus-server` will bring up the browser with prometheus 
+server running.
 
 ## Step 3: Check out Kubernetes stats
 Check out `count(kube_pod_container_status_running)` to see our all our pods running.
@@ -467,7 +470,8 @@ Check out `count(kube_pod_container_status_running)` to see our all our pods run
 
 The node exporter gives you node relative information as well like CPU/disk usage etc.
 
-Run `count(node_cpu{mode="system", instance="192.168.99.100:9100"})` will return the cpu count which should match the number of CPU's in `kubectl describe nodes`
+Run `count(node_cpu{mode="system", instance="192.168.99.100:9100"})` will return the cpu count which 
+should match the number of CPU's in `kubectl describe nodes`
 
 ### Step 5: App metrics
 
@@ -486,23 +490,28 @@ Run `count(node_cpu{mode="system", instance="192.168.99.100:9100"})` will return
 2. Run your application and see the logs in Kibana
 
 ## Goal 1
-We can start up the EFK (Elastic-Fluentd-Kibana) stack in minikube. Installing these components is a little bit of work, but minikube gives it to us as an addon.
+We can start up the EFK (Elastic-Fluentd-Kibana) stack in minikube. Installing these components 
+is a little bit of work, but minikube gives it to us as an addon.
 
-`minikube addons enable efk`
+    minikube addons enable efk
 
 Note, this will take a while, and you probably want to use minikube in a high memory mode.
-To increase the memory, you can type:
-minikube start --memory 16000 -cpus 4
+
+===== To increase the memory, you can type:
+    
+    minikube start --memory 16000 -cpus 4
 
 
 Once it's up and running, visit and configure Kibana by going to the URL by typing:
 
-`minikube addons open efk`
+    minikube addons open efk
+
 
 ## Goal 2
-Now let's deploy our application by running
+===== Now let's deploy our application by running
 
-`kubectl apply -f wishlist-deployment.yaml`
+    kubectl apply -f wishlist-deployment.yaml
+
 
 The app has some logs in it that we can look at in Kibana.
 
@@ -530,13 +539,14 @@ We can install Jaeger from the github site for their kubernetes project: https:/
 
 # Goals 3
 Let's deploy our sample application with the command:
-`kubectl apply -f jaeger-example.yaml`
+
+    kubectl apply -f jaeger-example.yaml
 
 
 === NEXT 
 
 Service mesh - A dedicated infrastructure layer to handle service to service communication 
-    Contour + envoy - Ingress that acts as Service Mesh        
+Contour + envoy - Ingress that acts as Service Mesh        
 
 Istio - An open source platform to connect, manage and secure microservices.
 Platform on top of Kubernetes.
