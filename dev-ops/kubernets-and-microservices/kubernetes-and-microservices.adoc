@@ -413,16 +413,26 @@ First, we need to add Contour to our cluster. I'm going to follow the docs
     kubectl apply -f https://j.hept.io/contour-deployment-rbac
 
 Then, I'll deploy my application:
-`kubectl apply -f wishlist-contour.yaml`
 
-To check the status:
-`kubectl get ing`
+    kubectl apply -f wishlist-contour.yaml
 
-To get the contour ingress URL, I can run:
-`minikube service -n heptio-contour contour --url`
 
-Here "-n" is for namespace falg, and since the heptio service is running in its own namepspace so to 
-access that we need namespace+servince name.
+===== To check the status:
+    
+    kubectl get ing
+
+    OR 
+
+    kubectl get ingress 
+
+
+===== To get the contour ingress URL, I can run:
+
+    minikube service -n heptio-contour contour --url
+
+
+Here "-n" is for namespace falg, and since the heptio service is running in its own namepspace 
+so to access that we need namespace+servince name.
 
 
 You can hit the host:port/wishlist URL to see the wishlist API's working.
