@@ -229,7 +229,8 @@ Configuration information should live outside of the application. How can we do 
 
 ===== Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-simple.yaml"
 
-======= Goal 2  - Mount configuration as a data volume in container 
+
+====== Goal 2  : Mount configuration as a data volume in container 
 
 ===== Create the deployment by running 
 
