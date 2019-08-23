@@ -373,14 +373,14 @@ For reference, I'm running:
 
 
 ==== Service Proxy with Envoy 
-# Playing with ingress controllers
+===== Playing with ingress controllers
 
-## Goals:
+===== Goals:
 1. Understand what ingress/envoy is.
 2. See how envoy fits in...
 3. How it can be implemented with Contour and envoy
 
-# Goals 1
+===== Goals 1
 What is it?
 Services are of 3 types: ClusterIP, NodePort and Loadbalancers. ClusterIP and NodePort are used for 
 applications internal to your infrastructure. For applications that you'd want to expose externally, 
@@ -393,7 +393,7 @@ for multiple requests, where loadbalancer is a 1 entrypoint for a specific host 
 
 Ingress information: https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress
 
-# Goals 2
+===== Goals 2
 Envoy is a simple service proxy that proxies traffic from one source to another. The goal of envoy is
 to make networking and observability of your applications more visible.
 
@@ -405,7 +405,7 @@ Link: https://www.envoyproxy.io/
 It's also common to see it used an ingress controller either by itself, or using another package that 
 extends it- like Heptio Contour (https://github.com/heptio/contour). We'll use contour for our example.
 
-# Goals 3
+===== Goals 3
 
 First, we need to add Contour to our cluster. I'm going to follow the docs 
 (https://github.com/heptio/contour#add-contour-to-your-cluster), and install Contour with:
@@ -442,16 +442,16 @@ You can hit the host:port/wishlist URL to see the wishlist API's working.
 
 ==== Metrics with Prometheus
 
-## Goals:
+===== Goals:
 1. Deploy Prometheus
 2. See it running!
 3. View Kubernetes stats
 4. View node information
 5. View application metrics
 
-# Prometheus + Kubernetes demo
+===== Prometheus + Kubernetes demo
 
-## Step 1: Deploy
+====== Step 1: Deploy
 Helm is the easiest way to do this. 
 Check out https://github.com/kubernetes/charts/tree/master/stable/prometheus.
 
@@ -460,21 +460,21 @@ We can run `helm install stable/prometheus` to get the stock prometheus server.
 In this case, we will run: `helm install stable/prometheus --name prom-demo -f values.yaml` 
 to use our custom yaml.
 
-## Step 2: See it running
+====== Step 2: See it running
 Running `minikube service prom-demo-prometheus-server` will bring up the browser with prometheus 
 server running.
 
-## Step 3: Check out Kubernetes stats
+====== Step 3: Check out Kubernetes stats
 Check out `count(kube_pod_container_status_running)` to see our all our pods running.
 
-## Step 4: Check out node information
+====== Step 4: Check out node information
 
 The node exporter gives you node relative information as well like CPU/disk usage etc.
 
 Run `count(node_cpu{mode="system", instance="192.168.99.100:9100"})` will return the cpu count which 
 should match the number of CPU's in `kubectl describe nodes`
 
-### Step 5: App metrics
+====== Step 5: App metrics
 
 1. Run the app: `kubectl apply -f wishlist.yaml`
 2. Visit the app after it's deployed: `minikube service wishlist-service`
@@ -486,11 +486,11 @@ should match the number of CPU's in `kubectl describe nodes`
 
 ==== Logging from your application
 
-## Goals
+===== Goals
 1. Start up EFK stack in minikube
 2. Run your application and see the logs in Kibana
 
-## Goal 1
+===== Goal 1
 We can start up the EFK (Elastic-Fluentd-Kibana) stack in minikube. Installing these components 
 is a little bit of work, but minikube gives it to us as an addon.
 
@@ -508,7 +508,8 @@ Once it's up and running, visit and configure Kibana by going to the URL by typi
     minikube addons open efk
 
 
-## Goal 2
+===== Goal 2
+
 ===== Now let's deploy our application by running
 
     kubectl apply -f wishlist-deployment.yaml
@@ -519,12 +520,12 @@ The app has some logs in it that we can look at in Kibana.
 
 ==== Tracing issues with Jaeger
 
-## Goals:
+===== Goals:
 1. Understand what Jaeger does
 2. See it running
 3. See data flowing in it for the hotrod application
 
-# Goals 1
+===== Goals 1
 What is Jaeger?
 
 Jaeger is a distributed tracing analyzer that was released by Uber. It is compatible with the opentracing standard and both opentracing and Jaeger are CNCF projects. If you're new to the space, think of Jaeger as an opensource New Relic
@@ -533,12 +534,12 @@ https://github.com/jaegertracing/jaeger-kubernetes
 
 Once deployed, startup Jaeger with `minikube service jaeger-query`
 
-# Goals 2
+===== Goals 2
 See it in action!
 
 We can install Jaeger from the github site for their kubernetes project: https://github.com/jaegertracing/jaeger-kubernetes
 
-# Goals 3
+===== Goals 3
 Let's deploy our sample application with the command:
 
     kubectl apply -f jaeger-example.yaml
