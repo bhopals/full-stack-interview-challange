@@ -1,30 +1,38 @@
 
 === Microservices 
-Think of Microservices as a variant of service-oriented architecture that structures the entire
-application as a collection of loosely coupled services.
+Think of Microservices as a variant of service-oriented architecture that structures 
+the entire application as a collection of loosely coupled services.
 
 Typically, microservices are broken up with the intent to solve a specific business need or
 enable a business capability. 
 
 ==== Benefits 
- - freedom to create, manage, and deploy the individual components without compromising the 
-   integrity of the entire application.
- - Enables fault tolerance and dfault isolation
- 
- - language independence
- - use the right language at the hand 
- - Not pigeonhold to a single language just because the rest of the application uses it.
- - avoid bottleneck of scaling
- - Can be deployed independently
- - Risk of rolling the change back is easy
+- freedom to create, manage, and deploy the individual components without compromising the 
+integrity of the entire application.
+- Enables fault tolerance and dfault isolation
+- language independence
+- use the right language at the hand 
+- Not pigeonhold to a single language just because the rest of the application uses it.
+- avoid bottleneck of scaling
+- Can be deployed independently
+- Risk of rolling the change back is easy
 
 ==== Continuous Delivery Deployment Types 
- Blue Green deployment or Red Black Deployment  - Switch between servers and ensure at least one server is alive at all time 
- A/B Deployment - Routing percentage of traffic on each while deploying   
- Rollback deployment - slowly starting from 1-2 servers instead of going for all simultaneous deployment to ensure the successfully deployment  
- Canary Deployment - release particular feature for certain set of users (Based on region or first name or age range)
- Minimum In-Service deployment - make a policy that minimum numbers of server stay alive while deployment is in progress.
- REFERENCE : https://caylent.com/docker-continuous-delivery-deployment-types/
+Blue Green deployment or Red Black Deployment  - Switch between servers and ensure at least one server
+is alive at all time
+
+A/B Deployment - Routing percentage of traffic on each while deploying   
+
+Rollback deployment - slowly starting from 1-2 servers instead of going for all simultaneous deployment 
+to ensure the successfully deployment  
+
+Canary Deployment - release particular feature for certain set of users (Based on region or first name 
+or age range)
+
+Minimum In-Service deployment - make a policy that minimum numbers of server stay alive while 
+deployment is in progress.
+
+REFERENCE : https://caylent.com/docker-continuous-delivery-deployment-types/
 
 Building microservices forces you to think about an applications in a more modular way.
 
@@ -35,76 +43,79 @@ which would pay greater advantage on a long term.
 Applicable for all cloud and container application
 
 I. Codebase
-    One codebase tracked in revision control, many deploys
-    GIT,DOCKER
+One codebase tracked in revision control, many deploys
+GIT,DOCKER
 
 II. Dependencies
-    Explicitly declare and isolate dependencies
-    MAVEN,NPM,GRADLE
-    In kubernetes create a POD that can have all your dependencies. Commonly seen in kubernetes world - SideCar Pattern
-III. Config
-    Store config in the environment not part of codebase 
-   
-    Small footprint(small organisations ): Different namespaces with different credentials dev, staging and production
-    Large footprint(larger organisations): Unique kubernetes installation for dev, stage, and production
+Explicitly declare and isolate dependencies
+MAVEN,NPM,GRADLE
+In kubernetes create a POD that can have all your dependencies. Commonly seen in kubernetes world - SideCar Pattern
 
-    Applicaton config for kubernetes is ConfigMap and Secrets 
+III. Config
+Store config in the environment not part of codebase 
+   
+Small footprint(small organisations ): Different namespaces with different credentials dev, staging and 
+production Large footprint(larger organisations):Unique kubernetes installation for dev, stage, and production
+
+Applicaton config for kubernetes is ConfigMap and Secrets 
+
 IV. Backing services
-    Treat backing services as attached resources
-    MYSQL, SMTP EMAIL
+Treat backing services as attached resources
+MYSQL, SMTP EMAIL
 
 V. Build, release, run
-    Strictly separate build and run stages
-    JENKINS
+Strictly separate build and run stages
+JENKINS
 
 VI. Processes
-    Execute the app as one or more stateless processes
-    Sticky session needs to be revisited and re-implemented
+Execute the app as one or more stateless processes
+Sticky session needs to be revisited and re-implemented
 
 VII. Port binding
-    Export services via port binding
+Export services via port binding
 
 VIII. Concurrency
-    Scale out via the process model
+Scale out via the process model
 
 IX. Disposability
-    Maximize robustness with fast startup and graceful shutdown
-    Quick Application startup and shutdown 
+Maximize robustness with fast startup and graceful shutdown
+Quick Application startup and shutdown 
 
 X. Dev/prod parity
-    Keep development, staging, and production as similar as possible
+Keep development, staging, and production as similar as possible
 
 XI. Logs
-    Treat logs as event streams
-    In kubernetes, common to use a log router (Beats/Fluentd) to save the logs to a service (ElasticSearch/Splunk)
+Treat logs as event streams
+In kubernetes, common to use a log router (Beats/Fluentd) to save the logs to a service (ElasticSearch/Splunk)
 
 XII. Admin processes
-    Run admin/management tasks as one-off processes
+Run admin/management tasks as one-off processes
 
 
 All 12 Rules are basically categorised in 3 parts.
-    - Microservices Building Block 
-        - Codebase 
-        - Dependencies 
-        - Admin Processes
-        - Dev/Staging/Production Parity 
+- Microservices Building Block 
+    - Codebase 
+    - Dependencies 
+    - Admin Processes
+    - Dev/Staging/Production Parity 
 
-    - Deployment Patterns 
-        - Application Configurations 
-        - Build, release, and run 
-        - Processes
-        - Port Binding 
+- Deployment Patterns 
+    - Application Configurations 
+    - Build, release, and run 
+    - Processes
+    - Port Binding 
 
-    - Runtime Pattersn 
-        - Backing around services 
-        - Features and Concurrency 
-        - Disposability
-        - Log Management 
+- Runtime Pattersn 
+    - Backing around services 
+    - Features and Concurrency 
+    - Disposability
+    - Log Management 
+
 
 REFERENCE : https://12factor.net/
+
 REFERENCE : https://martinfowler.com/microservices/
 
-==== Microservices Deployment to kubernetes 
 
 ===== Deploying our application to Kubernetes
 
@@ -128,22 +139,32 @@ To see another way to run the microservices, take a look at wishlist-deployment-
 ======= Goal 4
 To run the microservice described in goal #1, from the current directory, run:
 
-`kubectl create -f wishlist-deployment.yaml`
+    kubectl create -f wishlist-deployment.yaml
+
 
 To verify that the deployment is online:
-`kubectl get deployments`
+    
+    kubectl get deployments
+
 
 To verify that the replica sets are running:
-`kubectl get rs`
+    
+    kubectl get rs
+
 
 To verify that the pods are running:
-`kubectl get pods`
+    
+    kubectl get pods
+
 
 To see the services:
-`kubectl get services`
+    
+    kubectl get services
+
 
 To interact with your API's in the minikube environment:
-`minikube service wishlist-service`
+    
+    minikube service wishlist-service
 
 
 # Wishlist deployment yaml - kindly refer "wishlist-deployment.yaml"
@@ -160,9 +181,11 @@ https://hub.docker.com/r/karthequian/wishlist-catalog
 
 
 ======  Alternate Universe! - Microservices deployment 
-In the above examle we had Single Deployment and Single Service that contains all 3 part of the application.
+In the above examle we had Single Deployment and Single Service that contains all 3 
+part of the application.
 
-Here we would breakup the all three projects into three deployment files. (More of a microservices way)
+Here we would breakup the all three projects into three deployment files. 
+(More of a microservices way)
 So its easy to distribute the ownership of the deployments to different teams.
 
 
@@ -179,6 +202,7 @@ So its easy to distribute the ownership of the deployments to different teams.
 
 Configuration information should live outside of the application. How can we do this in Kubernetes?
 
+
 ## Goals
 1. Create a configmap that can be referenced by the application via env variables
 2. Create a configmap that can be referenced by the application via a volume mounted file
@@ -186,19 +210,26 @@ Configuration information should live outside of the application. How can we do 
 
 ## Goal 1 - Add configuration data in ENVIRONEMNT variable of the container 
 Create the deployment by running 
-`kubectl apply -f wishlist-deployment-configmap-simple.yaml`
+
+    kubectl apply -f wishlist-deployment-configmap-simple.yaml
+
 
 Exec into the auth container in the wishlist pod with a command like:
-`kubectl exec -it wishlist-<podid> -c auth bash`
+    
+    kubectl exec -it wishlist-<podid> -c auth bash
+
 
 To look find your env variable run:
-`env | grep LOG_LEVEL`
+
+    env | grep LOG_LEVEL
+
 
 # Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-simple.yaml"
 
 ## Goal 2  - Mount configuration as a data volume in container 
 Create the deployment by running 
-`kubectl apply -f wishlist-deployment-configmap-advanced.yaml`
+
+    kubectl apply -f wishlist-deployment-configmap-advanced.yaml
 
 Exec into the auth container in the wishlist pod with a command like:
 `kubectl exec -it wishlist-<podid> -c auth bash`
