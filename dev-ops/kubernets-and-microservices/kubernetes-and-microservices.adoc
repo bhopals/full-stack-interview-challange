@@ -573,14 +573,15 @@ replace it.
 
 These are two very different approaches. 
 
-1.  kubectl create uses Imperative Management. Here You specify what you want to create, delete or replace.
+1. kubectl create uses Imperative Management. Here You specify what you want to create, delete or replace.
 
-    kubectl apply uses what we call Declarative approach. Here we tell the api How we want the cluster to 
-    look like. So even if you've applied changes to a live object, your changes are maintained.
+kubectl apply uses what we call Declarative approach. Here we tell the api How we want the cluster to 
+look like. So even if you've applied changes to a live object, your changes are maintained.
 
-2.  Also, if you run the kubectl create second time, it will throw an error as the deployments and services
-    are already created.However, if you run kubectl apply again then it will modify exisiting deployed 
-    services and deployments if there is any change in the configuration, else it will remain unchanged 
-    and command will be executed without throwing any error.
+
+2. Also, if you run the kubectl create second time, it will throw an error as the deployments and 
+services are already created.However, if you run kubectl apply again then it will modify exisiting 
+deployed services and deployments if there is any change in the configuration, else it will remain 
+unchanged and command will be executed without throwing any error.
 
 
