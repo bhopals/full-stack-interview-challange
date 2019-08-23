@@ -42,16 +42,16 @@ which would pay greater advantage on a long term.
 ==== The Twelve factor App
 Applicable for all cloud and container application
 
-I. Codebase
+===== I. Codebase
 One codebase tracked in revision control, many deploys
 GIT,DOCKER
 
-II. Dependencies
+===== II. Dependencies
 Explicitly declare and isolate dependencies
 MAVEN,NPM,GRADLE
 In kubernetes create a POD that can have all your dependencies. Commonly seen in kubernetes world - SideCar Pattern
 
-III. Config
+===== III. Config
 Store config in the environment not part of codebase 
    
 Small footprint(small organisations ): Different namespaces with different credentials dev, staging and 
@@ -59,57 +59,58 @@ production Large footprint(larger organisations):Unique kubernetes installation 
 
 Applicaton config for kubernetes is ConfigMap and Secrets 
 
-IV. Backing services
+===== IV. Backing services
 Treat backing services as attached resources
 MYSQL, SMTP EMAIL
 
-V. Build, release, run
+===== V. Build, release, run
 Strictly separate build and run stages
 JENKINS
 
-VI. Processes
+===== VI. Processes
 Execute the app as one or more stateless processes
 Sticky session needs to be revisited and re-implemented
 
-VII. Port binding
+===== VII. Port binding
 Export services via port binding
 
-VIII. Concurrency
+===== VIII. Concurrency
 Scale out via the process model
 
-IX. Disposability
+===== IX. Disposability
 Maximize robustness with fast startup and graceful shutdown
 Quick Application startup and shutdown 
 
-X. Dev/prod parity
+===== X. Dev/prod parity
 Keep development, staging, and production as similar as possible
 
-XI. Logs
+===== XI. Logs
 Treat logs as event streams
 In kubernetes, common to use a log router (Beats/Fluentd) to save the logs to a service (ElasticSearch/Splunk)
 
-XII. Admin processes
+===== XII. Admin processes
 Run admin/management tasks as one-off processes
 
 
-All 12 Rules are basically categorised in 3 parts.
+====== All 12 Rules are basically categorised in 3 parts.
+
 - Microservices Building Block 
-    - Codebase 
-    - Dependencies 
-    - Admin Processes
-    - Dev/Staging/Production Parity 
+-> Codebase 
+-> Dependencies 
+-> Admin Processes
+-> Dev/Staging/Production Parity 
 
 - Deployment Patterns 
-    - Application Configurations 
-    - Build, release, and run 
-    - Processes
-    - Port Binding 
+-> Application Configurations 
+-> Build, release, and run 
+-> Processes
+-> Port Binding 
 
 - Runtime Pattersn 
-    - Backing around services 
-    - Features and Concurrency 
-    - Disposability
-    - Log Management 
+-> Backing around services 
+-> Features and Concurrency 
+-> Disposability
+-> Log Management 
 
 
 REFERENCE : https://12factor.net/
@@ -127,42 +128,43 @@ We're ready to deploy our application to Kubernetes, but let's take a look at ou
 3. Take a look at our alternate deployment file
 4. Deploy our application into kubernetes and verify we can see our API's working.
 
-======= Goal 1
+# Goal 1
 View the sample application here: 
 
-======= Goal 2
+# Goal 2
 To view the deployment file, take a look at wishlist-deployment.yaml
 
-======= Goal 3
+# Goal 3
 To see another way to run the microservices, take a look at wishlist-deployment-alernate.yaml
 
-======= Goal 4
-To run the microservice described in goal #1, from the current directory, run:
+# Goal 4
+
+===== To run the microservice described in goal #1, from the current directory, run:
 
     kubectl create -f wishlist-deployment.yaml
 
 
-To verify that the deployment is online:
+===== To verify that the deployment is online:
     
     kubectl get deployments
 
 
-To verify that the replica sets are running:
+===== To verify that the replica sets are running:
     
     kubectl get rs
 
 
-To verify that the pods are running:
+===== To verify that the pods are running:
     
     kubectl get pods
 
 
-To see the services:
+===== To see the services:
     
     kubectl get services
 
 
-To interact with your API's in the minikube environment:
+===== To interact with your API's in the minikube environment:
     
     minikube service wishlist-service
 
@@ -209,17 +211,18 @@ Configuration information should live outside of the application. How can we do 
 
 
 ## Goal 1 - Add configuration data in ENVIRONEMNT variable of the container 
-Create the deployment by running 
+
+===== Create the deployment by running 
 
     kubectl apply -f wishlist-deployment-configmap-simple.yaml
 
 
-Exec into the auth container in the wishlist pod with a command like:
+===== Exec into the auth container in the wishlist pod with a command like:
     
     kubectl exec -it wishlist-<podid> -c auth bash
 
 
-To look find your env variable run:
+===== To look find your env variable run:
 
     env | grep LOG_LEVEL
 
@@ -227,16 +230,23 @@ To look find your env variable run:
 # Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-simple.yaml"
 
 ## Goal 2  - Mount configuration as a data volume in container 
-Create the deployment by running 
+
+===== Create the deployment by running 
 
     kubectl apply -f wishlist-deployment-configmap-advanced.yaml
 
-Exec into the auth container in the wishlist pod with a command like:
-`kubectl exec -it wishlist-<podid> -c auth bash`
-kubectl exec -it <wishlist-podid> /bin/bash 
 
-To look find your env variable run:
-`cat /var/lib/wishlist/log.properties`
+===== Exec into the auth container in the wishlist pod with a command like:
+    
+    kubectl exec -it wishlist-<podid> -c auth bash
+    
+    kubectl exec -it <wishlist-podid> /bin/bash 
+
+
+===== To look find your env variable run:
+
+    cat /var/lib/wishlist/log.properties
+
 
 # Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-advanced.yaml"
 
@@ -251,17 +261,25 @@ To look find your env variable run:
 2. Create a secret that can be referenced by the application via a volume mounted file
 
 ## Goal 1 - Add Connection String in ENVIRONMENT VARIABLE 
-Create the deployment by running 
-`kubectl apply -f wishlist-deployment-secret.yaml`
 
-kubectl exec -it <deployment-id> /bin/bash 
-kubectl exec -it <deplpyment-id> -c <container-name> bash 
+===== Create the deployment by running 
+    
+    kubectl apply -f wishlist-deployment-secret.yaml
+
+    kubectl exec -it <deployment-id> /bin/bash 
+
+    kubectl exec -it <deplpyment-id> -c <container-name> bash 
+
 
 To look find your env variable run:
-`env | grep MYSQL_CONNECTION_STRING`
+
+    env | grep MYSQL_CONNECTION_STRING
+
 
 To decode the connection string which is already encoded
+
     echo <connection-string> | base64 --decode 
+
 
 To encode the connection string which is already decoded
     echo <connection-string> | base64 --encode 
