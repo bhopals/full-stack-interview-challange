@@ -94,23 +94,23 @@ Run admin/management tasks as one-off processes
 
 ====== All 12 Rules are basically categorised in 3 parts.
 
-- Microservices Building Block 
--> Codebase 
--> Dependencies 
--> Admin Processes
--> Dev/Staging/Production Parity 
+======= Microservices Building Block 
+- Codebase 
+- Dependencies 
+- Admin Processes
+- Dev/Staging/Production Parity 
 
-- Deployment Patterns 
--> Application Configurations 
--> Build, release, and run 
--> Processes
--> Port Binding 
+======= Deployment Patterns 
+- Application Configurations 
+- Build, release, and run 
+- Processes
+- Port Binding 
 
-- Runtime Pattersn 
--> Backing around services 
--> Features and Concurrency 
--> Disposability
--> Log Management 
+======= Runtime Pattersn 
+- Backing around services 
+- Features and Concurrency 
+- Disposability
+- Log Management 
 
 
 REFERENCE : https://12factor.net/
@@ -169,7 +169,7 @@ To see another way to run the microservices, take a look at wishlist-deployment-
     minikube service wishlist-service
 
 
-# Wishlist deployment yaml - kindly refer "wishlist-deployment.yaml"
+** Wishlist deployment yaml - kindly refer "wishlist-deployment.yaml"
 
 ======= REFERENCE 
 Project Source code Link : 
@@ -191,11 +191,11 @@ Here we would breakup the all three projects into three deployment files.
 So its easy to distribute the ownership of the deployments to different teams.
 
 
-# Wishlist deployment yaml - kindly refer "wishlist-deployment-alternate.yaml"
+** Wishlist deployment yaml - kindly refer "wishlist-deployment-alternate.yaml"
 
 ==== Adding Context with Config Maps 
 
-# Configmaps
+===== Configmaps
 
 - Config information should live outside the app 
 - Implements using ConfigMaps in kubernetes 
@@ -205,12 +205,12 @@ So its easy to distribute the ownership of the deployments to different teams.
 Configuration information should live outside of the application. How can we do this in Kubernetes?
 
 
-## Goals
+===== Goals
 1. Create a configmap that can be referenced by the application via env variables
 2. Create a configmap that can be referenced by the application via a volume mounted file
 
 
-## Goal 1 - Add configuration data in ENVIRONEMNT variable of the container 
+====== Goal 1 - Add configuration data in ENVIRONEMNT variable of the container 
 
 ===== Create the deployment by running 
 
@@ -227,9 +227,9 @@ Configuration information should live outside of the application. How can we do 
     env | grep LOG_LEVEL
 
 
-# Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-simple.yaml"
+===== Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-simple.yaml"
 
-## Goal 2  - Mount configuration as a data volume in container 
+======= Goal 2  - Mount configuration as a data volume in container 
 
 ===== Create the deployment by running 
 
@@ -248,7 +248,7 @@ Configuration information should live outside of the application. How can we do 
     cat /var/lib/wishlist/log.properties
 
 
-# Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-advanced.yaml"
+** Configmap (Step 1: Create it) - kindly refer "wishlist-deployment-configmap-advanced.yaml"
 
 
 
@@ -256,11 +256,11 @@ Configuration information should live outside of the application. How can we do 
 ==== Secrets 
 
 
-## Goals
+===== Goals
 1. Create a secret that can be referenced by the application via env variables
 2. Create a secret that can be referenced by the application via a volume mounted file
 
-## Goal 1 - Add Connection String in ENVIRONMENT VARIABLE 
+===== Goal 1 - Add Connection String in ENVIRONMENT VARIABLE 
 
 ===== Create the deployment by running 
     
@@ -285,7 +285,7 @@ Configuration information should live outside of the application. How can we do 
     echo <connection-string> | base64 --encode 
 
 
-## Goal 2 - Mounting Volume of Connection String 
+===== Goal 2 - Mounting Volume of Connection String 
 
 ===== Create the deployment by running 
     
@@ -303,15 +303,16 @@ Both commands are same
     
     cat /etc/mysql/connection-string
 
-# Secret Key YAML File - kindly refer "wishlist-deployment-secret.yaml"
+
+** Secret Key YAML File - kindly refer "wishlist-deployment-secret.yaml"
 
 
 ==== Liveness Probes
 
-## Goals: 
+===== Goals: 
 1) Understand liveness probes in Kubernetes
 
-## Goal 1
+===== Goal 1
 Liveness Probes are often used in deployments with many containers. They help with startup and container running states (https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes )
 
 ===== To run our example:
@@ -327,13 +328,13 @@ Liveness Probes are often used in deployments with many containers. They help wi
 
 ====  Helm
 
-## Goals:
+===== Goals:
 1. Understand what Helm is.
 2. Understand what Helm is with respect to our application
 2. Run the helm chart for our application
 
 
-## Goal 1
+===== Goal 1
 Helm (https://helm.sh) is a package manager for Kubernetes. Kubernetes is all about yaml files, 
 and after a while, when your yaml files grow large, it becomes incredibly painful to debug issues.
 
@@ -341,10 +342,10 @@ This is why people use Helm- to manage complexity in their yaml's. It also provi
 update and rollback their kubernetes artifacts. And finally, it's also the most popular place to find 
 user generated charts. Think of it like the maven or npm for Kubernetes
 
-## Goal 2
+===== Goal 2
 Take a look at the wishlist folder for our deployment and service converted to a helm chart.
 
-## Goal 3
+===== Goal 3
 
 I already have helm installed via the instructions at: https://docs.helm.sh/using_helm/#installing-helm
 
