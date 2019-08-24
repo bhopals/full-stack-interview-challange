@@ -237,6 +237,7 @@ Configuration information should live outside of the application. How can we do 
     kubectl apply -f wishlist-deployment-configmap-advanced.yaml
 
 
+
 ===== Exec into the auth container in the wishlist pod with a command like:
     
     kubectl exec -it wishlist-<podid> -c auth bash
