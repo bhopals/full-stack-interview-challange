@@ -149,8 +149,12 @@ Some soft guidelines for designing a REST architecture:
 5. GET access requests should never cause a state change. Anything that changes the server state 
    should be a POST request (or other HTTP verbs, such as DELETE).
 
-   
+
+
+===== ROA (REST Oriented Architecture) 
+===== SOA (Service Based Architecture)
 
 ==== REFERENCE 
+https://restfulapi.net
 http://rest.elkstein.org/
 
