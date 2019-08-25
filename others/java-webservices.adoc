@@ -87,6 +87,10 @@ implement SOA pattern.
 
 ==== REST 
 
+SOAP and REST can't be compared directly, since the first is a protocol (or at least tries to be) 
+and the second is an architectural style. This is probably one of the sources of confusion around it, 
+since people tend to call REST any HTTP API that isn't SOAP.
+
 I think these are the crucial points to understand what REST is about, and how it differs from SOAP:
 
 REST is protocol independent. It's not coupled to HTTP. Pretty much like you can follow an ftp link 
@@ -113,3 +117,40 @@ replace id with the Question.id and paste that on your browser. That's nonsense,
 people think REST is
 
 REFERENCE : https://stackoverflow.com/questions/19884295/soap-vs-rest-differences
+
+
+
+===== Rest Design Guideline
+Some soft guidelines for designing a REST architecture:
+
+1. Do not use "physical" URLs. A physical URL points at something physical -- e.g., 
+   an XML file: "http://www.acme.com/inventory/product003.xml". A logical URL does not 
+   imply a physical file: "http://www.acme.com/inventory/product/003".
+   Sure, even with the .xml extension, the content could be dynamically generated. 
+   But it should be "humanly visible" that the URL is logical and not physical.
+
+2. Queries should not return an overload of data. If needed, provide a paging mechanism. 
+   For example, a "product list" GET request should return the first n products (e.g., the first 10), 
+   with next/prev links.
+
+3. Even though the REST response can be anything, make sure it's well documented, and do not 
+   change the output format lightly (since it will break existing clients).
+   Remember, even if the output is human-readable, your clients aren't human users.
+   If the output is in XML, make sure you document it with a schema or a DTD.
+
+4. Rather than letting clients construct URLs for additional actions, include the actual URLs 
+   with REST responses. For example, a "product list" request could return an ID per product, 
+   and the specification says that you should use http://www.acme.com/product/PRODUCT_ID to get 
+   additional details. That's bad design. Rather, the response should include the actual URL with 
+   each item: http://www.acme.com/product/001263, etc.
+   Yes, this means that the output is larger. But it also means that you can easily direct clients 
+   to new URLs as needed, without requiring a change in client code.
+
+5. GET access requests should never cause a state change. Anything that changes the server state 
+   should be a POST request (or other HTTP verbs, such as DELETE).
+
+   
+
+==== REFERENCE 
+http://rest.elkstein.org/
+
