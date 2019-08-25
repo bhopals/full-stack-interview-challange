@@ -188,4 +188,5 @@ Some soft guidelines for designing a REST architecture:
 ==== REFERENCE 
 https://restfulapi.net
 http://rest.elkstein.org/
-
+https://en.wikipedia.org/wiki/Representational_state_transfer
+https://dzone.com/articles/securing-rest-apis-with-client-certificates
