@@ -3,3 +3,16 @@
 
 ** Spring is unopinionated, 
 ** Spring Boot takes an opinionated view of the platform and libraries, letting us get started quickly
+
+==== What is Spring 
+Simply put, the Spring framework provides comprehensive infrastructure support for developing 
+Java applications.
+
+It’s packed with some nice features like Dependency Injection and out of the box modules like:
+
+- Spring JDBC
+- Spring MVC
+- Spring Security
+- Spring AOP
+- Spring ORM
+- Spring Test

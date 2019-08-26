@@ -3,4 +3,17 @@
 Here are two of the most important benefits Spring Boot brings in:
 
 Auto-configure applications based on the artifacts it finds on the classpath
-Provide non-functional features common to applications in production, such as security or health checks
+Provide non-functional features common to applications in production, such as security or health checks.
+
+-==== What is Spring Boot?
+Spring Boot is basically an extension of the Spring framework which eliminated the boilerplate 
+configurations required for setting up a Spring application.
+
+It takes an opinionated view of the Spring platform which paved the way for a faster and more 
+efficient development eco-system.
+
+Here are just a few of the features in Spring Boot:
+- Opinionated ‘starter’ dependencies to simplify build and application configuration
+- Embedded server to avoid complexity in application deployment
+- Metrics, Helth check, and externalized configuration
+- Automatic config for Spring functionality – whenever possible
