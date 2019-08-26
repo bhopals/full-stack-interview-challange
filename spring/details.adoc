@@ -89,3 +89,39 @@ A bean life cycle includes the following steps.
 14. Now the method specified by destroy-method attribute of bean in XML configuration is called. 
 
 15. Before garbage collection, finalize() method of Object is called.
+
+Spring Bean Life Cycle – Bean Initialization and Destruction
+June 21, 2016 by javainterviewpoint Leave a Comment
+
+
+Spring IoC container is also responsible for managing the Spring Bean Life Cycle, 
+the life cycle of beans consist of call back methods such as Post initialization call back 
+method and Pre destruction call back method. Below steps are followed by Spring IoC Container 
+to manage bean life cycle.
+
+Spring Bean Life Cycle
+Creation of bean instance by a factory method.
+Set the values and bean references to the bean properties.
+Call the initialization call back method.
+Bean is ready for use.
+Call the destruction call back method.
+
+==== Bean init/destroy 
+
+Spring can recognize the initialization and destruction callback methods in the below three ways.
+
+1. A Bean can implement the InitializingBean and DisposableBean life cycle interfaces and 
+    overriding the afterPropertiesSet() (Called during Spring bean initialization) and destroy() 
+    methods for initialization and destruction respectively.
+
+2. Set the init-method and destroy-method attributes in the bean configuration file.
+
+3. Use @PostConstruct and @PreDestroy over the methods (Spring 2.5 or later) which is defined in JSR-250.
+
+Bean Initialization lifecycle callback methods are called on all objects regardless of scope, in the
+case of prototypes, configured destruction lifecycle callbacks are not called. 
+The client code must clean up prototype-scoped objects and release expensive
+resources that the prototype bean(s) are holding.
+
+==== REFERENCE 
+https://docs.spring.io/spring/docs/current/spring-framework-reference/pdf/
