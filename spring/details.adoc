@@ -1,0 +1,5 @@
+== Spring 
+
+
+** Spring is unopinionated, 
+** Spring Boot takes an opinionated view of the platform and libraries, letting us get started quickly

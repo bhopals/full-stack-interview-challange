@@ -1,0 +1,6 @@
+=== Spring Boot
+
+Here are two of the most important benefits Spring Boot brings in:
+
+Auto-configure applications based on the artifacts it finds on the classpath
+Provide non-functional features common to applications in production, such as security or health checks
