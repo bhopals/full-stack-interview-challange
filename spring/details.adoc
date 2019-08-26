@@ -39,13 +39,30 @@ Instrumentation, and Test.
 ===== Dependency injection (DI) -> Inversion of Control (IoC) -> Service Locator Pattern
 
 ===== Constructor-based or setter-based DI ?
+Since you can mix constructor-based and setter-based DI, it is a good rule of thumb to use
+constructors for mandatory dependencies and setter methods or configuration methods for
+optional dependencies.
+
+The Spring team generally advocates constructor injection, as it lets you implement
+application components as immutable objects and ensures that required dependencies are
+not null.
+
+Setter injection should primarily only be used for optional dependencies that can be assigned
+reasonable default values within the class. 
 
 ==== Scope 
-- Singelton  : default 
+- Singelton  : default - One per ApplicationContext
 - Prototype
 - Request
 - Session
-- Global Session 
+- Application - One per ServletContext
+- Websocket 
+
+
+* Application Scope is somewhat similar to a
+Spring singleton bean but differs in two important ways: It is a singleton per ServletContext, not per
+Spring 'ApplicationContext' (for which there may be several in any given web application), and it is
+actually exposed and therefore visible as a ServletContext attribute.
 
 * Bean Scope per Ioc Container.
 * As a rule, use the prototype scope for all stateful beans and the singleton scope for stateless beans.
@@ -122,6 +139,69 @@ Bean Initialization lifecycle callback methods are called on all objects regardl
 case of prototypes, configured destruction lifecycle callbacks are not called. 
 The client code must clean up prototype-scoped objects and release expensive
 resources that the prototype bean(s) are holding.
+
+
+==== Spring Core 
+https://docs.spring.io/spring/docs/current/spring-framework-reference/pdf/core.pdf#spring-core
+
+
+===== 1.3.2. Instantiating Beans
+Instantiation with a Constructor
+Instantiation with a Static Factory Method
+Instantiation by Using an Instance Factory Method
+
+
+===== 1.4.1. Dependency Injection
+Constructor-based Dependency Injection
+Setter-based Dependency Injection
+
+===== 1.4.4. Lazy-initialized Beans
+By default, ApplicationContext implementations eagerly create and configure all singleton 
+beans as part of the initialization process. 
+
+    <bean id="lazy" class="com.something.ExpensiveToCreateBean" lazy-init="true"/>
+
+OR
+
+    <beans default-lazy-init="true">
+    <!-- no beans will be pre-instantiated... -->
+    </beans>
+
+It will by default lazy initialize all the beans.
+
+===== 1.6. Customizing the Nature of a Bean
+
+• Lifecycle Callbacks
+   -  Implement InitializingBean and DisposableBean interfaces and call afterPropertiesSet() for the
+        former and destroy() for later
+
+   -  @PostConstruct and @PreDestroy 
+
+   -  Using init-method and destroy-method bean definition metadata
+
+• ApplicationContextAware and BeanNameAware
+• Other Aware Interfaces
+
+
+
+===== As of Spring 2.5, you have three options for controlling bean lifecycle behavior:
+• The InitializingBean and DisposableBean callback interfaces
+• Custom init() and destroy() methods
+• The @PostConstruct and @PreDestroy annotations. You can combine these mechanisms to control
+    a given bean.
+
+
+===== Difference between <context:annotation-config> vs <context:component-scan>
+
+<context:annotation-config> is used to activate annotations in beans already registered in the 
+application context (no matter if they were defined with XML or by package scanning).
+Autowiring of beans 
+
+
+
+<context:component-scan> can also do what <context:annotation-config> does but 
+<context:component-scan> also scans packages to find and register beans within the application context.
+Autowiring of beans + Autodiscovery of beans
 
 ==== REFERENCE 
 https://docs.spring.io/spring/docs/current/spring-framework-reference/pdf/
