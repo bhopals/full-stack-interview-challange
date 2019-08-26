@@ -292,5 +292,30 @@ such post-processors do not get detected and activated by default. This situatio
 because nothing is actually wrong with your bean configuration. Rather, in such a scenario, the
 container needs to be fully bootstrapped through additional setup.
 
+
+===== 2.3. Built-in Resource Implementations
+Spring includes the following Resource implementations:
+• UrlResource
+• ClassPathResource
+• FileSystemResource
+• ServletContextResource
+• InputStreamResource
+• ByteArrayResource
+
+
+===== Spring Expression Language (SpEL)
+
+===== Aspect Oriented Programming with Spring
+
+Aspect-oriented Programming (AOP) complements Object-oriented Programming (OOP) by
+providing another way of thinking about program structure. The key unit of modularity in OOP is
+the class, whereas in AOP the unit of modularity is the aspect. Aspects enable the modularization of
+concerns (such as transaction management) that cut across multiple types and objects. (Such
+concerns are often termed “crosscutting” concerns in AOP literature.)
+One of the key components of Spring is the AOP framework. While the Spring IoC container does
+not depend on AOP (meaning you do not need to use AOP if you don’t want to), AOP complements
+Spring IoC to provide a very capable middleware solution.
+
+
 ==== REFERENCE 
 https://docs.spring.io/spring/docs/current/spring-framework-reference/pdf/
