@@ -1,0 +1,28 @@
+
+
+==== Other Notes 
+eventual consistency
+
+CAP theorem
+
+Consistency/Availability/Partition tolerance
+
+
+Document Database:Couchbase, Couchbase
+Column Database: Apache Cassandra, HBase
+Key-Value stores:Redis, CouchBase
+Cache systems:Redis and Memcache
+Graph database: Neo4j
+
+
+BASE stands for:
+Basically Available
+Soft state
+Eventual consistency
+
+Aggregate ­oriented Databases?
+
+CouchDB uses an “optimistic concurrency”  -- _rev property 
+
+The Couchbase Server consists of the following core components: Cluster Manager, Data service, Index service, and Query service. 
+The runtime behaviors such as replication, storage, caching, and so on can be tuned to the needs of the different services
