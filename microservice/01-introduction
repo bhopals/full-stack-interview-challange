@@ -8,6 +8,9 @@ Mircroservices are :
 - Can be written and deployed in 2 Weeks.
 
 
+Strong cohesion and loose coupling
+
+
 ==== Key Benefits
 - Technology Heterogeneity : heterogeneous architecture
 - Resilience
@@ -50,9 +53,98 @@ Advantages of Nested Bounded Context
 - Should be based on organisational structure
 - Easy to Test as stubbing is not required for each service 
 
+
+Find Sensible boundaries in our services.
+    
+More on Bounded Context : http://bit.ly/bounded-context-explained
+
+
 === Integration
 
+==== Looking for ideal Integration Technology
+- Keep your API Technology agnostic
+- Make your Service Simple for Consumers
+- Hide Internal Implementation Details
 
+
+==== The Shared Database 
+In which all the services would use Same Data Storage. The Disadvantages of above approach are:
+
+- First, we are allowing external parties to view and bind to internal implementation details.
+The data structures I store in the DB are fair game to all; they are shared in their entirety
+with all other parties with access to the database. Changing DB schema results in breaking of
+the existing system.
+
+- Second, my consumers are tied to a specific technology choice.
+(In terms of DATABASE) - Goodbye Loose Coupling
+
+- Finally, let’s think about behavior for a moment. There is going to be logic associated with
+how a customer is changed. Change of one entity may results in changing multiple services and 
+that means - Goodby Cohesion 
+
+
+==== Synchronous V/S Asynchoronous
+
+With synchronous communication, a call is made to a remote server, which blocks until
+the operation completes. This works on REQUEST/RESPONSE model. With request/response, 
+a client initiates a request and waits for the response.
+PROS - Easier to identify the result of the call as either it would be SUCCESS or FAIL 
+
+
+
+With asynchronous communication, the caller doesn’t wait for the operation to complete before 
+returning, and may not even care whether or not the operation completes at all. This works 
+on event-based model. With an event-based collaboration, we invert things. 
+Instead of a client initiating requests asking for things to be done, it instead says this 
+thing happened and expects other parties to know what to do. We never tell anyone else what 
+to do. Event-based systems by their nature are asynchronous.
+
+
+PROS 
+- Works way better when we have low netwrok latency and keep connection open for a longer 
+period may result in slowness.
+- Works well for Long running jobs.
+- Event-based collaboration is also highly decoupled. The client that emits an
+event doesn’t have any way of knowing who or what will react to it, which also means that
+you can add new subscribers to these events without the client ever needing to know
+
+
+==== Orchestration Versus Choreography
+
+With orchestration, we rely on a central brain to guide and drive the process,
+much like the conductor in an orchestra. 
+In this approach, customer service act as the central
+brain. On creation, it talks to the loyalty points bank, email service, and postal service 
+through a series of request/response calls.
+The downside to this orchestration approach is that the customer service can become too
+much of a central governing authority.
+
+
+With choreography, we inform each part of the
+system of its job, and let it work out the details, like dancers all finding their way and
+reacting to others around them in a ballet.
+With this approach, we could instead just have the customer service emit an
+event in an asynchronous manner, saying Customer created. The email service, postal
+service, and loyalty points bank then just subscribe to these events and react accordingly.
+This approach is significantly more decoupled. If some other service
+needed to reach to the creation of a customer, it just needs to subscribe to the events and
+do its job when needed. The downside is that the explicit view of the business process  
+is now only implicitly reflected in our system.
+
+
+===== Request/Response: 
+- Remote procedure call (RPC) 
+- REpresentational State Transfer(REST)
+
+===== Event-based:
+Implementing Asynchronous Event-based Colloboration
+- Message Broker : RabbitMQ or Kafka
+Producers use an API to publish an event to the broker. The broker handles subscriptions, 
+allowing consumers to be informed when an event arrives.
+
+- Enterprise Service Bus 
+
+====== Complexities of Asynchronous Architectures
 
 
 === Splitting the Monolith 
@@ -110,3 +202,14 @@ like health checking, serving HTTP, or exposing metrics.
 - Domain-Driven Design
 - Premature Decomopostion
 - Onion Architecture: Because made of lots of layers and make us cry when cut through it.
+
+- Technology agnostic
+- Loosly coupled event-driven Architecture
+- Message Broker 
+- Enterprise Service Bus 
+- More decoupled and Scalable Systems 
+- These Programming styles lead to 
+- Intra-process Synchronous Message call
+- correlation IDs
+- Enterprise Integration Pattern
+- Long-running Async Request/Response
