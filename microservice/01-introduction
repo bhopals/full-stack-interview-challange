@@ -30,9 +30,63 @@ occurs via calls across a network rather than method calls within a process boun
 - Combining Principles and Practices 
 
 
+==== Governance through Code 
+Technics which we can follow to ensure correct implementations of Microservice:
+- Exemplars : A sort of Documents with specific guidelines/principles/practices to follow
+- Tailored Service Template: Dropwizard and Karyon - Available service templates
+
+
+
+=== How to Model Services
+
+
+
+
+=== Integration
+
+
+
+
+=== Splitting the Monolith 
+
+
+
+=== Deployment
+
+
+
+=== Testing 
+
+
+=== Monitoring 
+
+
+=== Security 
+
+
+=== Microservice Design 
+
+
+=== Scaling 
+
+
+==== Tech Stack 
+
+- Monitoring - Metrics : Graphite
+
+- Monitoring - Health  : Nagios
+
+- JVM based Microservice Containers - Dropwizard, Karyon
+They work in similar ways, pulling together a set of libraries to provide features 
+like health checking, serving HTTP, or exposing metrics.
+
+
 
 === Keywords
 - Technology-agnostic APIs
 - Distributed Transactions
 - CAP Theorm
-
+- Potential Failures of Downstream Calls  
+- Circuit Breaker 
+- Sidecar Services
+- trade-off 
