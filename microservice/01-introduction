@@ -147,6 +147,15 @@ allowing consumers to be informed when an event arrives.
 ====== Complexities of Asynchronous Architectures
 
 
+===== Reactive Extensions
+Reactive extensions, often shortened to Rx, are a mechanism to compose the results of
+multiple calls together and run operations on them. The calls themselves could be
+blocking or nonblocking calls. At its heart, Rx inverts traditional flows. Rather than asking
+for some data, then performing operations on it, you observe the outcome of an operation
+(or set of operations) and react when something changes. Some implementations of Rx
+allow you to perform functions on these observables, such as RxJava, which allows
+traditional functions like map or filter to be used.
+
 === Splitting the Monolith 
 
 
@@ -213,3 +222,4 @@ like health checking, serving HTTP, or exposing metrics.
 - correlation IDs
 - Enterprise Integration Pattern
 - Long-running Async Request/Response
+- More Cohesion starts to break down 
