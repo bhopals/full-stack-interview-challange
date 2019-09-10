@@ -1,0 +1,38 @@
+
+
+=== What Are Microservices?
+Microservices are small, autonomous services that work together.
+Mircroservices are :
+- Small, and Focused on Doing One Thing Well
+- Autonomous
+- Can be written and deployed in 2 Weeks.
+
+
+==== Key Benefits
+- Technology Heterogeneity : heterogeneous architecture
+- Resilience
+- Scaling: on demand Service scaling 
+- Ease of Deployment
+- Organizational Alignment
+- Composability : holistic concepts of customer 
+- Optimizing for Replaciblity 
+
+==== What About Service-Oriented Architecture?
+Service-oriented architecture (SOA) is a design approach where multiple services
+collaborate to provide some end set of capabilities. A service here typically means a
+completely separate operating system process. Communication between these services
+occurs via calls across a network rather than method calls within a process boundary.
+
+==== A Principaled Approach 
+- Strategic Goals
+- Principle 
+- Practices 
+- Combining Principles and Practices 
+
+
+
+=== Keywords
+- Technology-agnostic APIs
+- Distributed Transactions
+- CAP Theorm
+
