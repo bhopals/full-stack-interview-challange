@@ -39,8 +39,16 @@ Technics which we can follow to ensure correct implementations of Microservice:
 
 === How to Model Services
 
+==== What makes a good Service 
+- Loose Coupling and high Cohesion
 
+Service Modelling
+- Shared and Hidden Models
+Bounded Context and Identify Service Boundaries
 
+Advantages of Nested Bounded Context 
+- Should be based on organisational structure
+- Easy to Test as stubbing is not required for each service 
 
 === Integration
 
@@ -83,6 +91,7 @@ like health checking, serving HTTP, or exposing metrics.
 
 
 === Keywords
+
 - Technology-agnostic APIs
 - Distributed Transactions
 - CAP Theorm
@@ -90,3 +99,14 @@ like health checking, serving HTTP, or exposing metrics.
 - Circuit Breaker 
 - Sidecar Services
 - trade-off 
+
+- Bounded Context
+- Higher-level Bounded Context
+- Nested Context 
+- Top-Level Context
+- Explicit Interface
+- Ubiquitous Languages
+- Repository Abstractions 
+- Domain-Driven Design
+- Premature Decomopostion
+- Onion Architecture: Because made of lots of layers and make us cry when cut through it.
