@@ -94,7 +94,7 @@ PROS - Easier to identify the result of the call as either it would be SUCCESS o
 
 With asynchronous communication, the caller doesn’t wait for the operation to complete before 
 returning, and may not even care whether or not the operation completes at all. This works 
-on event-based model. With an event-based collaboration, we invert things. 
+on event-based model. With an EVENT-BASED Collaboration, we invert things. 
 Instead of a client initiating requests asking for things to be done, it instead says this 
 thing happened and expects other parties to know what to do. We never tell anyone else what 
 to do. Event-based systems by their nature are asynchronous.
@@ -139,8 +139,12 @@ is now only implicitly reflected in our system.
 ===== Event-based:
 Implementing Asynchronous Event-based Colloboration
 - Message Broker : RabbitMQ or Kafka
+*Kafka - A Distributed Messaging Queue that is used by developers to publish messages and subscribes to topics 
+with a certain message types.
+
 Producers use an API to publish an event to the broker. The broker handles subscriptions, 
-allowing consumers to be informed when an event arrives.
+allowing consumers to be informed when an event arrives. These brokers can even handle the state
+of consumers, for example by helping keep track of what messages they have seen before.
 
 - Enterprise Service Bus 
 
@@ -156,7 +160,25 @@ for some data, then performing operations on it, you observe the outcome of an o
 allow you to perform functions on these observables, such as RxJava, which allows
 traditional functions like map or filter to be used.
 
+===== Key Requirement
+Six key requirements to overcome those challenges and leverage the full value of microservices:
+
+Services Contract
+Exposing microservices from existing applications
+Discovery of services
+Coordination across services
+Managing complex deployments and their scalability
+Visibility across services
+
 === Splitting the Monolith 
+While Breaking the monolith application, the first thing is to identify the Bounded Context to do the breakup.
+
+===== The Reasons to Split the Monolith
+- Pace of Change
+- Security 
+- Team Structure
+- Technology 
+
 
 
 
@@ -222,4 +244,4 @@ like health checking, serving HTTP, or exposing metrics.
 - correlation IDs
 - Enterprise Integration Pattern
 - Long-running Async Request/Response
-- More Cohesion starts to break down 
+- More Cohesion starts to break down    
