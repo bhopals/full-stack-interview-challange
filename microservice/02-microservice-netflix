@@ -1,0 +1,67 @@
+
+Single Responsibility Principle [SRP]
+Open Closed Principle [OCP]
+Liskov Substitution Principle [LSP]
+Interface Segregation Principle [ISP]
+
+Dependency Inversion Principle [DIP]
+S - Single-responsiblity principle
+O - Open-closed principle
+L - Liskov substitution principle
+I - Interface segregation principle
+D - Dependency Inversion Principle
+https://itnext.io/solid-principles-explanation-and-examples-715b975dcad4
+
+
+https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
+
+polyglot persistance architecture
+heterogenous architecture
+Canonical Schema pattern
+hardwire 
+Enterprise Service Bus (ESB)
+ESB is a middleware architecture based on SOA
+
+ The API Gateway is responsible for request
+routing, composition, and protocol translation. It provides each of the application’s clients
+with a custom API. The API Gateway can also mask failures in the backend services by
+returning cached or default data. In the next chapter, we will look at communication
+between services.
+
+ “REST provides a set of architectural constraints that, when applied as a whole, emphasizes
+scalability of component interactions, generality of interfaces, independent deployment of
+components, and intermediary comp
+
+
+Netflix Hystrix - A circuit breaker 
+
+The Client-Side Discovery Pattern
+	When using client-side discovery pattern, the client is responsible for determining the
+	network locations of available service instances and load balancing requests across them.
+	The client queries a service registry, which is a database of available service instances.
+	The client then uses a load-balancing algorithm to select one of the available service
+	instances and makes a request.
+	Netflix Eureka  - Service Discovery
+	Netflix Ribbon is an IPC client that works with Eureka to
+	load balance requests across the available service instances. 
+
+The Server-Side Discovery Pattern
+	The client makes a request to a service via a load balancer. The load balancer queries the
+	service registry and routes each request to an available service instance. As with clientside discovery, service instances are registered and deregistered with the service registry.
+	The AWS Elastic Load Balancer (ELB) is an example of a server-side discovery router
+
+
+eventual consistency
+materialized view 
+compensating transactions  
+
+
+For many applications, the solution is to use an event-driven architecture. One challenge
+with implementing an event-driven architecture is how to atomically update state and
+how to publish events. There are a few ways to accomplish this, including using the
+database as a message queue, transaction log mining, and event sourcing.
+
+
+
+=== Microservice with Spring Boot
+https://github.com/microservices-practical
