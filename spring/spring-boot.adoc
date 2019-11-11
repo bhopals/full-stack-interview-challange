@@ -1,5 +1,10 @@
 === Spring Boot
 
+
+Spring Boot is basically an extension of the Spring framework which eliminated the boilerplate configurations required for setting up a Spring application.
+
+It takes an opinionated view of the Spring platform which paved the way for a faster and more efficient development eco-system.
+
 Here are two of the most important benefits Spring Boot brings in:
 
 Auto-configure applications based on the artifacts it finds on the classpath

@@ -62,6 +62,145 @@ how to publish events. There are a few ways to accomplish this, including using 
 database as a message queue, transaction log mining, and event sourcing.
 
 
+Strong Consistency offers up-to-date data but at the cost of high latency.
+While Eventual consistency offers low latency but may reply to read requests with stale data since all nodes of the database may not have the updated data.
+
+
+
+API Composition pattern
+
+
+Microservice chassis framework  - 
+( https://dzone.com/articles/building-a-microservice-chassis-with-spring-boot-a )
+
+
+Spring Boot	 - Core framework
+Spring Boot Actuator + Spring Boot Admin + JMX - 	Runtime monitoring
+
+
+Spring Cloud Netflix (Eureka)	- Service registration and discovery
+
+	Annotate the app with - @EnableDiscoveryClient
+	And tell Spring Boot where to find the Eureka server(s) by adding the following to your application.yml:
+		eureka:
+		  client:
+		    serviceUrl:
+		      default: http://localhost:8761/eureka/
+
+
+
+
+Spring Cloud Sleuth + Zipkin	- Distributed call tracing
+	Zipkin Server
+	Zipkin is a web application which ingests and visualizes log data from Spring Cloud Sleuth.
+
+slf4j and Logback	- Logging
+Docker	- Optional runtime container
+
+
+Netflix came up with their own libraries like Hystrix for circuit breakers, Eureka for service discovery, Ribbon for load balancing which are popular and widely used by organizations.
+
+
+What Is a Service Mesh?
+A service mesh can be defined as an infrastructure layer which handles the inter-service communication in a microservice architecture. Service mesh reduces the complexity associated with a microservice architecture and provides lot of the functionalities like:
+
+Load balancing
+Service discovery
+Health checks
+Authentication
+Traffic management and routing
+Circuit breaking and failover policy
+Security
+Metrics and telemetry
+Fault injection
+
+microservice chasis 
+
+Service Mesh comes to the rescue here. It decouples this complexity from your application and puts it in a service proxy and lets it handle it for you
+
+How Is Service Mesh Implemented?
+To implement a service mesh, you can deploy a proxy alongside your services. This is also known as the sidecar pattern.
+
+The sidecars abstract the complexity away from the application and handle the functionalities like service discovery, traffic management, load balancing, circuit breaking, etc.
+
+
+Istio is an open platform to connect, manage, and secure microservices. It is very popular in the Kubernetes community and is getting widely adopted.
+
+Istio provides additional capabilities in your microservices architecture like intelligent routing, load balancing, service discovery, policy enforcement, in-depth telemetry, circuit breaking and retry functionalities, logging, monitoring, and more.
+
+
+Istio is one of the best implementations of a service mesh at this point
+
+Fault Tolerance — Using response status codes it understands when a request failed and retries.
+Canary Rollouts — Forward only the specified percentage of requests to a new version of the service.
+Monitoring and Metrics — The time it took for a service to respond.
+Tracing and Observability — It adds special headers in every request and traces them in the cluster.
+Security — Extracts the JWT Token and Authenticates and Authorizes users.
+
+
+Istio’s Architecture
+Istio intercepts all network traffic and applies a set of rules by injecting an intelligent proxy as a sidecar in every pod. The proxies that enable all the features comprise The Data Plane and those are dynamically configurable by The Control Plane.
+
+https://medium.com/google-cloud/back-to-microservices-with-istio-p1-827c872daa53
+
+
+
+Consul (/ˈkänsəl/),  Ribbon, feign (/fān/)
+https://dzone.com/articles/microservice-communication-using-consul-ribbon-fei
+
+Consul is a service networking solution to connect and secure services across any runtime platform and public or private cloud.
+
+Consul is a peer to peer, strongly consistent data store that uses a gossip protocol to manage membership and form dynamic clusters and a raft protocol to provide consistency.
+
+Consul provides a toolkit of features needed to support a service oriented architecture. This includes service discovery, but also rich health checking, locking, Key/Value, multi-datacenter federation, an event system, and ACLs.
+
+
+What Is Ribbon?
+Ribbon is a client-side load balancer which rotates requests between a list of servers based on logic such as round robin or weigh based.
+
+What Is a Feign Client?
+Feign provides an abstraction over REST-based calls via annotation, by which microservices can use to communicate with each other without writing detailed REST client code.
+
+Feign is a declarative web service client.
+
+
+https://dzone.com/articles/microservices-in-spring-eureka?fromrel=true
+@EnableEurekaServer
+@EnableFeignClients
+@RibbonClient(name="countries-service", configuration = RibbonConfiguration.class)
+
+
+https://cloud.spring.io/spring-cloud-netflix/reference/html/
+
+
+
+
+
+REST V/s SOAP 
+https://dzone.com/articles/difference-between-rest-and-soap-api
+
+SOAP is a protocol through which two computer communicates by sharing XML document
+SOAP permits only XML
+SOAP based reads cannot be cached
+SOAP is like custom desktop application, closely connected to the server
+SOAP is slower than REST
+It runs on HTTP but envelopes the message
+Rest is a service architecture and design for network-based software architectures
+REST supports many different data formats
+REST reads can be cached
+A REST client is more like a browser; it knows how to standardized methods and an application has to fit inside it
+REST is faster than SOAP
+It uses the HTTP headers to hold meta information
+
+
+
 
 === Microservice with Spring Boot
+
 https://github.com/microservices-practical
+
+https://cloud.spring.io/spring-cloud-netflix/reference/html/
+
+
+
+ -  DevOps culture is about collaboration between Dev and Ops.
