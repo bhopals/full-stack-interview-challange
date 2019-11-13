@@ -1,0 +1,6 @@
+
+https://reactjs.org/docs/react-component.html
+
+https://developer.mozilla.org/en-US/docs/Mozilla/Introduction_to_Layout_in_Mozilla
+
+https://medium.com/@gethylgeorge/how-virtual-dom-and-diffing-works-in-react-6fc805f9f84e
